@@ -1,0 +1,46 @@
+﻿<Page x:Class="Система_учета_сотрудников._Дипломный_проект.View.Registrate"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Система_учета_сотрудников._Дипломный_проект.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="800"
+      Title="Registrate">
+
+    <StackPanel HorizontalAlignment="Center">
+        <Label HorizontalAlignment="Center" Content="Рады приветствовать вас!" FontSize="16"/>
+        <Label HorizontalAlignment="Center" Content="Пожалуйста, заполните все поля." FontSize="16" />
+        
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical">
+                <Label Content="Название организации"/>
+                <TextBox Text="{Binding User.CompanyName}"/>
+                <Label Content="Логин"/>
+                <TextBox Text="{Binding User.Login}"/>
+                <Label Content="Пароль"/>
+                <PasswordBox x:Name="password"/>
+                <Label Content="Повторите пароль"/>
+                <PasswordBox x:Name="password2"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <Label Content="Ваше имя"/>
+                <TextBox Text="{Binding User.Name}"/>
+                <Label Content="Ваша фамилия"/>
+                <TextBox Text="{Binding User.Surname}"/>
+                <Label Content="Ваше отчество"/>
+                <TextBox Text="{Binding User.Patronymic}"/>
+                <Label Content="Email"/>
+                <TextBox Text="{Binding User.Email}"/>
+                <Label Content="Проверочная фраза для восстановления данных"/>
+                <TextBox Text="{Binding User.Word}"/>
+            </StackPanel>
+        </StackPanel>     
+        <StackPanel  HorizontalAlignment="Center" >
+            <StackPanel  Orientation="Horizontal" Margin="0">
+                <Button Content="Зарегистрироваться" Command="{Binding Registration}" Width="160"/>
+                <Button Content="Назад" Command="{Binding Back}"/>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</Page>
