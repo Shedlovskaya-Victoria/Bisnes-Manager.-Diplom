@@ -10,7 +10,7 @@
 
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-            <Label Content="При первой регистрации, вам на почту был выслан ваш пароль и логин!" Margin="0"/>
+            <Label Content="Вам на почту был высылан ваш пароль и логин!" Margin="0"/>
             <Label Content="Сожалеем, если вы потеряли доступ к почтовому ящику." Margin="0"/>
             <Label Content="Заполните поля ниже. Вам будет выслан новый логин и пароль" Margin="0"/>
                 <StackPanel HorizontalAlignment="Center">
