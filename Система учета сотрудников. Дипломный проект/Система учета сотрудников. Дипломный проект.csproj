@@ -7,6 +7,25 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>View\Resources\Logo\Логотип.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="View\Resources\Image\Searhc.png" />
+    <None Remove="View\Resources\Image\Settings.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="View\Resources\Logo\Логотип.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\Searhc.png" />
+    <Resource Include="View\Resources\Image\Settings.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="View\UserControl\" />
+  </ItemGroup>
 
 </Project>

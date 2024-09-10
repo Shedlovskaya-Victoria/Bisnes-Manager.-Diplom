@@ -39,5 +39,22 @@
             <Setter Property="Padding" Value="2"/>
             <Setter Property="MinWidth" Value="100"/>
         </Style>
+        <Style TargetType="Menu">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="LemonChiffon"/>
+            <Setter Property="TextElement.Foreground" Value="DarkCyan"/>
+        </Style>
+        <Style TargetType="MenuItem">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Background" Value="LemonChiffon"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="TextElement.Foreground" Value="DarkCyan"/>
+        </Style>
     </Application.Resources>
 </Application>
