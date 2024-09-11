@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Система_учета_сотрудников._Дипломный_проект.ViewModel;
 
-namespace Система_учета_сотрудников._Дипломный_проект.View
+namespace Система_учета_сотрудников._Дипломный_проект.View.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для Enter.xaml
+    /// Логика взаимодействия для PersonalCabinet.xaml
     /// </summary>
-    public partial class Enter : Page
+    public partial class PersonalCabinet : Page
     {
-        public Enter()
+        public PersonalCabinet()
         {
             InitializeComponent();
-            DataContext = new EnterVM(password);
         }
     }
 }

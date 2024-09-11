@@ -14,10 +14,10 @@
             <Label Content="Сожалеем, если вы потеряли доступ к почтовому ящику." Margin="0"/>
             <Label Content="Заполните поля ниже. Вам будет выслан новый логин и пароль" Margin="0"/>
                 <StackPanel HorizontalAlignment="Center">
-                    <Label Content="Проверочная фраза:"/>
-                    <TextBox Text="{Binding User.Word}"/>
-                    <Label Content="Новый email:"/>
-                    <TextBox Text="{Binding User.Email}"/>
+                <Label Content="Проверочная фраза:" Margin="0" FontSize="10"/>
+                <TextBox Text="{Binding User.Word}" Margin="3 0 3 3"/>
+                <Label Content="Новый email:" Margin="0" FontSize="10"/>
+                <TextBox Text="{Binding User.Email}" Margin="3 0 3 3"/>
                 <StackPanel Orientation="Horizontal">
                     <Button Content="Да, запросить"/>
                     <Button Content="Назад"/>

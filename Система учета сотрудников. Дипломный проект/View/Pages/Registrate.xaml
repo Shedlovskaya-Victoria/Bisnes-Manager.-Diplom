@@ -14,26 +14,26 @@
         
         <StackPanel Orientation="Horizontal">
             <StackPanel Orientation="Vertical">
-                <Label Content="Название организации"/>
-                <TextBox Text="{Binding User.CompanyName}"/>
-                <Label Content="Логин"/>
-                <TextBox Text="{Binding User.Login}"/>
-                <Label Content="Пароль"/>
-                <PasswordBox x:Name="password"/>
-                <Label Content="Повторите пароль"/>
-                <PasswordBox x:Name="password2"/>
+                <Label Content="Название организации" Margin="0" FontSize="10"/>
+                <TextBox Text="{Binding User.CompanyName}" Margin="3 0 3 3"/>
+                <Label Content="Логин" Margin="0" FontSize="10"/>
+                <TextBox Text="{Binding User.Login}" Margin="3 0 3 3"/>
+                <Label Content="Пароль" Margin="0" FontSize="10"/>
+                <PasswordBox x:Name="password" Margin="3 0 3 3"/>
+                <Label Content="Повторите пароль" Margin="0" FontSize="10"/>
+                <PasswordBox x:Name="password2" Margin="3 0 3 3"/>
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                <Label Content="Ваше имя"/>
-                <TextBox Text="{Binding User.Name}"/>
-                <Label Content="Ваша фамилия"/>
-                <TextBox Text="{Binding User.Surname}"/>
-                <Label Content="Ваше отчество"/>
-                <TextBox Text="{Binding User.Patronymic}"/>
-                <Label Content="Email"/>
-                <TextBox Text="{Binding User.Email}"/>
-                <Label Content="Проверочная фраза для восстановления данных"/>
-                <TextBox Text="{Binding User.Word}"/>
+                <Label Content="Ваше имя" Margin="0" FontSize="10"/>
+                <TextBox Text="{Binding User.Name}" Margin="3 0 3 3"/>
+                <Label Content="Ваша фамилия" Margin="0" FontSize="10"/>
+                <TextBox Text="{Binding User.Surname}" Margin="3 0 3 3"/>
+                <Label Content="Ваше отчество" Margin="0" FontSize="10"/>
+                <TextBox Text="{Binding User.Patronymic}" Margin="3 0 3 3"/>
+                <Label Content="Email" Margin="0" FontSize="10"/>
+                <TextBox Text="{Binding User.Email}" Margin="3 0 3 3"/>
+                <Label Content="Проверочная фраза для восстановления данных" Margin="0" FontSize="10"/>
+                <TextBox Text="{Binding User.Word}" Margin="3 0 3 3"/>
             </StackPanel>
         </StackPanel>     
         <StackPanel  HorizontalAlignment="Center" >

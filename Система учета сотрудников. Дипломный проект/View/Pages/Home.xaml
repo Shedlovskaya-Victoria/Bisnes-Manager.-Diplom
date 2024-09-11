@@ -21,13 +21,13 @@
         </Grid.ColumnDefinitions>
         <!---логотип-->
         <Button Width="100" Grid.RowSpan="3" Height="100" Grid.Column="0">
-            <Image  Source="Resources\Image\Логотип.png"/>
+            <Image  Source="Image\Логотип.png"/>
         </Button>
         <!---поиск-->
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <TextBox Width="300"  Text="{Binding Search}" Margin="3 3 0 3"/>
             <Button MinWidth="50" Margin="0 3 3 3">
-                <Image Width="30" Source="Resources\Image\Searhc.png"/>
+                <Image Width="30" Source="Image\Searhc.png"/>
             </Button>
         </StackPanel>
         <!---верхний ряд иконок-->

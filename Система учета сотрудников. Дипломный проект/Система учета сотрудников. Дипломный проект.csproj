@@ -11,8 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="View\Resources\Image\Searhc.png" />
-    <None Remove="View\Resources\Image\Settings.png" />
+    <None Remove="View\Pages\Image\Searhc.png" />
+    <None Remove="View\Pages\Image\Settings.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="View\Resources\Image\Searhc.png" />
-    <Resource Include="View\Resources\Image\Settings.png" />
+    <Resource Include="View\Pages\Image\Searhc.png" />
+    <Resource Include="View\Pages\Image\Settings.png" />
   </ItemGroup>
 
   <ItemGroup>
