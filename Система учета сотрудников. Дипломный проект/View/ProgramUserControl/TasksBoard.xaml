@@ -5,8 +5,68 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Система_учета_сотрудников._Дипломный_проект.View.ProgramUserControl" 
              mc:Ignorable="d" 
+             x:Name="me"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-       
+    <Grid  
+        x:Name="layoutRoot"
+        MouseLeftButtonUp="OnMouseLeftButtonUp"
+        MouseMove="OnMouseMove">
+        <!--POPIT-->
+
+        <Popup x:Name="popup1"  IsHitTestVisible="False"  Placement="RelativePoint"  PlacementTarget="{Binding ElementName=me}"
+               AllowsTransparency="True">
+            <Border   BorderBrush="LightSteelBlue" BorderThickness="2" Background="White" Opacity="0.75">
+                <StackPanel Orientation="Horizontal" Margin="4,3,8,3">
+                    <Image Source="/Shared/Images/DragInsert.png" Width="16" Height="16"/>
+                    <TextBlock FontWeight="Bold" VerticalAlignment="Center"
+                               Text="{Binding ElementName=me, Path=DraggedItem.Name}" Margin="8,0,0,0" />
+                </StackPanel>
+            </Border>
+        </Popup>
+
+        <!--DATAGRID-->
+        <DataGrid x:Name="shareGrid" 
+                  BeginningEdit="OnBeginEdit" CellEditEnding="OnEndEdit" PreviewMouseLeftButtonDown="OnMouseLeftButtonDown"  
+                  AutoGenerateColumns="False" SelectionMode="Single" CanUserDeleteRows="False"
+                  CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False">
+            <DataGrid.Columns>
+                
+                <DataGridTextColumn SortDirection="Ascending" IsReadOnly="False" Header="Name" 
+                                    Width="2*" FontWeight="Bold" MinWidth="100"  Binding="{Binding Path=Name}" />
+                <!-- Network Path -->
+                <DataGridTextColumn Header="Network Path" IsReadOnly="True" Width="3*"
+                                    Binding="{Binding Path=NetworkLocation}" />
+                <!---->
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="В планах"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn> 
+                <!---->
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="В работе"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn> 
+                <!---->
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="Завершено"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
