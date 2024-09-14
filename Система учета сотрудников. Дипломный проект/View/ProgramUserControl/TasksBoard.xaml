@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Система_учета_сотрудников._Дипломный_проект.View.ProgramUserControl" 
              mc:Ignorable="d" 
              x:Name="me"
-             d:DesignHeight="450" d:DesignWidth="800">
+           Height="450" Width="800">
     <Grid  
         x:Name="layoutRoot"
         MouseLeftButtonUp="OnMouseLeftButtonUp"
@@ -25,47 +25,48 @@
         </Popup>
 
         <!--DATAGRID-->
-        <DataGrid x:Name="shareGrid" 
+
+        <DataGrid x:Name="shareGrid" FrozenColumnCount="5" EnableColumnVirtualization="True" EnableRowVirtualization="True"
+                 HorizontalScrollBarVisibility="Visible"
                   BeginningEdit="OnBeginEdit" CellEditEnding="OnEndEdit" PreviewMouseLeftButtonDown="OnMouseLeftButtonDown"  
                   AutoGenerateColumns="False" SelectionMode="Single" CanUserDeleteRows="False"
                   CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False">
             <DataGrid.Columns>
-                
-                <DataGridTextColumn SortDirection="Ascending" IsReadOnly="False" Header="Name" 
-                                    Width="2*" FontWeight="Bold" MinWidth="100"  Binding="{Binding Path=Name}" />
-                <!-- Network Path -->
-                <DataGridTextColumn Header="Network Path" IsReadOnly="True" Width="3*"
+                <DataGridTextColumn  SortDirection="Ascending" IsReadOnly="False" Header="Name" 
+                                    Width="Auto" FontWeight="Bold" Binding="{Binding Path=Name}" />
+            <!-- Network Path -->
+            <DataGridTextColumn Header="Network Path" IsReadOnly="True" Width="100"
                                     Binding="{Binding Path=NetworkLocation}" />
-                <!---->
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <TextBlock Text="В планах"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn> 
-                <!---->
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <TextBlock Text="В работе"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn> 
-                <!---->
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <TextBlock Text="Завершено"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+            <!---->
+            <DataGridTemplateColumn  Width="100">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="В планах"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <!---->
+            <DataGridTemplateColumn Width="100">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="В работе"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <!---->
+            <DataGridTemplateColumn Width="100">
+                <DataGridTemplateColumn.CellTemplate >
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="Завершено"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
