@@ -4,10 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Система_учета_сотрудников._Дипломный_проект.View"
+      xmlns:viewModel="clr-namespace:Система_учета_сотрудников._Дипломный_проект.ViewModel"
       mc:Ignorable="d" 
+      DataContext="{DynamicResource VM}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Home">
-
+    <Page.Resources>
+        <viewModel:HomeVM x:Key="VM"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -20,13 +24,13 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <!---логотип-->
-        <Button Width="100" Grid.RowSpan="3" Height="100" Grid.Column="0">
+        <Button Width="100" Grid.RowSpan="3" Height="100" Grid.Column="0" Command="{Binding GoToHome}">
             <Image  Source="Image\Логотип.png"/>
         </Button>
         <!---поиск-->
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <TextBox Width="300"  Text="{Binding Search}" Margin="3 3 0 3"/>
-            <Button MinWidth="50" Margin="0 3 3 3">
+            <TextBox Width="300"  Text="{Binding Search, ElementName=search}" Margin="3 3 0 3"/>
+            <Button MinWidth="50" Margin="0 3 3 3" Command="{Binding Find}" CommandParameter="{Binding search}">
                 <Image Width="30" Source="Image\Searhc.png"/>
             </Button>
         </StackPanel>

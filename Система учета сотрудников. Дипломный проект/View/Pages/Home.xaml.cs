@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Система_учета_сотрудников._Дипломный_проект.View.ProgramUserControl;
+using Система_учета_сотрудников._Дипломный_проект.ViewModel;
 
 namespace Система_учета_сотрудников._Дипломный_проект.View
 {
@@ -22,7 +24,9 @@ namespace Система_учета_сотрудников._Дипломный_�
     {
         public Home()
         {
+            contentControl = new Tasks();
             InitializeComponent();
+            DataContext = new HomeVM(contentControl);
         }
     }
 }

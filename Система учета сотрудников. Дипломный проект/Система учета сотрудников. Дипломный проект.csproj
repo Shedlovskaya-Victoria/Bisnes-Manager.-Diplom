@@ -11,8 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="View\Pages\Image\Delete.png" />
+    <None Remove="View\Pages\Image\Pencil.png" />
+    <None Remove="View\Pages\Image\Pencil2.png" />
     <None Remove="View\Pages\Image\Searhc.png" />
     <None Remove="View\Pages\Image\Settings.png" />
+    <None Remove="View\Pages\Image\Логотип.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,12 +24,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="View\Pages\Image\Searhc.png" />
-    <Resource Include="View\Pages\Image\Settings.png" />
+    <Resource Include="View\Pages\Image\Delete.png" />
+    <Resource Include="View\Pages\Image\Pencil.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="View\UserControl\" />
+    <Resource Include="View\Pages\Image\Pencil2.png" />
+    <Resource Include="View\Pages\Image\Searhc.png" />
+    <Resource Include="View\Pages\Image\Settings.png" />
+    <Resource Include="View\Pages\Image\Логотип.png" />
   </ItemGroup>
 
 </Project>

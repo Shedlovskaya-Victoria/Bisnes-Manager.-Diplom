@@ -4,10 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Система_учета_сотрудников._Дипломный_проект.View"
+      xmlns:viewModel="clr-namespace:Система_учета_сотрудников._Дипломный_проект.ViewModel"
       mc:Ignorable="d" 
+      DataContext="{DynamicResource VM}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RecoverAutorizateData">
-
+    <Page.Resources>
+        <viewModel:RecoverVM x:Key="VM"/>
+    </Page.Resources>
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
             <Label Content="Вам на почту был высылан ваш пароль и логин!" Margin="0"/>
@@ -19,8 +23,8 @@
                 <Label Content="Новый email:" Margin="0" FontSize="10"/>
                 <TextBox Text="{Binding User.Email}" Margin="3 0 3 3"/>
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="Да, запросить"/>
-                    <Button Content="Назад"/>
+                    <Button Content="Да, запросить" Command="{Binding UpdateAuthorizateData}"/>
+                    <Button Content="Назад" Command="{Binding Back}"/>
                 </StackPanel>
             </StackPanel>               
         </StackPanel>
