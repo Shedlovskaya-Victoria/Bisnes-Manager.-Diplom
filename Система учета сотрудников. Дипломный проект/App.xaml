@@ -12,6 +12,9 @@
             <Setter Property="Margin" Value="3"/>
             <Setter Property="Background" Value="LemonChiffon"/>
         </Style>
+        <Style TargetType="DataGridRowHeader">
+            <Setter Property="Width" Value="100"/>
+        </Style>
         <Style TargetType="StackPanel">
             <Setter Property="Margin" Value="3"/>
             <Setter Property="VerticalAlignment" Value="Center"/>

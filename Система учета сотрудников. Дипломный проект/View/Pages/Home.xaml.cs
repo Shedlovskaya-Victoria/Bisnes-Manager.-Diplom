@@ -24,8 +24,9 @@ namespace Система_учета_сотрудников._Дипломный_�
     {
         public Home()
         {
-            contentControl = new Tasks();
             InitializeComponent();
+
+            contentControl.Content = new TasksBoard();
             DataContext = new HomeVM(contentControl);
         }
     }

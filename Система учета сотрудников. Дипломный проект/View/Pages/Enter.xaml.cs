@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Система_учета_сотрудников._Дипломный_проект.Tools;
 using Система_учета_сотрудников._Дипломный_проект.ViewModel;
 
 namespace Система_учета_сотрудников._Дипломный_проект.View
@@ -25,6 +26,8 @@ namespace Система_учета_сотрудников._Дипломный_�
         {
             InitializeComponent();
             DataContext = new EnterVM(password);
+
+          
         }
     }
 }

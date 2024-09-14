@@ -6,22 +6,22 @@
       xmlns:local="clr-namespace:Система_учета_сотрудников._Дипломный_проект.View"
       xmlns:viewModel="clr-namespace:Система_учета_сотрудников._Дипломный_проект.ViewModel"
       mc:Ignorable="d" 
-      DataContext="{DynamicResource VM}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Enter">
-    <Page.Resources>
-        <viewModel:EnterVM x:Key="VM"/>
-    </Page.Resources>
+
 
     <StackPanel HorizontalAlignment="Center" >
-        <Label Content="Добро пожаловать!" FontSize="16"/>
-        <Label Content="Введите логин" Margin="0" FontSize="10"/>
-        <TextBox Text="{Binding User.Login, ElementName=login}"  Margin="3 0 3 3"/>
+        <Label Content="Добро пожаловать!" FontSize="16" ToolTip="Да, это адресовано именно вам, моя госпожа"/>
+        <Label Content="Введите логин" Margin="0" FontSize="10" 
+               ToolTip="Да, это адресовано именно вам, моя госпожа"/>
+        <TextBox Text="{Binding User.Login, ElementName=login}"  Margin="3 0 3 3"
+                 ToolTip="Да, это адресовано именно вам, моя госпожа!"/>
         <Label Content="Введите пароль" Margin="0" FontSize="10"/>
         <PasswordBox x:Name="password"  Margin="3 0 3 3"/>
         <StackPanel>
            <StackPanel Orientation="Horizontal" Margin="0">
-               <Button Content="Войти" Command="{Binding Autentification}" CommandParameter="{Binding login}"/>
+               <Button Content="Войти" Command="{Binding Autentification}" CommandParameter="{Binding login}"
+                       ToolTip="Да, это адресовано именно вам, моя госпожа"/>
                 <Button Content="Регистрация" Command="{Binding Autorization}"/>
            </StackPanel>
            <Button Content="Восстановить доступ" Command="{Binding  Recover}"/>

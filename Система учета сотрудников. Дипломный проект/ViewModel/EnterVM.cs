@@ -4,13 +4,16 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Media;
 using Система_учета_сотрудников._Дипломный_проект.Tools;
 using Система_учета_сотрудников._Дипломный_проект.View;
 
 namespace Система_учета_сотрудников._Дипломный_проект.ViewModel
 {
-    public class EnterVM
+    public class EnterVM 
     {
        // public User User { get; set; }
 
@@ -19,10 +22,8 @@ namespace Система_учета_сотрудников._Дипломный_�
         public Command Autentification { get; set; }
         public Command Autorization { get; set; }
         public Command Recover { get; set; }
-        public EnterVM()
-        {
-        }
-        public EnterVM(PasswordBox passwordBox)
+       
+        public EnterVM(PasswordBox passwordBox) 
         {
             /*
             Autentification = new CommandWithParametr<User>((parametr) =>
@@ -36,6 +37,10 @@ namespace Система_учета_сотрудников._Дипломный_�
                 }
              });
             */
+
+           
+
+            
 
             Autentification = new Command(
             () =>
@@ -62,5 +67,10 @@ namespace Система_учета_сотрудников._Дипломный_�
                 return true;
             });
         }
+
+        public EnterVM()
+        {
+        }
     }
+
 }

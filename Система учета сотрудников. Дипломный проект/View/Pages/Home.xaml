@@ -64,6 +64,6 @@
             </Menu>
         </StackPanel>
         <!--нииже вставляются и меняются части страницы-->
-        <ContentControl x:Name="contentControl" Grid.Row="1"/>
+        <ContentControl x:Name="contentControl" Grid.Row="3" Grid.ColumnSpan="2"/>
     </Grid>
 </Page>

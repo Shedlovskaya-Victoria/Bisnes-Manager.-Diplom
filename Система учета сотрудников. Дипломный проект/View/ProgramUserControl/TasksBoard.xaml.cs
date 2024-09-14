@@ -1,5 +1,7 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,12 +20,16 @@ namespace Система_учета_сотрудников._Дипломный_�
     /// <summary>
     /// Логика взаимодействия для Tasks.xaml
     /// </summary>
-    public partial class Tasks : UserControl
+    public partial class TasksBoard : UserControl
     {
-        public Tasks()
+
+        public TasksBoard()
         {
 
             InitializeComponent();
+            DataContext = this;
+
         }
+      
     }
 }
