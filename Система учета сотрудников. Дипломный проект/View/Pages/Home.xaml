@@ -40,8 +40,8 @@
                 <MenuItem Header="Личный кабинет" Command="{Binding GoToPersonalCabinet}"/>
             </Menu>
             <Menu>
-                <MenuItem Header="Графики">
-                    <MenuItem Header="КПД Сотрудников" Command="{Binding ShowKPDWorkers}"/>
+                <MenuItem Header="Учет">
+                    <MenuItem Header="Сотрудники" Command="{Binding ShowKPDWorkers}"/>
                     <MenuItem Header="План отпусков" Command="{Binding ShowWeekendsPlan}"/>
                     <MenuItem Header="Рабочие графики" Command="{Binding ShowWorkersGraphiks}"/>
                 </MenuItem>
@@ -53,13 +53,13 @@
                     <MenuItem Header="Должности" Command="{Binding EditPosition}"/>
                     <MenuItem Header="Рабочие графики"  Command="{Binding EditWorkersGraphiks}"/>
                     <MenuItem Header="План отпусков" Command="{Binding EditWeekendsPlan}"/>
-                    <MenuItem Header="Управление офисами" Command="{Binding  GoToAdministrationOffice}"/>
                 </MenuItem>
             </Menu>
             <Menu>
                 <MenuItem Header="Настройки">
                     <MenuItem Header="Системные" Command="{Binding GoToSystemSettings}"/>
                     <MenuItem Header="Загрузка списков" Command="{Binding GoToUploadLists}"/>
+                    <MenuItem Header="Управление приложениями" Command="{Binding  GoToAdministrationOffice}"/>
                 </MenuItem>
             </Menu>
         </StackPanel>

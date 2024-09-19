@@ -22,7 +22,14 @@
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Margin" Value="3"/>
+        </Style>
+        <Style TargetType="ListView">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="MinHeight" Value="180"/>
             <Setter Property="MinWidth" Value="200"/>
+            
         </Style>
         <Style TargetType="Label">
             <Setter Property="Margin" Value="3"/>

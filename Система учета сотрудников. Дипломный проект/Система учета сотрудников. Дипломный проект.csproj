@@ -24,6 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CodeProject" Version="1.201.0" />
+    <PackageReference Include="CodeProject.ObjectPool" Version="6.5.0" />
+    <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="View\Pages\Image\Delete.png" />
     <Resource Include="View\Pages\Image\Pencil.png" />
   </ItemGroup>

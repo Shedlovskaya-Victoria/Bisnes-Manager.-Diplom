@@ -6,68 +6,39 @@
              xmlns:local="clr-namespace:Система_учета_сотрудников._Дипломный_проект.View.ProgramUserControl" 
              mc:Ignorable="d" 
              x:Name="me"
-           Height="450" Width="800">
-    <Grid  
-        x:Name="layoutRoot"
-        MouseLeftButtonUp="OnMouseLeftButtonUp"
-        MouseMove="OnMouseMove">
-        <!--POPIT-->
-
-        <Popup x:Name="popup1"  IsHitTestVisible="False"  Placement="RelativePoint"  PlacementTarget="{Binding ElementName=me}"
-               AllowsTransparency="True">
-            <Border   BorderBrush="LightSteelBlue" BorderThickness="2" Background="White" Opacity="0.75">
-                <StackPanel Orientation="Horizontal" Margin="4,3,8,3">
-                    <Image Source="/Shared/Images/DragInsert.png" Width="16" Height="16"/>
-                    <TextBlock FontWeight="Bold" VerticalAlignment="Center"
-                               Text="{Binding ElementName=me, Path=DraggedItem.Name}" Margin="8,0,0,0" />
-                </StackPanel>
-            </Border>
-        </Popup>
-
-        <!--DATAGRID-->
-
-        <DataGrid x:Name="shareGrid" FrozenColumnCount="5" EnableColumnVirtualization="True" EnableRowVirtualization="True"
-                 HorizontalScrollBarVisibility="Visible"
-                  BeginningEdit="OnBeginEdit" CellEditEnding="OnEndEdit" PreviewMouseLeftButtonDown="OnMouseLeftButtonDown"  
-                  AutoGenerateColumns="False" SelectionMode="Single" CanUserDeleteRows="False"
-                  CanUserAddRows="False" CanUserReorderColumns="False" CanUserSortColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn  SortDirection="Ascending" IsReadOnly="False" Header="Name" 
-                                    Width="Auto" FontWeight="Bold" Binding="{Binding Path=Name}" />
-            <!-- Network Path -->
-            <DataGridTextColumn Header="Network Path" IsReadOnly="True" Width="100"
-                                    Binding="{Binding Path=NetworkLocation}" />
-            <!---->
-            <DataGridTemplateColumn  Width="100">
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="В планах"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
-            <!---->
-            <DataGridTemplateColumn Width="100">
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="В работе"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
-            <!---->
-            <DataGridTemplateColumn Width="100">
-                <DataGridTemplateColumn.CellTemplate >
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="Завершено"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-    </Grid>
+           MinHeight="450" Width="800">
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <ListView ItemsSource="{Binding PlaneList}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel >
+                        <Label Content="{Binding TextList}"/>
+                        <Button/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!---->
+        <ListView ItemsSource="{Binding WorkList}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel  >
+                        <Label Content="{Binding TextList}"/>
+                        <Button/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!---->
+        <ListView ItemsSource="{Binding EndList}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel  >
+                        <Label Content="{Binding TextList}"/>
+                        <Button/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackPanel>
 </UserControl>
