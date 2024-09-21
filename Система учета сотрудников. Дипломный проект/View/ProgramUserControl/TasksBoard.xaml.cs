@@ -1,4 +1,5 @@
 ﻿
+//using GongSolutions.Wpf.DragDrop;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,23 +17,27 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Система_учета_сотрудников._Дипломный_проект.Model;
 using Система_учета_сотрудников._Дипломный_проект.Tools;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.DragDrop;
 
 namespace Система_учета_сотрудников._Дипломный_проект.View.ProgramUserControl
 {
     /// <summary>
     /// Логика взаимодействия для Tasks.xaml
     /// </summary>
+    public delegate void Deleg();
     public partial class TasksBoard : UserControl
     {
-     public List<SampleToDelete> PlaneList { get; set; }
-     public List<SampleToDelete> WorkList { get; set; }
-     public List<SampleToDelete> EndList { get; set; }
+        public ObservableCollection<SampleToDelete> PlaneList { get; set; }
+        public ObservableCollection<SampleToDelete> WorkList { get; set; }
+        public ObservableCollection<SampleToDelete> EndList { get; set; }
+
         public TasksBoard()
         {
 
             InitializeComponent();
 
-            PlaneList = new List<SampleToDelete>()
+            PlaneList = new ObservableCollection<SampleToDelete>()
             {
                 new SampleToDelete(){ TextList = " aaa1"},
                 new SampleToDelete(){ TextList = " aaa2"},
@@ -40,7 +45,7 @@ namespace Система_учета_сотрудников._Дипломный_�
                 new SampleToDelete(){ TextList = " aaa4"},
                 new SampleToDelete(){ TextList = " aaa5"},
             };
-            WorkList = new List<SampleToDelete>()
+            WorkList = new ObservableCollection<SampleToDelete>()
             {
                 new SampleToDelete(){ TextList = " bbbb1"},
                 new SampleToDelete(){ TextList = " bbbb2"},
@@ -49,7 +54,7 @@ namespace Система_учета_сотрудников._Дипломный_�
              //   new SampleToDelete(){ TextList = " bbbb5"},
              //   new SampleToDelete(){ TextList = " bbbb6"},
             };
-            EndList = new List<SampleToDelete>()
+            EndList = new ObservableCollection<SampleToDelete>()
             {
                 new SampleToDelete(){ TextList = "в1"},
                 new SampleToDelete(){ TextList = "в2"},
@@ -62,6 +67,26 @@ namespace Система_учета_сотрудников._Дипломный_�
 
 
             DataContext = this;
+        
+        }
+
+        
+       
+        private void MouseDROPMethod(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void MouseUPMethod(object sender, MouseEventArgs e)
+        {
+            var data = sender.GetType();
+            if (data == typeof(SampleToDelete)) MessageBox.Show("a");
+            base.OnMouseMove(e);
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                //     DataObject data = new(typeof(SampleToDelete), image1.Source);
+                DragDrop.DoDragDrop(this, data, DragDropEffects.Move);
+            }
         }
     }
 }

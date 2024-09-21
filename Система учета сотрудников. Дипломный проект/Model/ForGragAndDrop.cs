@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Система_учета_сотрудников._Дипломный_проект.Model
 {
-    public class SampleToDelete
+    public class ForGragAndDrop
     {
-        public string TextList { get; set; }
+        public ObservableCollection<SampleToDelete> Children { get; private set; }
 
-   
+        public bool CanAcceptChildren { get; set; }
     }
 }
