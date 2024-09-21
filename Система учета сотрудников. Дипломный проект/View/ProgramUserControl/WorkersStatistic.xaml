@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Система_учета_сотрудников._Дипломный_проект.View.ProgramUserControl"
              mc:Ignorable="d" 
+             xmlns:ScottPlot="clr-namespace:ScottPlot;assembly=ScottPlot.WPF"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-      
+        <ScottPlot:WpfPlot x:Name="WpfPlot1"/>
     </Grid>
 </UserControl>

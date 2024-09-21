@@ -28,6 +28,7 @@
     <PackageReference Include="CodeProject.ObjectPool" Version="6.5.0" />
     <PackageReference Include="gong-wpf-dragdrop" Version="3.2.1" />
     <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
+    <PackageReference Include="ScottPlot" Version="5.0.39" />
   </ItemGroup>
 
   <ItemGroup>
