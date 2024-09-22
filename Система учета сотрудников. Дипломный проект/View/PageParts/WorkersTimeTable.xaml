@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Система_учета_сотрудников._Дипломный_проект.View.PageParts"
              mc:Ignorable="d" 
-             d:DesignHeight="450" MinWidth="1300">
+             d:DesignHeight="450" d:DesignWidth="1300">
     <StackPanel Orientation="Vertical">
         <Label Content="{Binding Title, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
         <ListView ItemsSource="{Binding TimeTables}">
@@ -45,7 +45,7 @@
                     <GridViewColumn Header="29" DisplayMemberBinding="{Binding Day29}"/>
                     <GridViewColumn Header="30" DisplayMemberBinding="{Binding Day30}"/>
                     <GridViewColumn Header="31" DisplayMemberBinding="{Binding Day31}"/>
-                    <GridViewColumn Header="Переработки" DisplayMemberBinding="{Binding AllHour}"/>
+                    <GridViewColumn Header="Переработки" DisplayMemberBinding="{Binding Recycling}"/>
                     <GridViewColumn Header="Итого" DisplayMemberBinding="{Binding AllHour}"/>
                 </GridView>
             </ListView.View>

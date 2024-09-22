@@ -45,7 +45,7 @@ namespace Система_учета_сотрудников._Дипломный_�
                 t.ID = i;
                 t.FIO = $"Маша {i}";
                 t.Mounth = 9;
-                t.Recycling = random.Next(0, 10);
+                t.Recycling = random.Next(0, 20);
                 t.WorkHour = random.Next(6, 8);
                 t.Day1 = random.Next(2,8);
                 t.Day2 = random.Next(2,8);
