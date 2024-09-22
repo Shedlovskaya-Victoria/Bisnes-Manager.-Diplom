@@ -18,6 +18,7 @@
         <Style TargetType="StackPanel">
             <Setter Property="Margin" Value="3"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="MinWidth" Value="200"/>
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="14"/>
@@ -34,7 +35,6 @@
         <Style TargetType="Label">
             <Setter Property="Margin" Value="3"/>
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="MinWidth" Value="200"/>
         </Style>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="3"/>

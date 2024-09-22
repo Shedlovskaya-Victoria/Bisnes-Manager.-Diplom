@@ -13,11 +13,11 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Label Content="Период с:"/>
-            <DatePicker SelectedDate="{Binding StartDate}" /> 
-            <Label Content="Включительно по:"/>
-            <DatePicker SelectedDate="{Binding FinalDate}"/>
+        <StackPanel Margin="15" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label  Content="Период с:" VerticalAlignment="Center"/>
+            <DatePicker  SelectedDate="{Binding StartDate}" />
+            <Label Content="      Включительно по:" VerticalAlignment="Center"/>
+            <DatePicker  SelectedDate="{Binding FinalDate}"/>
         </StackPanel>
         <ScottPlot:WpfPlot Grid.Row="1" x:Name="WpfPlot1" Margin="15" ToolTip="Диаграмму можно двигать, приближать, уменьшать"/>
     </Grid>

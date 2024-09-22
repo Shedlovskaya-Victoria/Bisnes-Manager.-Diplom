@@ -34,6 +34,9 @@ namespace Система_учета_сотрудников._Дипломный_�
 
             ScottPlot.Plot myPlot = WpfPlot1.Plot;
 
+            myPlot.Axes.Title.Label.Text = "Доли всех проектов в компании за время";
+
+
             PieSlice slice1 = new() { Value = 5, FillColor = Colors.Red, Label = "Проект 1" };
             PieSlice slice2 = new() { Value = 2, FillColor = Colors.Orange, Label = "Задача beta" };
             PieSlice slice3 = new() { Value = 8, FillColor = Colors.Gold, Label = "Заказ gamma" };
