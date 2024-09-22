@@ -43,7 +43,8 @@
                 <MenuItem Header="Учет">
                     <MenuItem Header="Сотрудники" Command="{Binding ShowKPDWorkers}"/>
                     <MenuItem Header="План отпусков" Command="{Binding ShowWeekendsPlan}"/>
-                    <MenuItem Header="Рабочие графики" Command="{Binding ShowWorkersGraphiks}"/>
+                    <MenuItem Header="Достижения" Command="{Binding ShowWorkersKPDGraphiks}"/>
+                    <MenuItem Header="Рабочие графики" Command="{Binding ShowWorkersTimeTable}"/>
                 </MenuItem>
             </Menu>
 

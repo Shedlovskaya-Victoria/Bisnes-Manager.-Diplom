@@ -23,7 +23,8 @@ namespace Система_учета_сотрудников._Дипломный_�
 
         public Command ShowKPDWorkers {  get; set; }
         public Command ShowWeekendsPlan {  get; set; }
-        public Command ShowWorkersGraphiks {  get; set; }
+        public Command ShowWorkersKPDGraphiks {  get; set; }
+        public Command ShowWorkersTimeTable {  get; set; }
 
         public Command EditWorkers {  get; set; }
         public Command EditPosition {  get; set; }
@@ -76,6 +77,7 @@ namespace Система_учета_сотрудников._Дипломный_�
             //    show
             ShowKPDWorkers = new Command(() =>
             {
+                
             }, () =>
             {
                 return true;
@@ -86,7 +88,14 @@ namespace Система_учета_сотрудников._Дипломный_�
             {
                 return true;
             });
-            ShowWorkersGraphiks = new Command(() =>
+            ShowWorkersKPDGraphiks = new Command(() =>
+            {
+                control.Content = new Workers();
+            }, () =>
+            {
+                return true;
+            });
+            ShowWorkersTimeTable = new Command(() =>
             {
             }, () =>
             {
