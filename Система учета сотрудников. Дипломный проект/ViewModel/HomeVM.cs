@@ -25,6 +25,7 @@ namespace Система_учета_сотрудников._Дипломный_�
         public Command ShowWeekendsPlan {  get; set; }
         public Command ShowWorkersKPDGraphiks {  get; set; }
         public Command ShowWorkersTimeTable {  get; set; }
+        public Command ShowVisualPartsAllProjects {  get; set; }
 
         public Command EditWorkers {  get; set; }
         public Command EditPosition {  get; set; }
@@ -97,6 +98,13 @@ namespace Система_учета_сотрудников._Дипломный_�
             });
             ShowWorkersTimeTable = new Command(() =>
             {
+            }, () =>
+            {
+                return true;
+            });
+            ShowVisualPartsAllProjects = new Command(() =>
+            {
+                control.Content = new VisualPartsAllProjects();
             }, () =>
             {
                 return true;
