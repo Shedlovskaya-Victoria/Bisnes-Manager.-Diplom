@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="Система_учета_сотрудников._Дипломный_проект.View.PageParts.WorkersTimeTable"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Система_учета_сотрудников._Дипломный_проект.View.PageParts"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" MinWidth="1300">
+    <StackPanel Orientation="Vertical">
+        <Label Content="{Binding Title, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
+        <ListView ItemsSource="{Binding TimeTables}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding ID}"/>
+                    <GridViewColumn Header="ФИО" DisplayMemberBinding="{Binding FIO}"/>
+                    <GridViewColumn Header="Рабочие часы" DisplayMemberBinding="{Binding WorkHour}"/>
+                    <GridViewColumn Header="1" DisplayMemberBinding="{Binding Day1}"/>
+                    <GridViewColumn Header="2" DisplayMemberBinding="{Binding Day2}"/>
+                    <GridViewColumn Header="3" DisplayMemberBinding="{Binding Day3}"/>
+                    <GridViewColumn Header="4" DisplayMemberBinding="{Binding Day4}"/>
+                    <GridViewColumn Header="5" DisplayMemberBinding="{Binding Day5}"/>
+                    <GridViewColumn Header="6" DisplayMemberBinding="{Binding Day6}"/>
+                    <GridViewColumn Header="7" DisplayMemberBinding="{Binding Day7}"/>
+                    <GridViewColumn Header="8" DisplayMemberBinding="{Binding Day8}"/>
+                    <GridViewColumn Header="9" DisplayMemberBinding="{Binding Day9}"/>
+                    <GridViewColumn Header="10" DisplayMemberBinding="{Binding Day10}"/>
+                    <GridViewColumn Header="11" DisplayMemberBinding="{Binding Day11}"/>
+                    <GridViewColumn Header="12" DisplayMemberBinding="{Binding Day12}"/>
+                    <GridViewColumn Header="13" DisplayMemberBinding="{Binding Day13}"/>
+                    <GridViewColumn Header="14" DisplayMemberBinding="{Binding Day14}"/>
+                    <GridViewColumn Header="15" DisplayMemberBinding="{Binding Day15}"/>
+                    <GridViewColumn Header="16" DisplayMemberBinding="{Binding Day16}"/>
+                    <GridViewColumn Header="17" DisplayMemberBinding="{Binding Day17}"/>
+                    <GridViewColumn Header="18" DisplayMemberBinding="{Binding Day18}"/>
+                    <GridViewColumn Header="19" DisplayMemberBinding="{Binding Day19}"/>
+                    <GridViewColumn Header="20" DisplayMemberBinding="{Binding Day20}"/>
+                    <GridViewColumn Header="21" DisplayMemberBinding="{Binding Day21}"/>
+                    <GridViewColumn Header="22" DisplayMemberBinding="{Binding Day22}"/>
+                    <GridViewColumn Header="23" DisplayMemberBinding="{Binding Day23}"/>
+                    <GridViewColumn Header="24" DisplayMemberBinding="{Binding Day24}"/>
+                    <GridViewColumn Header="25" DisplayMemberBinding="{Binding Day25}"/>
+                    <GridViewColumn Header="26" DisplayMemberBinding="{Binding Day26}"/>
+                    <GridViewColumn Header="27" DisplayMemberBinding="{Binding Day27}"/>
+                    <GridViewColumn Header="28" DisplayMemberBinding="{Binding Day28}"/>
+                    <GridViewColumn Header="29" DisplayMemberBinding="{Binding Day29}"/>
+                    <GridViewColumn Header="30" DisplayMemberBinding="{Binding Day30}"/>
+                    <GridViewColumn Header="31" DisplayMemberBinding="{Binding Day31}"/>
+                    <GridViewColumn Header="Переработки" DisplayMemberBinding="{Binding AllHour}"/>
+                    <GridViewColumn Header="Итого" DisplayMemberBinding="{Binding AllHour}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </StackPanel>
+</UserControl>

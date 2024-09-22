@@ -99,6 +99,7 @@ namespace Система_учета_сотрудников._Дипломный_�
             });
             ShowWorkersTimeTable = new Command(() =>
             {
+                control.Content = new WorkersTimeTable();
             }, () =>
             {
                 return true;
