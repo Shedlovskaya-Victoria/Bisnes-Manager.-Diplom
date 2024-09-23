@@ -46,6 +46,7 @@
                     <MenuItem Header="Достижения" Command="{Binding ShowWorkersKPDGraphiks}"/>
                     <MenuItem Header="Визуализация всех проектов" Command="{Binding ShowVisualPartsAllProjects}"/>
                     <MenuItem Header="Рабочие часы" Command="{Binding ShowWorkersTimeTable}"/>
+                    <MenuItem Header="Рабочие часы" Command="{Binding ShowDiagramGant}"/>
                 </MenuItem>
             </Menu>
 

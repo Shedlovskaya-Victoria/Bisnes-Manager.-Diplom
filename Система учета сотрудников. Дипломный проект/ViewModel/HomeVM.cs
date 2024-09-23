@@ -27,6 +27,7 @@ namespace Система_учета_сотрудников._Дипломный_�
         public Command ShowWorkersKPDGraphiks {  get; set; }
         public Command ShowWorkersTimeTable {  get; set; }
         public Command ShowVisualPartsAllProjects {  get; set; }
+        public Command ShowDiagramGant {  get; set; }
 
         public Command EditWorkers {  get; set; }
         public Command EditPosition {  get; set; }
@@ -108,6 +109,13 @@ namespace Система_учета_сотрудников._Дипломный_�
             ShowVisualPartsAllProjects = new Command(() =>
             {
                 control.Content = new VisualPartsAllProjects();
+            }, () =>
+            {
+                return true;
+            });
+            ShowDiagramGant = new Command(() =>
+            {
+                control.Content = new DiagramGant();
             }, () =>
             {
                 return true;

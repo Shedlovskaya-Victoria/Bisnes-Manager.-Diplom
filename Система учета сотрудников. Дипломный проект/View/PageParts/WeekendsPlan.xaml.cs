@@ -28,30 +28,7 @@ namespace Система_учета_сотрудников._Дипломный_�
         public WeekendsPlan()
         {
             InitializeComponent();
-            DataContext = this;
-
-            //диаграмма ганта
-            //агрузить и представить элементы данных в GanttChartDataGrid
-            var item1 = new GanttChartItem { Content = "My summary task" };
-            var item2 = new GanttChartItem
-            {
-                Content = "My standard task",
-                Indentation = 1,
-                Start = DateTime.Today,
-                Finish = DateTime.Today.AddDays(5),
-                CompletedFinish = DateTime.Today.AddDays(3),
-                AssignmentsContent = "My resource"
-            };
-            GanttChartDataGrid.Items = new ObservableCollection<GanttChartItem> { item1, item2 };
-            var item3 = new GanttChartItem
-            {
-                Content = "My milestone",
-                Indentation = 1,
-                IsMilestone = true
-            };
-            GanttChartDataGrid.Items.Add(item3);
-
-
+           
             
         }
     }
