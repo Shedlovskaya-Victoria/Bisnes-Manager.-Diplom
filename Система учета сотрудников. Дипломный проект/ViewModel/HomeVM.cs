@@ -86,6 +86,7 @@ namespace Система_учета_сотрудников._Дипломный_�
             });
             ShowWeekendsPlan = new Command(() =>
             {
+                control.Content = new WeekendsPlan();
             }, () =>
             {
                 return true;

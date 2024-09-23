@@ -1,6 +1,9 @@
-﻿using ScottPlot;
+﻿using DlhSoft.Windows.Controls;
+using DlhSoft.Windows.Data;
+using ScottPlot;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Colors = ScottPlot.Colors;
 
 namespace Система_учета_сотрудников._Дипломный_проект.View.PageParts
 {
@@ -26,17 +30,29 @@ namespace Система_учета_сотрудников._Дипломный_�
             InitializeComponent();
             DataContext = this;
 
-            //столчатая диаграмма с линией даты
- 
-            ScottPlot.Plot myPlot = WpfPlot1.Plot;
+            //диаграмма ганта
+            //агрузить и представить элементы данных в GanttChartDataGrid
+            var item1 = new GanttChartItem { Content = "My summary task" };
+            var item2 = new GanttChartItem
+            {
+                Content = "My standard task",
+                Indentation = 1,
+                Start = DateTime.Today,
+                Finish = DateTime.Today.AddDays(5),
+                CompletedFinish = DateTime.Today.AddDays(3),
+                AssignmentsContent = "My resource"
+            };
+            GanttChartDataGrid.Items = new ObservableCollection<GanttChartItem> { item1, item2 };
+            var item3 = new GanttChartItem
+            {
+                Content = "My milestone",
+                Indentation = 1,
+                IsMilestone = true
+            };
+            GanttChartDataGrid.Items.Add(item3);
 
-            myPlot.Axes.Title.Label.Text = "План отпусков";
 
-            // plot sample DateTime data
-            DateTime[] dates = Generate.ConsecutiveDays(100);
-            double[] ys = Generate.RandomWalk(100);
-            myPlot.Add.Scatter(dates, ys);
-            myPlot.Axes.DateTimeTicksBottom();
+            
         }
     }
 }

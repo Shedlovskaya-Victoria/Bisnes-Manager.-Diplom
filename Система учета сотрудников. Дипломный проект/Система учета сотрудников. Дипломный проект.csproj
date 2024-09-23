@@ -26,6 +26,7 @@
   <ItemGroup>
     <PackageReference Include="CodeProject" Version="1.201.0" />
     <PackageReference Include="CodeProject.ObjectPool" Version="6.5.0" />
+    <PackageReference Include="DlhSoft.GanttChartLightLibrary" Version="4.3.48.14" />
     <PackageReference Include="gong-wpf-dragdrop" Version="3.2.1" />
     <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
     <PackageReference Include="ScottPlot" Version="5.0.39" />
