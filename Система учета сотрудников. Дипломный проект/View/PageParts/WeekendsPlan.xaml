@@ -8,6 +8,34 @@
              d:DesignHeight="450" d:DesignWidth="800">
    
     <Grid>
-        
+        <ListView ItemsSource="{Binding List}">
+            <ListView.Resources>
+                <ControlTemplate x:Key="SelectedTemplate" TargetType="ListViewItem">
+                    <Border Background="#FF92C6F9" Padding="2" HorizontalAlignment="Left" Margin="5">
+                        <TextBlock Text="{Binding TextList}" Margin="5" />
+                    </Border>
+                </ControlTemplate>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border CornerRadius="5" BorderThickness="1" BorderBrush="Red" Background="WhiteSmoke" Padding="2" HorizontalAlignment="Left" Margin="5"  >
+                                    <TextBlock Text="{Binding TextList}" Margin="5" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="true" />
+                                <Condition Property="Selector.IsSelectionActive" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Template" Value="{StaticResource SelectedTemplate}" />
+                        </MultiTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.Resources>
+        </ListView>
     </Grid>
 </UserControl>

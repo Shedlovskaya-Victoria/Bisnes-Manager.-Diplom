@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Система_учета_сотрудников._Дипломный_проект.Model;
 using Colors = ScottPlot.Colors;
 
 namespace Система_учета_сотрудников._Дипломный_проект.View.PageParts
@@ -25,11 +26,20 @@ namespace Система_учета_сотрудников._Дипломный_�
     /// </summary>
     public partial class WeekendsPlan : UserControl
     {
+        public ObservableCollection<SampleToDelete> List { get; set; }
         public WeekendsPlan()
         {
             InitializeComponent();
-           
-            
+            DataContext = this;
+            List = new ObservableCollection<SampleToDelete>()
+            {
+                new SampleToDelete(){ TextList = " gbbbb1"},
+                new SampleToDelete(){ TextList = " gbbbb2"},
+                new SampleToDelete(){ TextList = " gbbbb3"},
+                new SampleToDelete(){ TextList = " gbbbb4"},
+                new SampleToDelete(){ TextList = " gbbbb5"},
+                new SampleToDelete(){ TextList = " gbbbb6"},
+            };
         }
     }
 }
