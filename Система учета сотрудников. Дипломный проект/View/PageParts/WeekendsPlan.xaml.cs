@@ -26,11 +26,30 @@ namespace Система_учета_сотрудников._Дипломный_�
     /// </summary>
     public partial class WeekendsPlan : UserControl
     {
-        public ObservableCollection<SampleToDelete> List { get; set; }
+        public uint Year { get; set; } = 2024;
+        public ObservableCollection<WeekendsTablePlan> List { get; set; }
         public WeekendsPlan()
         {
             InitializeComponent();
             DataContext = this;
+
+            List = new ObservableCollection<WeekendsTablePlan>()
+            {
+                new WeekendsTablePlan(){ FIO = "User 1", BackgroundCollor = Brushes.White, MounthName = "Сентябрь", 
+                    WeekInMount = [1,2,3,4], StartDayWeek =DateTime.Now, EndDayWeek = DateTime.Parse("03.10.2024"), LenghtWeekends = 4},
+                new WeekendsTablePlan(){ FIO = "User 2", BackgroundCollor = Brushes.Orange, MounthName = "Сентябрь",
+                    WeekInMount = [1,2,3,4], StartDayWeek =DateTime.Now, EndDayWeek = DateTime.Parse("03.10.2024"), LenghtWeekends = 4},
+                new WeekendsTablePlan(){ FIO = "User 3", BackgroundCollor = Brushes.Orange, MounthName = "Сентябрь", 
+                    WeekInMount = [1,2,3,4], StartDayWeek =DateTime.Now, EndDayWeek = DateTime.Parse("03.10.2024"), LenghtWeekends = 4},
+                new WeekendsTablePlan(){ FIO = "User 4", BackgroundCollor = Brushes.White, MounthName = "Сентябрь",
+                    WeekInMount = [1,2,3,4], StartDayWeek =DateTime.Now, EndDayWeek = DateTime.Parse("03.10.2024"), LenghtWeekends = 4},
+                new WeekendsTablePlan(){ FIO = "User 5", BackgroundCollor = Brushes.White, MounthName = "Сентябрь", 
+                    WeekInMount = [1,2,3,4], StartDayWeek =DateTime.Now, EndDayWeek = DateTime.Parse("03.10.2024"), LenghtWeekends = 4},
+                new WeekendsTablePlan(){ FIO = "User 6", BackgroundCollor = Brushes.GreenYellow, MounthName = "Сентябрь", 
+                    WeekInMount = [1,2,3,4], StartDayWeek =DateTime.Now, EndDayWeek = DateTime.Parse("03.10.2024"), LenghtWeekends = 4},
+            };
+
+            /*
             List = new ObservableCollection<SampleToDelete>()
             {
                 new SampleToDelete(){ TextList = " gbbbb1"},
@@ -40,6 +59,7 @@ namespace Система_учета_сотрудников._Дипломный_�
                 new SampleToDelete(){ TextList = " gbbbb5"},
                 new SampleToDelete(){ TextList = " gbbbb6"},
             };
+            */
         }
     }
 }
