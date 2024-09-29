@@ -12,7 +12,7 @@
 
        
         <!--<ListView ItemsSource="{Binding List}">
-            <ListView.View>
+            <ListView.View> 
                 <GridView>
                     <GridViewColumn Header="Фио"/>
                     <GridViewColumn Header="Фио"/>
