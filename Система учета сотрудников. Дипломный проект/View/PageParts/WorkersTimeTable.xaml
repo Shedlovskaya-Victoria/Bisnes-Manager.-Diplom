@@ -313,7 +313,7 @@
                     <GridViewColumn Header="30" CellTemplate="{StaticResource DataTemplate30}"/>
                     <GridViewColumn Header="31" CellTemplate="{StaticResource DataTemplate31}"/>
                     <GridViewColumn Header="Переработки" CellTemplate="{StaticResource DataTemplateR}"/>
-                    <GridViewColumn Header="Всего" CellTemplate="{StaticResource DataTemplateAH}"/>
+                    <GridViewColumn Header="Всего" CellTemplate="{StaticResource DataTemplateAH}"/> 
                 </GridView>
             </ListView.View>
         </ListView>
