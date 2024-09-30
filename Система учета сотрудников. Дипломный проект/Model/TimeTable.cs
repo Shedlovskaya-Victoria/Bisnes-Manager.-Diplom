@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Система_учета_сотрудников._Дипломный_проект.Tools;
 
 namespace Система_учета_сотрудников._Дипломный_проект.Model
 {
@@ -83,8 +84,10 @@ namespace Система_учета_сотрудников._Дипломный_�
         public int Day27 { get; set; }
         public int Day28 { get; set; }
     }
-    public class TimeTable30DaysInMouth
+    public class TimeTable30DaysInMouth : Base
     {
+        private int day7;
+
         public int ID { get; set; }
         public string FIO { get; set; }
         public int Mounth { get; set; }
@@ -97,7 +100,13 @@ namespace Система_учета_сотрудников._Дипломный_�
         public int Day4 { get; set; }
         public int Day5{ get; set; }
         public int Day6 { get; set; }
-        public int Day7 { get; set; }
+        public int Day7 { get => day7;
+            set
+            {
+                day7 = value;
+                Signal();
+            }
+        }
         public int Day8 { get; set; }
         public int Day9 { get; set; }
         public int Day10 { get; set; }

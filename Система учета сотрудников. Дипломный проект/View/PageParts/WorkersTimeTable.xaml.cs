@@ -44,9 +44,7 @@ namespace Система_учета_сотрудников._Дипломный_�
         {
             InitializeComponent();
 
-            
-
-            Title = $"Расписание рабочих часов месяца {CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(9)}";
+            Title = $"Рабочее расписание месяца {CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(9)}";
 
             TimeTables = new List<TimeTable>();
             Random random = new Random();

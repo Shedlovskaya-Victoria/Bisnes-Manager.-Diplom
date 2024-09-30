@@ -6,55 +6,316 @@
              xmlns:local="clr-namespace:Система_учета_сотрудников._Дипломный_проект.View.PageParts"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="1300">
+    <UserControl.Resources>
+        <DataTemplate x:Key="DataTemplateID">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding ID}" />
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplateFIO">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding FIO}" />
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplateWH">
+            <TextBlock VerticalAlignment="Center" Text="{Binding WorkHour}" />
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate1">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day1}" x:Name="Day1" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day1, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day1" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate2">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day2}" x:Name="Day2"/>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day2, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day2" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate3">
+            <TextBlock VerticalAlignment="Center"   Text="{Binding Day3}" x:Name="Day3" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day3, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day3" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate4">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day4}" x:Name="Day4" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day4, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day4" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate5">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day5}" x:Name="Day5"/>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day5, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day5" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate6">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day6}" x:Name="Day6" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day6, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day6" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate7">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day7}" x:Name="Day7" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day7, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day7" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate8">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day8}" x:Name="Day8" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day8, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day8" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate9">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day9}" x:Name="Day9" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day9, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day9" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate10">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day10}" x:Name="Day10" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day10, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day10" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate11">
+            <TextBlock VerticalAlignment="Center" Text="{Binding Day11}" x:Name="Day11"/>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day11, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day11" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate12">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day12}" x:Name="Day12"/>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day12, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day12" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate13">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day13}" x:Name="Day13" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day13, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day13" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate14">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day14}" x:Name="Day14" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day14, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day14" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate15">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day15}" x:Name="Day15" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day15, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day15" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate16">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day16}" x:Name="Day16" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day16, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day16" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate17">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day17}" x:Name="Day17" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day17, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day17" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate18">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day18}" x:Name="Day18"/>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day18, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day18" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate19">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day19}" x:Name="Day19" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day19, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day19" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate20">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day20}" x:Name="Day20" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day20, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day20" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate21">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day21}" x:Name="Day21" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day21, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day21" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate22">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day22}" x:Name="Day22" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day22, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day22" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate23">
+            <TextBlock VerticalAlignment="Center"   Text="{Binding Day23}" x:Name="Day23"  />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day23, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day23" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate24">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day24}" x:Name="Day24" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day24, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day24" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate25">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day25}" x:Name="Day25" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day25, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day25" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate26">
+            <TextBlock VerticalAlignment="Center" Text="{Binding Day26}" x:Name="Day26" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day26, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day26" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate27">
+            <TextBlock VerticalAlignment="Center" Text="{Binding Day27}" x:Name="Day27" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day27, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day27" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate28">
+            <TextBlock VerticalAlignment="Center" Text="{Binding Day28}" x:Name="Day28" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day28, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day28" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate29">
+            <TextBlock VerticalAlignment="Center" Text="{Binding Day29}" x:Name="Day29" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day29, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day29" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate30">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day30}" x:Name="Day30" />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day30, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day30" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate31">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Day31}" x:Name="Day31"  />
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Day31, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                    <Setter TargetName="Day31" Property="TextBlock.Background" Value="Yellow"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplateR">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding Recycling}" />
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplateAH">
+            <TextBlock VerticalAlignment="Center"  Text="{Binding AllHour}"   />
+        </DataTemplate>
+    </UserControl.Resources>
     
     <StackPanel Orientation="Vertical">
         <Label Content="{Binding Title, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
-        <ListView ItemsSource="{Binding TimeTables}">
-            
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <StackPanel Orientation="Horizontal">
-                            <Label  Content="{Binding ID}"/>
-                            <Label  Content="{Binding FIO}"/>
-                            <Label  Content="{Binding WorkHour}"/>
-                            <Label Content="{Binding Day1, ElementName=gridValue}"/>
-                            <Label Content="{Binding Day2, ElementName=gridValue}"/>
-                            <Label Content="{Binding Day3, ElementName=gridValue}"/>
-                            <Label Content="{Binding Day4, ElementName=gridValue}"/>
-                            <Label Content="{Binding Day5, ElementName=gridValue}"/>
-                            <Label Content="{Binding Day6}"/>
-                            <Label Content="{Binding Day7}"/>
-                            <Label Content="{Binding Day8}"/>
-                            <Label Content="{Binding Day9}"/>
-                            <Label Content="{Binding Day10}"/>
-                            <Label Content="{Binding Day11}"/>
-                            <Label Content="{Binding Day12}"/>
-                            <Label Content="{Binding Day13}"/>
-                            <Label Content="{Binding Day14}"/>
-                            <Label Content="{Binding Day15}"/>
-                            <Label Content="{Binding Day16}"/>
-                            <Label Content="{Binding Day17}"/>
-                            <Label Content="{Binding Day18}"/>
-                            <Label Content="{Binding Day19}"/>
-                            <Label Content="{Binding Day20}"/>
-                            <Label Content="{Binding Day21}"/>
-                            <Label Content="{Binding Day22}"/>
-                            <Label Content="{Binding Day23}"/>
-                            <Label Content="{Binding Day24}"/>
-                            <Label Content="{Binding Day25}"/>
-                            <Label Content="{Binding Day26}"/>
-                            <Label Content="{Binding Day27}"/>
-                            <Label Content="{Binding Day28}"/>
-                            <Label Content="{Binding Day29}"/>
-                            <Label Content="{Binding Day30}"/>
-                            <Label Content="{Binding Day31}"/>
-                            <Label x:Name="gridValue"  Content="{Binding Recycling}"/>
-                            <Label Content="{Binding AllHour}"/>
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+        <ListView ItemsSource="{Binding TimeTables}"
+                  Background="AliceBlue">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" CellTemplate="{StaticResource DataTemplateID}"/>
+                    <GridViewColumn Header="ФИО" CellTemplate="{StaticResource DataTemplateFIO}"/>
+                    <GridViewColumn Header="Рабочие часы" CellTemplate="{StaticResource DataTemplateWH}"/>
+                    <GridViewColumn Header="1" CellTemplate="{StaticResource DataTemplate1}" />
+                    <GridViewColumn Header="2" CellTemplate="{StaticResource DataTemplate2}" />
+                    <GridViewColumn Header="3" CellTemplate="{StaticResource DataTemplate3}"/>
+                    <GridViewColumn Header="4" CellTemplate="{StaticResource DataTemplate4}"/>
+                    <GridViewColumn Header="5" CellTemplate="{StaticResource DataTemplate5}"/>
+                    <GridViewColumn Header="6" CellTemplate="{StaticResource DataTemplate6}"/>
+                    <GridViewColumn Header="7" CellTemplate="{StaticResource DataTemplate7}"/>
+                    <GridViewColumn Header="8" CellTemplate="{StaticResource DataTemplate8}"/>
+                    <GridViewColumn Header="9" CellTemplate="{StaticResource DataTemplate9}"/>
+                    <GridViewColumn Header="10" CellTemplate="{StaticResource DataTemplate10}"/>
+                    <GridViewColumn Header="11" CellTemplate="{StaticResource DataTemplate11}"/>
+                    <GridViewColumn Header="12" CellTemplate="{StaticResource DataTemplate12}"/>
+                    <GridViewColumn Header="13" CellTemplate="{StaticResource DataTemplate13}"/>
+                    <GridViewColumn Header="14" CellTemplate="{StaticResource DataTemplate14}"/>
+                    <GridViewColumn Header="15" CellTemplate="{StaticResource DataTemplate15}"/>
+                    <GridViewColumn Header="16" CellTemplate="{StaticResource DataTemplate16}"/>
+                    <GridViewColumn Header="17" CellTemplate="{StaticResource DataTemplate17}"/>
+                    <GridViewColumn Header="18" CellTemplate="{StaticResource DataTemplate18}"/>
+                    <GridViewColumn Header="19" CellTemplate="{StaticResource DataTemplate19}"/>
+                    <GridViewColumn Header="20" CellTemplate="{StaticResource DataTemplate20}"/>
+                    <GridViewColumn Header="21" CellTemplate="{StaticResource DataTemplate21}"/>
+                    <GridViewColumn Header="22" CellTemplate="{StaticResource DataTemplate22}"/>
+                    <GridViewColumn Header="23" CellTemplate="{StaticResource DataTemplate23}"/>
+                    <GridViewColumn Header="24" CellTemplate="{StaticResource DataTemplate24}"/>
+                    <GridViewColumn Header="25" CellTemplate="{StaticResource DataTemplate25}"/>
+                    <GridViewColumn Header="26" CellTemplate="{StaticResource DataTemplate26}"/>
+                    <GridViewColumn Header="27" CellTemplate="{StaticResource DataTemplate27}"/>
+                    <GridViewColumn Header="28" CellTemplate="{StaticResource DataTemplate28}"/>
+                    <GridViewColumn Header="29" CellTemplate="{StaticResource DataTemplate29}"/>
+                    <GridViewColumn Header="30" CellTemplate="{StaticResource DataTemplate30}"/>
+                    <GridViewColumn Header="31" CellTemplate="{StaticResource DataTemplate31}"/>
+                    <GridViewColumn Header="Переработки" CellTemplate="{StaticResource DataTemplateR}"/>
+                    <GridViewColumn Header="Всего" CellTemplate="{StaticResource DataTemplateAH}"/>
+                </GridView>
+            </ListView.View>
         </ListView>
     </StackPanel>
 </UserControl>

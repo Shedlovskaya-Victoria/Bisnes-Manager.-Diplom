@@ -22,18 +22,24 @@
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Padding" Value="3"/>
         </Style>
         <Style TargetType="ListView">
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="3"/>
-            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Padding" Value="1"/>
             <Setter Property="MinHeight" Value="180"/>
             <Setter Property="MinWidth" Value="200"/>
             
         </Style>
         <Style TargetType="Label">
             <Setter Property="Margin" Value="3"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Margin" Value="1"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="FontSize" Value="14"/>
         </Style>
         <Style TargetType="Button">
