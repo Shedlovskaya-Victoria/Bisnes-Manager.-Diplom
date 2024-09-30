@@ -6,49 +6,55 @@
              xmlns:local="clr-namespace:Система_учета_сотрудников._Дипломный_проект.View.PageParts"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="1300">
+    
     <StackPanel Orientation="Vertical">
         <Label Content="{Binding Title, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
         <ListView ItemsSource="{Binding TimeTables}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding ID}"/>
-                    <GridViewColumn Header="ФИО" DisplayMemberBinding="{Binding FIO}"/>
-                    <GridViewColumn Header="Рабочие часы" DisplayMemberBinding="{Binding WorkHour}"/>
-                    <GridViewColumn Header="1" DisplayMemberBinding="{Binding Day1}"/>
-                    <GridViewColumn Header="2" DisplayMemberBinding="{Binding Day2}"/>
-                    <GridViewColumn Header="3" DisplayMemberBinding="{Binding Day3}"/>
-                    <GridViewColumn Header="4" DisplayMemberBinding="{Binding Day4}"/>
-                    <GridViewColumn Header="5" DisplayMemberBinding="{Binding Day5}"/>
-                    <GridViewColumn Header="6" DisplayMemberBinding="{Binding Day6}"/>
-                    <GridViewColumn Header="7" DisplayMemberBinding="{Binding Day7}"/>
-                    <GridViewColumn Header="8" DisplayMemberBinding="{Binding Day8}"/>
-                    <GridViewColumn Header="9" DisplayMemberBinding="{Binding Day9}"/>
-                    <GridViewColumn Header="10" DisplayMemberBinding="{Binding Day10}"/>
-                    <GridViewColumn Header="11" DisplayMemberBinding="{Binding Day11}"/>
-                    <GridViewColumn Header="12" DisplayMemberBinding="{Binding Day12}"/>
-                    <GridViewColumn Header="13" DisplayMemberBinding="{Binding Day13}"/>
-                    <GridViewColumn Header="14" DisplayMemberBinding="{Binding Day14}"/>
-                    <GridViewColumn Header="15" DisplayMemberBinding="{Binding Day15}"/>
-                    <GridViewColumn Header="16" DisplayMemberBinding="{Binding Day16}"/>
-                    <GridViewColumn Header="17" DisplayMemberBinding="{Binding Day17}"/>
-                    <GridViewColumn Header="18" DisplayMemberBinding="{Binding Day18}"/>
-                    <GridViewColumn Header="19" DisplayMemberBinding="{Binding Day19}"/>
-                    <GridViewColumn Header="20" DisplayMemberBinding="{Binding Day20}"/>
-                    <GridViewColumn Header="21" DisplayMemberBinding="{Binding Day21}"/>
-                    <GridViewColumn Header="22" DisplayMemberBinding="{Binding Day22}"/>
-                    <GridViewColumn Header="23" DisplayMemberBinding="{Binding Day23}"/>
-                    <GridViewColumn Header="24" DisplayMemberBinding="{Binding Day24}"/>
-                    <GridViewColumn Header="25" DisplayMemberBinding="{Binding Day25}"/>
-                    <GridViewColumn Header="26" DisplayMemberBinding="{Binding Day26}"/>
-                    <GridViewColumn Header="27" DisplayMemberBinding="{Binding Day27}"/>
-                    <GridViewColumn Header="28" DisplayMemberBinding="{Binding Day28}"/>
-                    <GridViewColumn Header="29" DisplayMemberBinding="{Binding Day29}"/>
-                    <GridViewColumn Header="30" DisplayMemberBinding="{Binding Day30}"/>
-                    <GridViewColumn Header="31" DisplayMemberBinding="{Binding Day31}"/>
-                    <GridViewColumn Header="Переработки" DisplayMemberBinding="{Binding Recycling}"/>
-                    <GridViewColumn Header="Итого" DisplayMemberBinding="{Binding AllHour}"/>
-                </GridView>
-            </ListView.View>
+            
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Label  Content="{Binding ID}"/>
+                            <Label  Content="{Binding FIO}"/>
+                            <Label  Content="{Binding WorkHour}"/>
+                            <Label Content="{Binding Day1, ElementName=gridValue}"/>
+                            <Label Content="{Binding Day2, ElementName=gridValue}"/>
+                            <Label Content="{Binding Day3, ElementName=gridValue}"/>
+                            <Label Content="{Binding Day4, ElementName=gridValue}"/>
+                            <Label Content="{Binding Day5, ElementName=gridValue}"/>
+                            <Label Content="{Binding Day6}"/>
+                            <Label Content="{Binding Day7}"/>
+                            <Label Content="{Binding Day8}"/>
+                            <Label Content="{Binding Day9}"/>
+                            <Label Content="{Binding Day10}"/>
+                            <Label Content="{Binding Day11}"/>
+                            <Label Content="{Binding Day12}"/>
+                            <Label Content="{Binding Day13}"/>
+                            <Label Content="{Binding Day14}"/>
+                            <Label Content="{Binding Day15}"/>
+                            <Label Content="{Binding Day16}"/>
+                            <Label Content="{Binding Day17}"/>
+                            <Label Content="{Binding Day18}"/>
+                            <Label Content="{Binding Day19}"/>
+                            <Label Content="{Binding Day20}"/>
+                            <Label Content="{Binding Day21}"/>
+                            <Label Content="{Binding Day22}"/>
+                            <Label Content="{Binding Day23}"/>
+                            <Label Content="{Binding Day24}"/>
+                            <Label Content="{Binding Day25}"/>
+                            <Label Content="{Binding Day26}"/>
+                            <Label Content="{Binding Day27}"/>
+                            <Label Content="{Binding Day28}"/>
+                            <Label Content="{Binding Day29}"/>
+                            <Label Content="{Binding Day30}"/>
+                            <Label Content="{Binding Day31}"/>
+                            <Label x:Name="gridValue"  Content="{Binding Recycling}"/>
+                            <Label Content="{Binding AllHour}"/>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
     </StackPanel>
 </UserControl>

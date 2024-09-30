@@ -25,6 +25,19 @@ namespace Система_учета_сотрудников._Дипломный_�
     /// </summary>
     public partial class WorkersTimeTable : UserControl, INotifyPropertyChanged
     {
+        public bool ChangeColor { get; set; }
+
+        private double _Bid;
+        public double Bid
+        {
+            get { return _Bid; }
+            set
+            {
+                if(_Bid == 0)//, change fore color
+                 ChangeColor = true;
+                _Bid = value;
+            }
+        }
         public List<TimeTable> TimeTables { get; set; }
         public string Title { get; set; } 
         public WorkersTimeTable()
@@ -53,15 +66,15 @@ namespace Система_учета_сотрудников._Дипломный_�
                 t.Day4 = random.Next(2,8);
                 t.Day5 = random.Next(2,8);
                 t.Day6 = random.Next(2,8);
-                t.Day7 = random.Next(2,8);
-                t.Day8 = random.Next(2,8);
+                t.Day7 = 0;  Bid = 0;
+                t.Day8 = 0;
                 t.Day9 = random.Next(2,8);
                 t.Day10 = random.Next(2,8);
                 t.Day11 = random.Next(2,8);
                 t.Day12 = random.Next(2,8);
                 t.Day13 = random.Next(2,8);
-                t.Day14 = random.Next(2,8);
-                t.Day15 = random.Next(2,8);
+                t.Day14 = 0;
+                t.Day15 = 0;
                 t.Day16 = random.Next(2,8);
                 t.Day17 = random.Next(2,8);
                 t.Day18 = random.Next(2,8);
@@ -70,20 +83,20 @@ namespace Система_учета_сотрудников._Дипломный_�
                 t.Day21 = random.Next(4,8);
                 t.Day22 = random.Next(5,8);
                 t.Day23 = random.Next(6,8);
-                t.Day24 = random.Next(3,8);
-                t.Day25 = random.Next(7,8);
+                t.Day24 = 0;
+                t.Day25 = 0;
                 t.Day26 = random.Next(7,8);
                 t.Day27 = random.Next(1,8);
                 t.Day28 = random.Next(1,8);
                 t.Day29 = random.Next(1,8);
-                t.Day30 = random.Next(3,8);
-                t.Day31 = random.Next(4,8);
+                t.Day30 = 0;
+                t.Day31 = 0;
                 t.AllHour = t.Day1 + t.Day2 + t.Day3 + t.Day4 + t.Day5 + t.Day6 + t.Day7 + t.Day7 + t.Day7 + t.Day8 + t.Day8 + t.Day9 + t.Day10 + t.Day11 + t.Day12 + t.Day13 + t.Day14 + t.Day15 + t.Day16 + t.Day17 + t.Day18 + t.Day18 + t.Day19 + t.Day20 + t.Day21 + t.Day22 + t.Day23 + t.Day24 + t.Day25 + t.Day26 + t.Day27 + t.Day28 + t.Day29 + t.Day30 + t.Day31 + t.Recycling;
             
                 TimeTables.Add(t);        
             }
 
-
+          
             DataContext = this;
             Signal(nameof(Title));
             Signal(nameof(TimeTables));

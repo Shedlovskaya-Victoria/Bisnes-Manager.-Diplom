@@ -42,10 +42,9 @@
             <Menu>
                 <MenuItem Header="Учет">
                     <MenuItem Header="Сотрудники" Command="{Binding ShowKPDWorkers}"/>
-                    <MenuItem Header="План отпусков" Command="{Binding ShowWeekendsPlan}"/>
                     <MenuItem Header="Достижения" Command="{Binding ShowWorkersKPDGraphiks}"/>
                     <MenuItem Header="Визуализация всех проектов" Command="{Binding ShowVisualPartsAllProjects}"/>
-                    <MenuItem Header="Рабочие часы" Command="{Binding ShowWorkersTimeTable}"/>
+                    <MenuItem Header="Рабочий график" Command="{Binding ShowWorkersTimeTable}"/>
                     <MenuItem Header="Задачи" Command="{Binding ShowDiagramGant}"/>
                 </MenuItem>
             </Menu>

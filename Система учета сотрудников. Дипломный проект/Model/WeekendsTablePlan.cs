@@ -16,12 +16,20 @@ namespace Система_учета_сотрудников._Дипломный_�
         public string FIO {  get; set; }
 
         [NotMapped]
-        public string MounthName { get; set; }
+        public uint PercentOutWorkPeople { get; set; }
+
+
         [NotMapped]
         public uint[] WeekInMount { get; set; }
         [NotMapped]
         public uint LenghtWeekends { get; set; }
-        [NotMapped]
-        public System.Windows.Media.Brush BackgroundCollor { get; set; }
+    }
+    [NotMapped]
+    public class Plane
+    {
+        public string FIO { get; set; }
+        public string NameMounth { get; set; }
+        public uint Day1 { get; set; }
+
     }
 }
