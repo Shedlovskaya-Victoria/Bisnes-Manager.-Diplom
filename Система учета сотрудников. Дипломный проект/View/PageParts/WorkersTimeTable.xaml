@@ -278,7 +278,7 @@
                   Background="AliceBlue">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Id" CellTemplate="{StaticResource DataTemplateID}"/>
+                    <GridViewColumn Header="Id" CellTemplate="{StaticResource DataTemplateID}"/> 
                     <GridViewColumn Header="ФИО" CellTemplate="{StaticResource DataTemplateFIO}"/>
                     <GridViewColumn Header="Рабочие часы" CellTemplate="{StaticResource DataTemplateWH}"/>
                     <GridViewColumn Header="1" CellTemplate="{StaticResource DataTemplate1}" />
