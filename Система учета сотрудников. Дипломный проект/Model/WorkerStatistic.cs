@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Система_учета_сотрудников._Дипломный_проект.Model
 {
-    public class CheckListWorker
+    public class WorkerStatistic
     {
         public int QualityWork { get; set; }
         public int LevelResponibility { get; set; }

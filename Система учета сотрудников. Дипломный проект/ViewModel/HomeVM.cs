@@ -30,7 +30,6 @@ namespace Система_учета_сотрудников._Дипломный_�
 
         public Command EditWorkers {  get; set; }
         public Command EditPosition {  get; set; }
-        public Command EditWorkersGraphiks {  get; set; }
 
         public HomeVM() { }
 
@@ -58,14 +57,10 @@ namespace Система_учета_сотрудников._Дипломный_�
             {
                 return true;
             });
-            GoToAdministrationOffice = new Command(() =>
-            {
-            }, () =>
-            {
-                return true;
-            });
+            // settings
             GoToSystemSettings = new Command(() =>
             {
+                control.Content = new Settings();
             }, () =>
             {
                 return true;
@@ -115,18 +110,14 @@ namespace Система_учета_сотрудников._Дипломный_�
             //     edit
             EditWorkers = new Command(() =>
             {
+                control.Content = new EditWorkers();
             }, () =>
             {
                 return true;
             });
             EditPosition = new Command(() =>
             {
-            }, () =>
-            {
-                return true;
-            });
-            EditWorkersGraphiks = new Command(() =>
-            {
+                control.Content = new EditDolzjnost();
             }, () =>
             {
                 return true;

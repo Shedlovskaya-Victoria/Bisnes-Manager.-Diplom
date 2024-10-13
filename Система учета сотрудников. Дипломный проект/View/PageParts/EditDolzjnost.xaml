@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="Система_учета_сотрудников._Дипломный_проект.View.PageParts.EditDolzjnost"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Система_учета_сотрудников._Дипломный_проект.View.PageParts"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--кнопки-->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Добавить"/>
+            <Button Content="Редактировать"/>
+            <Button Content="Удалить"/>
+        </StackPanel>
+        
+        <!---->
+        <StackPanel Grid.Row="1"  >
+            <Label Content="Название должности"/>
+            <TextBox Text="{Binding Dolzjnost}"/>
+        </StackPanel>
+        <Label Content="Список должностей" Grid.Row="2"/>
+        <!--///-->
+        <ListView ItemsSource="{Binding WorkersList}" Grid.Row="3">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="удалить"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Название должности" DisplayMemberBinding="{Binding Name}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+       
+    </Grid>
+</UserControl>

@@ -53,15 +53,12 @@
                 <MenuItem Header="Редактирование">
                     <MenuItem Header="Cотрудники" Command="{Binding EditWorkers}"/>
                     <MenuItem Header="Должности" Command="{Binding EditPosition}"/>
-                    <MenuItem Header="Рабочие графики"  Command="{Binding EditWorkersGraphiks}"/>
-                    <MenuItem Header="План отпусков" Command="{Binding EditWeekendsPlan}"/>
                 </MenuItem>
             </Menu>
             <Menu>
                 <MenuItem Header="Настройки">
                     <MenuItem Header="Системные" Command="{Binding GoToSystemSettings}"/>
                     <MenuItem Header="Загрузка списков" Command="{Binding GoToUploadLists}"/>
-                    <MenuItem Header="Управление приложениями" Command="{Binding  GoToAdministrationOffice}"/>
                 </MenuItem>
             </Menu>
         </StackPanel>
