@@ -11,6 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="View\PageParts\Image\Delete.png" />
+    <None Remove="View\PageParts\Image\Pencil.png" />
+    <None Remove="View\PageParts\Image\Pencil2.png" />
+    <None Remove="View\PageParts\Image\Searhc.png" />
+    <None Remove="View\PageParts\Image\Settings.png" />
+    <None Remove="View\PageParts\Image\Логотип.png" />
     <None Remove="View\Pages\Image\Delete.png" />
     <None Remove="View\Pages\Image\Pencil.png" />
     <None Remove="View\Pages\Image\Pencil2.png" />
@@ -34,6 +40,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="View\PageParts\Image\Delete.png" />
+    <Resource Include="View\PageParts\Image\Pencil.png" />
+    <Resource Include="View\PageParts\Image\Pencil2.png" />
+    <Resource Include="View\PageParts\Image\Searhc.png" />
+    <Resource Include="View\PageParts\Image\Settings.png" />
+    <Resource Include="View\PageParts\Image\Логотип.png" />
     <Resource Include="View\Pages\Image\Delete.png" />
     <Resource Include="View\Pages\Image\Pencil.png" />
   </ItemGroup>

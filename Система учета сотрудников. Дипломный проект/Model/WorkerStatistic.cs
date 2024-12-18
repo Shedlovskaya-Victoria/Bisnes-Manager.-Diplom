@@ -12,6 +12,6 @@ namespace Система_учета_сотрудников._Дипломный_�
         public int LevelResponibility { get; set; }
         public int EffectivCommunication { get; set; }
         public int HardSkils { get; set; }
-        public int PeopleSkils { get; set; }
+        public int SoftSkils { get; set; }
     }
 }

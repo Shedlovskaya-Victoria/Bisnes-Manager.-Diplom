@@ -13,13 +13,12 @@ namespace Система_учета_сотрудников._Дипломный_�
         public string Name { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public string HomeAdress { get; set; }
         public string Age { get; set; }
-        public bool Gender { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
         public byte[] Photo { get; set; }
         public int IdRole { get; set; }
+        public int IdDolzjnosts { get; set; }
         public string Dolzjnost { get; set; }
         public DateTime StartTimeWork { get; set; }
         public DateTime EndTimeWork { get; set; }

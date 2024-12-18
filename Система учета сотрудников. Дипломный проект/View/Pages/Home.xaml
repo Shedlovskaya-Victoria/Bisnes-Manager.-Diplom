@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="600"/>
         </Grid.ColumnDefinitions>
         <!---логотип-->
         <Button Width="100" Grid.RowSpan="3" Height="100" Grid.Column="0" Command="{Binding GoToHome}">
@@ -30,7 +30,7 @@
         <!---поиск-->
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <TextBox Width="300"  Text="{Binding Search, ElementName=search}" Margin="3 3 0 3"/>
-            <Button MinWidth="50" Margin="0 3 3 3" Command="{Binding Find}" CommandParameter="{Binding search}">
+            <Button Width="50" Margin="0 3 3 3" Command="{Binding Find}" CommandParameter="{Binding search}">
                 <Image Width="30" Source="Image\Searhc.png"/>
             </Button>
         </StackPanel>
@@ -43,7 +43,7 @@
                 <MenuItem Header="Учет">
                     <MenuItem Header="Сотрудники" Command="{Binding ShowKPDWorkers}"/>
                     <MenuItem Header="Достижения" Command="{Binding ShowWorkersKPDGraphiks}"/>
-                    <MenuItem Header="Визуализация всех проектов" Command="{Binding ShowVisualPartsAllProjects}"/>
+                    <MenuItem Header="Визуализация действующих проектов" Command="{Binding ShowVisualPartsAllProjects}"/>
                     <MenuItem Header="Рабочий график" Command="{Binding ShowWorkersTimeTable}"/>
                     <MenuItem Header="Задачи" Command="{Binding ShowDiagramGant}"/>
                 </MenuItem>

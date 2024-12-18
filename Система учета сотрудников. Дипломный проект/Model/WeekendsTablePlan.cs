@@ -24,12 +24,5 @@ namespace Система_учета_сотрудников._Дипломный_�
         [NotMapped]
         public uint LenghtWeekends { get; set; }
     }
-    [NotMapped]
-    public class Plane
-    {
-        public string FIO { get; set; }
-        public string NameMounth { get; set; }
-        public uint Day1 { get; set; }
-
-    }
+  
 }

@@ -110,7 +110,7 @@ namespace Система_учета_сотрудников._Дипломный_�
             //     edit
             EditWorkers = new Command(() =>
             {
-                control.Content = new EditWorkers();
+                control.Content = new AccountsWorkers();
             }, () =>
             {
                 return true;
