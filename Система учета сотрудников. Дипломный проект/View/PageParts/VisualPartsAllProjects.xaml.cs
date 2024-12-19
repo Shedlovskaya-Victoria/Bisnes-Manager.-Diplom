@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Colors = ScottPlot.Colors;
 
-namespace Система_учета_сотрудников._Дипломный_проект.View.ProgramUserControl
+namespace BisnesManager.Client.View.ProgramUserControl
 {
     /// <summary>
     /// Логика взаимодействия для VisualPartsAllProjects.xaml

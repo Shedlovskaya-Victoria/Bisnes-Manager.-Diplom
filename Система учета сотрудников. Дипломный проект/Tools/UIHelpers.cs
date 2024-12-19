@@ -7,7 +7,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows;
 
-namespace Система_учета_сотрудников._Дипломный_проект.Tools
+namespace BisnesManager.Client.Tools
 {
     public class UIHelpers
     {

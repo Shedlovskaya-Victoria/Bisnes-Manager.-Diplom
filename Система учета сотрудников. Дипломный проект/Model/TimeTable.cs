@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Система_учета_сотрудников._Дипломный_проект.Tools;
+using BisnesManager.Client.Tools;
 
-namespace Система_учета_сотрудников._Дипломный_проект.Model
+namespace BisnesManager.Client.Model
 {
     public class TimeTable
     {

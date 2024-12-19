@@ -1,0 +1,6 @@
+@API._Система_учета_сотрудников._Дипломный_проект_HostAddress = http://localhost:5107
+
+GET {{API._Система_учета_сотрудников._Дипломный_проект_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -10,7 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-namespace Система_учета_сотрудников._Дипломный_проект.Tools
+namespace BisnesManager.Client.Tools
 {
     public class Base : INotifyPropertyChanged
     {       

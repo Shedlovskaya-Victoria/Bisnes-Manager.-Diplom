@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Система_учета_сотрудников._Дипломный_проект.View
+namespace BisnesManager.Client.View
 {
     /// <summary>
     /// Логика взаимодействия для RecoverAutorizateData.xaml

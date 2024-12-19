@@ -8,10 +8,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Система_учета_сотрудников._Дипломный_проект.Tools;
-using Система_учета_сотрудников._Дипломный_проект.View;
+using BisnesManager.Client.Tools;
+using BisnesManager.Client.View;
 
-namespace Система_учета_сотрудников._Дипломный_проект
+namespace BisnesManager.Client
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

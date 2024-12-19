@@ -15,12 +15,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Система_учета_сотрудников._Дипломный_проект.Model;
-using Система_учета_сотрудников._Дипломный_проект.Tools;
+using BisnesManager.Client.Model;
+using BisnesManager.Client.Tools;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.DragDrop;
 
-namespace Система_учета_сотрудников._Дипломный_проект.View.ProgramUserControl
+namespace BisnesManager.Client.View.ProgramUserControl
 {
     /// <summary>
     /// Логика взаимодействия для Tasks.xaml

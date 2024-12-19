@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace Система_учета_сотрудников._Дипломный_проект
+namespace BisnesManager.Client
 {
     /// <summary>
     /// Interaction logic for App.xaml

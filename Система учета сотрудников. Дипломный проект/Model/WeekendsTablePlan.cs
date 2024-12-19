@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace Система_учета_сотрудников._Дипломный_проект.Model
+namespace BisnesManager.Client.Model
 {
     public class WeekendsTablePlan
     {

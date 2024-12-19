@@ -12,10 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Система_учета_сотрудников._Дипломный_проект.Tools;
-using Система_учета_сотрудников._Дипломный_проект.ViewModel;
+using BisnesManager.Client.Tools;
+using BisnesManager.Client.ViewModel;
 
-namespace Система_учета_сотрудников._Дипломный_проект.View
+namespace BisnesManager.Client.View
 {
     /// <summary>
     /// Логика взаимодействия для Enter.xaml

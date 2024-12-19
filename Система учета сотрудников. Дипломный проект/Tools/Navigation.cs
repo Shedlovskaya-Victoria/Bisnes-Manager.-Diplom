@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Система_учета_сотрудников._Дипломный_проект.Tools
+namespace BisnesManager.Client.Tools
 {
     public class Navigation : Base
     {

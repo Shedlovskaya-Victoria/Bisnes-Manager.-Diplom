@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using Система_учета_сотрудников._Дипломный_проект.Tools;
-using Система_учета_сотрудников._Дипломный_проект.View;
-using Система_учета_сотрудников._Дипломный_проект.View.PageParts;
-using Система_учета_сотрудников._Дипломный_проект.View.Pages;
-using Система_учета_сотрудников._Дипломный_проект.View.ProgramUserControl;
+using BisnesManager.Client.Tools;
+using BisnesManager.Client.View;
+using BisnesManager.Client.View.PageParts;
+using BisnesManager.Client.View.Pages;
+using BisnesManager.Client.View.ProgramUserControl;
 
-namespace Система_учета_сотрудников._Дипломный_проект.ViewModel
+namespace BisnesManager.Client.ViewModel
 {
     public class HomeVM
     {

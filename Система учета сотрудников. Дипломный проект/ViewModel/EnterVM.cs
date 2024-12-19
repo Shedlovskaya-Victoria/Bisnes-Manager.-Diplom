@@ -8,10 +8,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
-using Система_учета_сотрудников._Дипломный_проект.Tools;
-using Система_учета_сотрудников._Дипломный_проект.View;
+using BisnesManager.Client.Tools;
+using BisnesManager.Client.View;
 
-namespace Система_учета_сотрудников._Дипломный_проект.ViewModel
+namespace BisnesManager.Client.ViewModel
 {
     public class EnterVM 
     {

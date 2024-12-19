@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Система_учета_сотрудников._Дипломный_проект.View.Pages
+namespace BisnesManager.Client.View.Pages
 {
     /// <summary>
     /// Логика взаимодействия для PersonalCabinet.xaml

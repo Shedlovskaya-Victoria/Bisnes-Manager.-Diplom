@@ -12,9 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Система_учета_сотрудников._Дипломный_проект.Model;
+using BisnesManager.Client.Model;
 
-namespace Система_учета_сотрудников._Дипломный_проект.View.PageParts
+namespace BisnesManager.Client.View.PageParts
 {
     /// <summary>
     /// Логика взаимодействия для EditWorkers.xaml
