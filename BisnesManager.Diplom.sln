@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BisnesManager.Domain", "Mod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BisnesManager.RequestsApp", "BisnesManager.RequestsApp\BisnesManager.RequestsApp.csproj", "{EC50CD40-5358-4A52-9C9A-FE09DA66A5DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BisnesManager.DatabaseApp", "BisnesManager.DatabaseApp\BisnesManager.DatabaseApp.csproj", "{A2F68C2A-A5A1-419A-A3EE-691A400E509E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BisnesManager.DatabasePersistens", "BisnesManager.DatabaseApp\BisnesManager.DatabasePersistens.csproj", "{A2F68C2A-A5A1-419A-A3EE-691A400E509E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
