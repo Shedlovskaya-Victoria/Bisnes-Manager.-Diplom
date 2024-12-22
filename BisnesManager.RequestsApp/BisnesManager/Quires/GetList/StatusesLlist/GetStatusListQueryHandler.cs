@@ -13,7 +13,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetList.StatusesLlist
 {
     internal class GetStatusListQueryHandler : IRequestHandler<StatusQuery ,StatusVm>
     {
-        private readonly BissnesExpertSystemDiplomaContext _context;
+        private readonly BissnesExpertSystemDiplomaContext _context; 
         private readonly IMapper _mapper;
         public GetStatusListQueryHandler(BissnesExpertSystemDiplomaContext context, IMapper mapper)
         {
