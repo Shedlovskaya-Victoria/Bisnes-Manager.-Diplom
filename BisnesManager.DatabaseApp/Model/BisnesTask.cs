@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BisnesManager.DatabasePersistens.Model;
 
-public partial class Task
+public partial class BisnesTask
 {
     public int Id { get; set; }
 
@@ -20,6 +20,8 @@ public partial class Task
     public string? AssignmentsContent { get; set; }
 
     public short IdStatus { get; set; }
+
+    public DateOnly DateCreate { get; set; }
 
     public virtual Status IdStatusNavigation { get; set; } = null!;
 

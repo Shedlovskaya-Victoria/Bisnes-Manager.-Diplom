@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using BisnesManager.DatabasePersistens.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace BisnesManager.DatabasePersistens.Model;
+namespace BisnesManager.DatabasePersistens.Context;
 
 public partial class BissnesExpertSystemDiplomaContext : DbContext
 {
@@ -15,6 +16,8 @@ public partial class BissnesExpertSystemDiplomaContext : DbContext
     {
     }
 
+    public virtual DbSet<BisnesTask> BisnesTasks { get; set; }
+
     public virtual DbSet<HolidayPlan> HolidayPlans { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
@@ -22,8 +25,6 @@ public partial class BissnesExpertSystemDiplomaContext : DbContext
     public virtual DbSet<Statistic> Statistics { get; set; }
 
     public virtual DbSet<Status> Statuses { get; set; }
-
-    public virtual DbSet<Task> Tasks { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
@@ -33,6 +34,33 @@ public partial class BissnesExpertSystemDiplomaContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<BisnesTask>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Tasks_pkey");
+
+            entity.ToTable("BisnesTask");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("nextval('\"Tasks_Id_seq\"'::regclass)");
+            entity.Property(e => e.AssignmentsContent)
+                .HasMaxLength(255)
+                .IsFixedLength();
+            entity.Property(e => e.Content)
+                .HasMaxLength(500)
+                .IsFixedLength();
+            entity.Property(e => e.IdStatus).HasDefaultValueSql("nextval('\"Tasks_IdStatus_seq\"'::regclass)");
+            entity.Property(e => e.IdUser).HasDefaultValueSql("nextval('\"Tasks_IdUser_seq\"'::regclass)");
+
+            entity.HasOne(d => d.IdStatusNavigation).WithMany(p => p.BisnesTasks)
+                .HasForeignKey(d => d.IdStatus)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("Tasks_IdStatus_fkey");
+
+            entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.BisnesTasks)
+                .HasForeignKey(d => d.IdUser)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("Tasks_IdUser_fkey");
+        });
+
         modelBuilder.Entity<HolidayPlan>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("HolidayPlan_pkey");
@@ -80,30 +108,6 @@ public partial class BissnesExpertSystemDiplomaContext : DbContext
             entity.Property(e => e.Title)
                 .HasMaxLength(255)
                 .IsFixedLength();
-        });
-
-        modelBuilder.Entity<Task>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("Tasks_pkey");
-
-            entity.Property(e => e.AssignmentsContent)
-                .HasMaxLength(255)
-                .IsFixedLength();
-            entity.Property(e => e.Content)
-                .HasMaxLength(500)
-                .IsFixedLength();
-            entity.Property(e => e.IdStatus).ValueGeneratedOnAdd();
-            entity.Property(e => e.IdUser).ValueGeneratedOnAdd();
-
-            entity.HasOne(d => d.IdStatusNavigation).WithMany(p => p.Tasks)
-                .HasForeignKey(d => d.IdStatus)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("Tasks_IdStatus_fkey");
-
-            entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.Tasks)
-                .HasForeignKey(d => d.IdUser)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("Tasks_IdUser_fkey");
         });
 
         modelBuilder.Entity<User>(entity =>

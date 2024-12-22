@@ -1,15 +1,16 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BisnesManager.Domain.DTO
+namespace BisnesManager.RequestsApp.BisnesManager.Commands.Update.CommandDTO
 {
-    public class User
+    public class UserCommandDTO : IRequest
     {
-        public short Id { get; set; }
 
+        public short Id { get; set; }
         public string Name { get; set; } = null!;
 
         public string Family { get; set; } = null!;
@@ -31,5 +32,7 @@ namespace BisnesManager.Domain.DTO
         public DateTime? StartWorkTime { get; set; }
 
         public DateTimeOffset? EndWorkTime { get; set; }
+
+        public DateOnly DateCreate { get; set; }
     }
 }

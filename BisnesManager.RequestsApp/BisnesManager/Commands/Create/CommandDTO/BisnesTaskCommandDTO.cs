@@ -1,15 +1,14 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BisnesManager.Domain.DTO
+namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandDTO
 {
-    public class Task
+    public class BisnesTaskCommandDTO : IRequest
     {
-        public int Id { get; set; }
-
         public short IdUser { get; set; }
 
         public string Content { get; set; } = null!;
@@ -23,5 +22,7 @@ namespace BisnesManager.Domain.DTO
         public string? AssignmentsContent { get; set; }
 
         public short IdStatus { get; set; }
+
+        public DateOnly DateCreate { get; set; }
     }
 }

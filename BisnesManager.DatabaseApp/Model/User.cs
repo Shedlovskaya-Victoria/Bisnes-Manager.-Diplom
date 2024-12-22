@@ -25,15 +25,17 @@ public partial class User
 
     public byte[]? PhotoImage { get; set; }
 
-    public DateTime? StartWorkTime { get; set; }
+    public DateTime StartWorkTime { get; set; }
 
-    public DateTimeOffset? EndWorkTime { get; set; }
+    public DateTimeOffset EndWorkTime { get; set; }
+
+    public DateOnly DateCreate { get; set; }
+
+    public virtual ICollection<BisnesTask> BisnesTasks { get; set; } = new List<BisnesTask>();
 
     public virtual ICollection<HolidayPlan> HolidayPlans { get; set; } = new List<HolidayPlan>();
 
     public virtual Role IdRoleNavigation { get; set; } = null!;
 
     public virtual ICollection<Statistic> Statistics { get; set; } = new List<Statistic>();
-
-    public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
 }

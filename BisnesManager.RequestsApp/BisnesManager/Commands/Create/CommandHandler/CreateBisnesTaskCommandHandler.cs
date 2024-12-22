@@ -1,0 +1,39 @@
+﻿using BisnesManager.DatabasePersistens.Context;
+using BisnesManager.DatabasePersistens.Model;
+using BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandDTO;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
+{
+    public class CreateBisnesTaskCommandHandler : ImplementBase<BisnesTask>, IRequestHandler<BisnesTaskCommandDTO>
+    {
+        private readonly BissnesExpertSystemDiplomaContext _context;
+        public CreateBisnesTaskCommandHandler(BissnesExpertSystemDiplomaContext context) : base(context)
+        {
+            _context = context;
+        }
+
+        public async Task Handle(BisnesTaskCommandDTO request, CancellationToken cancellationToken)
+        {
+            var bisnesTask = new BisnesTask()
+            {
+                AssignmentsContent = request.AssignmentsContent,
+                Content = request.Content,
+                DateCreate = DateOnly.FromDateTime(DateTime.Now),
+                StartDate = request.StartDate,
+                EndDate = request.EndDate,
+                IdStatus = request.IdStatus,
+                IdUser = request.IdUser,
+                Indentation = request.Indentation,
+            };
+
+            await _context.BisnesTasks.AddAsync(bisnesTask);
+            await SaveAsync();
+        }
+    }
+}

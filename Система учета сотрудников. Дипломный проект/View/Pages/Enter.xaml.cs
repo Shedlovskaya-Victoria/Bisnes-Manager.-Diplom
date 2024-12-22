@@ -24,8 +24,8 @@ namespace BisnesManager.Client.View
     {
         public Enter()
         {
-            //InitializeComponent();
-            //DataContext = new EnterVM(password);
+            InitializeComponent();
+            DataContext = new EnterVM(password);
 
           
         }

@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using BisnesManager.DatabasePersistens.Context;
+using BisnesManager.DatabasePersistens.Model;
+using BisnesManager.Domain.DTO;
+using BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandDTO;
+using MediatR;
+namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
+{
+    public class CreateStatusCommandHandler : ImplementBase<Status>, IRequestHandler<StatusCommandDTO>
+    {
+        private readonly BissnesExpertSystemDiplomaContext _context;
+        public CreateStatusCommandHandler(BissnesExpertSystemDiplomaContext context) : base(context)
+        {
+            _context = context;
+        }
+
+        public async Task Handle(StatusCommandDTO request, CancellationToken cancellationToken)
+        {
+            var status = new Status()
+            {
+                Title = request.Title,
+            };
+
+            await _context.Statuses.AddAsync(status);
+            await SaveAsync();
+
+
+        }
+    }
+}

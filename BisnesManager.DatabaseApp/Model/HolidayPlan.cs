@@ -9,7 +9,11 @@ public partial class HolidayPlan
 
     public short IdUser { get; set; }
 
-    public DateOnly Date { get; set; }
+    public DateOnly DateCreate { get; set; }
+
+    public DateOnly StartWeekends { get; set; }
+
+    public DateOnly EndWeekends { get; set; }
 
     public virtual User IdUserNavigation { get; set; } = null!;
 }

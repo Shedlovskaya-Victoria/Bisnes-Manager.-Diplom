@@ -9,8 +9,6 @@ public partial class Statistic
 
     public short IdUser { get; set; }
 
-    public DateOnly Date { get; set; }
-
     public int QualityWork { get; set; }
 
     public int LevelResponibility { get; set; }
@@ -20,6 +18,8 @@ public partial class Statistic
     public int HardSkils { get; set; }
 
     public int SoftSkils { get; set; }
+
+    public DateOnly DateCreate { get; set; }
 
     public virtual User IdUserNavigation { get; set; } = null!;
 }

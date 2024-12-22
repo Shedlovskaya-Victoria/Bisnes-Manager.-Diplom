@@ -1,18 +1,16 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BisnesManager.Domain.DTO
+namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandDTO
 {
-    public class Statistic
+    public class StatisticCommandDTO : IRequest
     {
-        public int Id { get; set; }
-
         public short IdUser { get; set; }
 
-        public DateOnly Date { get; set; }
 
         public int QualityWork { get; set; }
 
@@ -23,5 +21,7 @@ namespace BisnesManager.Domain.DTO
         public int HardSkils { get; set; }
 
         public int SoftSkils { get; set; }
+
+        public DateOnly DateCreate { get; set; }
     }
 }

@@ -15,5 +15,7 @@ public partial class Role
 
     public string? Post { get; set; }
 
+    public DateOnly DateCreate { get; set; }
+
     public virtual ICollection<User> Users { get; set; } = new List<User>();
 }
