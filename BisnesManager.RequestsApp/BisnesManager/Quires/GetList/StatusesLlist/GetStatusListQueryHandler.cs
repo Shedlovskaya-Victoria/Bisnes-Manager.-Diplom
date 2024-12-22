@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetList.StatusesLlist
-{
+{ 
     internal class GetStatusListQueryHandler : IRequestHandler<StatusQuery ,StatusVm> 
     {
         private readonly BissnesExpertSystemDiplomaContext _context; 
