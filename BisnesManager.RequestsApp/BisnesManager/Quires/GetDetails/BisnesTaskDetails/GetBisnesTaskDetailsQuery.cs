@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.BisnesTaskDetails
 {
-    public class GetBisnesTaskDetails : IRequest<BisnesTaskVm>
+    public class GetBisnesTaskDetailsQuery : IRequest<BisnesTaskDetailsVm>
     {
         public int Id { get; set; }
 

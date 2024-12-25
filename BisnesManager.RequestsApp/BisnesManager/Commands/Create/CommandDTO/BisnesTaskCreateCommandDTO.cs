@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandDTO
 {
-    public class BisnesTaskCommandDTO : IRequest
+    public class BisnesTaskCreateCommandDTO : IRequest
     {
         public short IdUser { get; set; }
 

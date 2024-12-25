@@ -1,4 +1,11 @@
+using BisnesManager.DatabasePersistens;
+using BisnesManager.DatabasePersistens.Context;
+using BisnesManager.RequestsApp.Common.Mappings;
 using BisnesManager.WebAPI.Diplom.Middleware;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
+using BisnesManager.RequestsApp;
+using BisnesManager.DatabasePersistens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +16,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddRequestApp();
+
+    // во имя DI! даешь DI!
+    var serviceProvider = builder.Services.BuildServiceProvider();
+    try
+    {
+        var context = serviceProvider.GetRequiredService<BissnesExpertSystemDiplomaContext>();
+        DBInitialazer.Initialize(context);
+    } 
+    catch (Exception ex)
+    {
+        //сюда еще вбросим ошибку...
+    }
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -17,9 +38,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseExceptionMiddlewareExtensions();
+app.UseExceptionMiddlewareExtensions();      //
+
+app.UseRouting();     //
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll"); //
 
 app.UseAuthorization();
 

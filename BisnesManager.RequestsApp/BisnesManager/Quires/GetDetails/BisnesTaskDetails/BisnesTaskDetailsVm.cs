@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.BisnesTaskDetails
 {
-    public class BisnesTaskVm : IMapWith<BisnesTask>
+    public class BisnesTaskDetailsVm : IMapWith<BisnesTask>
     {
         public int Id { get; set; }
 
@@ -32,7 +32,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.BisnesTaskDe
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<BisnesTask, BisnesTaskVm>()
+            profile.CreateMap<BisnesTask, BisnesTaskDetailsVm>()
                 .ForMember(bisnesTaskVm => bisnesTaskVm.Id,
                   opt => opt.MapFrom(bisnesTask => bisnesTask.Id))
                 .ForMember(bisnesTaskVm => bisnesTaskVm.IdStatus,

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetList.GetBisnesTasksList
 {
-    internal class BisnesTaskDto : IMapWith<BisnesTask>
+    public class BisnesTaskDto : IMapWith<BisnesTask>
     {
         public int Id { get; set; }
 

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
 {
-    public class CreateBisnesTaskCommandHandler : ImplementBase<BisnesTask>, IRequestHandler<BisnesTaskCommandDTO>
+    public class CreateBisnesTaskCommandHandler : ImplementBase<BisnesTask>, IRequestHandler<BisnesTaskCreateCommandDTO>
     {
         private readonly BissnesExpertSystemDiplomaContext _context;
         public CreateBisnesTaskCommandHandler(BissnesExpertSystemDiplomaContext context) : base(context)
@@ -18,7 +18,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
             _context = context;
         }
 
-        public async Task Handle(BisnesTaskCommandDTO request, CancellationToken cancellationToken)
+        public async Task Handle(BisnesTaskCreateCommandDTO request, CancellationToken cancellationToken)
         {
             var bisnesTask = new BisnesTask()
             {

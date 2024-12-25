@@ -14,7 +14,8 @@ namespace BisnesManager.RequestsApp
     {
         public static IServiceCollection AddRequestApp(this IServiceCollection services)
         {
-            services.AddMediatR(Assembly.GetExecutingAssembly());
+            //services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddMediatR(cfg => { cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly() ); });
             return services;
         }
     }

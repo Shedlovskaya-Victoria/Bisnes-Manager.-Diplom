@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetList.GetBisnesTasksList
 {
-    internal class GetBisnesTaskQueryHandler : IRequestHandler<GetBisnesTaskQuery, BisnesTaskVm>
+    public class GetBisnesTaskQueryHandler : IRequestHandler<GetBisnesTaskListQuery, BisnesTaskListVm>
     {
         private readonly BissnesExpertSystemDiplomaContext _context;
         private readonly IMapper _mapper;
@@ -22,12 +22,12 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetList.GetBisnesTasksL
             _mapper = mapper;
         }
 
-        public async Task<BisnesTaskVm> Handle(GetBisnesTaskQuery request, CancellationToken cancellationToken)
+        public async Task<BisnesTaskListVm> Handle(GetBisnesTaskListQuery request, CancellationToken cancellationToken)
         {
            var bisnesTaskQuery = await _context.BisnesTasks.Where(task=>task.IdUser == request.IdUser)
                 .ProjectTo<BisnesTaskDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
 
-            return new BisnesTaskVm { BisnesTasks = bisnesTaskQuery };
+            return new BisnesTaskListVm { BisnesTasks = bisnesTaskQuery };
         }
     }
 }

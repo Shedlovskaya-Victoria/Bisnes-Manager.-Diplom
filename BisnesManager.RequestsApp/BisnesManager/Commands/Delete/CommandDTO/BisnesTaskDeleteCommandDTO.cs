@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Commands.Delete.CommandDTO
 {
-    public class BisnesTaskCommandDTO : IRequest
+    public class BisnesTaskDeleteCommandDTO : IRequest
     {
         public int Id { get; set; }
 

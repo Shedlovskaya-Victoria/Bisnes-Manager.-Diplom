@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Commands.Update.CommandDTO
 {
-    public class BisnesTaskCommandDTO : IRequest
+    public class BisnesTaskUpdateCommandDTO : IRequest
     {
         public int Id { get; set; }
 

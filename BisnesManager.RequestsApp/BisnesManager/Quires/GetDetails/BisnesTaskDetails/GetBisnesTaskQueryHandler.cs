@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.BisnesTaskDetails
 {
-    public class GetBisnesTaskQueryHandler : IRequestHandler<GetBisnesTaskDetails, BisnesTaskVm>
+    public class GetBisnesTaskQueryHandler : IRequestHandler<GetBisnesTaskDetailsQuery, BisnesTaskDetailsVm>
     {
         private readonly BissnesExpertSystemDiplomaContext _context;
         private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.BisnesTaskDe
             _mapper = mapper;
         }
 
-        public async Task<BisnesTaskVm> Handle(GetBisnesTaskDetails request, CancellationToken cancellationToken)
+        public async Task<BisnesTaskDetailsVm> Handle(GetBisnesTaskDetailsQuery request, CancellationToken cancellationToken)
         {
             var entry = await _context.BisnesTasks.FirstOrDefaultAsync(s => s.Id == request.Id, cancellationToken);
 
@@ -31,7 +31,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.BisnesTaskDe
             {
                 throw new NotFoundException(nameof(BisnesTask), request.Id);
             }
-            return _mapper.Map<BisnesTaskVm>(entry);
+            return _mapper.Map<BisnesTaskDetailsVm>(entry);
         }
     }
 }
