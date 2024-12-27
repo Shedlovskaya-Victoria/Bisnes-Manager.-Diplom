@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.RoleDetails
 {
-    public class GetRoleQueryHandler : IRequestHandler<GetRoleDetails, RoleVm>
+    public class GetRoleQueryHandler : IRequestHandler<GetRoleDetails, RoleDetailsVm>
     {
         private readonly BissnesExpertSystemDiplomaContext _context;
         private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.RoleDetails
             _mapper = mapper;
         }
 
-        async Task<RoleVm> IRequestHandler<GetRoleDetails, RoleVm>.Handle(GetRoleDetails request, CancellationToken cancellationToken)
+        async Task<RoleDetailsVm> IRequestHandler<GetRoleDetails, RoleDetailsVm>.Handle(GetRoleDetails request, CancellationToken cancellationToken)
         {
             var entry = await _context.Roles.FirstOrDefaultAsync(s => s.Id == request.Id, cancellationToken);
 
@@ -31,7 +31,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.RoleDetails
             {
                 throw new NotFoundException(nameof(Role), request.Id);
             }
-            return _mapper.Map<RoleVm>(entry);
+            return _mapper.Map<RoleDetailsVm>(entry);
         }
     }
 }

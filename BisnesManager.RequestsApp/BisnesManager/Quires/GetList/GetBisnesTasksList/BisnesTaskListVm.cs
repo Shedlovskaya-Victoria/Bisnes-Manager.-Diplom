@@ -8,6 +8,6 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetList.GetBisnesTasksL
 {
     public class BisnesTaskListVm
     {
-        public List<BisnesTaskDto> BisnesTasks { get; set; }
+        public List<GetListBisnesTaskDto> BisnesTasks { get; set; }
     }
 }

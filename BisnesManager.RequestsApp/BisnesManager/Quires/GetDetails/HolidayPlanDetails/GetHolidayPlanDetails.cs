@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.HolidayPlanDetails
 {
-    public class GetHolidayPlanDetails : IRequest<HolidayPlanVm>
+    public class GetHolidayPlanDetails : IRequest<HolidayPlanDetailsVm>
     {
         public short Id { get; set; }
         public short IdUser { get; set; }

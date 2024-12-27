@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.StatusDetails
 {
-    public class GetStatusDetails : IRequest<StatusVm>
+    public class GetStatusDetails : IRequest<StatusDetailsVm>
     {
         public short Id { get; set; }
 

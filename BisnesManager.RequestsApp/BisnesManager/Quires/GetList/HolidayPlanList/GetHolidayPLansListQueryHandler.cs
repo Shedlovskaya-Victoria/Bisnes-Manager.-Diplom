@@ -24,7 +24,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetList.HolidayPlanList
         public async Task<HolidayPlanVm> Handle(HolidayPlansQuery request, CancellationToken cancellationToken)
         {
            var holidayPlansQuery = await _context.HolidayPlans.Where(plan=>plan.IdUser == request.IdUser)
-                .ProjectTo<HolidayPlanLookupDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
+                .ProjectTo<HolidayPlanListDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
 
             return new HolidayPlanVm { holidayPlans = holidayPlansQuery };
         }

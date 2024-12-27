@@ -27,7 +27,7 @@ builder.Services.AddRequestApp();
     } 
     catch (Exception ex)
     {
-        //сюда еще вбросим ошибку...
+        //сюда еще вбросим ошибку... честно
     }
 
 var app = builder.Build();

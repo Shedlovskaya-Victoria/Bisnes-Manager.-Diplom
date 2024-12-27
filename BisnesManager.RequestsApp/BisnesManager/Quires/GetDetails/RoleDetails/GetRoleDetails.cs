@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.RoleDetails
 {
-    internal class GetRoleDetails : IRequest<RoleVm>
+    internal class GetRoleDetails : IRequest<RoleDetailsVm>
     {
         public short Id { get; set; }
 

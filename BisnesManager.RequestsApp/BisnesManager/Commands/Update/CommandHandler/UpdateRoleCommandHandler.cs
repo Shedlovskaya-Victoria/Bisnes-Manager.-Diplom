@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Commands.Update.CommandHandler
 {
-    public class RoleCommandHandler : ImplementBase<Role>, IRequestHandler<RoleCommandDTO>
+    public class RoleCommandHandler : ImplementBase<Role>, IRequestHandler<RoleUpdateCommandDTO>
     {
         private readonly BissnesExpertSystemDiplomaContext _context;
         public RoleCommandHandler(BissnesExpertSystemDiplomaContext context) : base(context)
@@ -20,7 +20,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Update.CommandHandler
             _context = context;
         }
 
-        public async Task Handle(RoleCommandDTO request, CancellationToken cancellationToken)
+        public async Task Handle(RoleUpdateCommandDTO request, CancellationToken cancellationToken)
         {
             var entry = await _context.Roles.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 

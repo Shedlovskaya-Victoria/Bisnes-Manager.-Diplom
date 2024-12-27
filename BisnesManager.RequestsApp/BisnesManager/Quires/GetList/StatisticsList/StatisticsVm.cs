@@ -10,6 +10,6 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetList.StatisticsList
 {
     internal class StatisticsVm 
     {
-        public List<StatisticsDto> Statistics { get; set; } 
+        public List<StatisticsListDto> Statistics { get; set; } 
     }
 }

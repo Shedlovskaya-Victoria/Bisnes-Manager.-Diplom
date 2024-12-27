@@ -25,7 +25,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetList.GetBisnesTasksL
         public async Task<BisnesTaskListVm> Handle(GetBisnesTaskListQuery request, CancellationToken cancellationToken)
         {
            var bisnesTaskQuery = await _context.BisnesTasks.Where(task=>task.IdUser == request.IdUser)
-                .ProjectTo<BisnesTaskDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
+                .ProjectTo<GetListBisnesTaskDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
 
             return new BisnesTaskListVm { BisnesTasks = bisnesTaskQuery };
         }

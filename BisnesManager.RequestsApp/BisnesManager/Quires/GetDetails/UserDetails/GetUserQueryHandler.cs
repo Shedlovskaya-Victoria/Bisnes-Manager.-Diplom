@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.UserDetails
 {
-    public class GetUserQueryHandler : IRequestHandler<GetUserDetails, UserVm>
+    public class GetUserQueryHandler : IRequestHandler<GetUserDetails, UserDetailsVm>
     {
         private readonly BissnesExpertSystemDiplomaContext _context;
         private readonly IMapper _mapper;
@@ -21,14 +21,14 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.UserDetails
             _context = context;
             _mapper = mapper;
         }
-        public async Task<UserVm> Handle(GetUserDetails request, CancellationToken cancellationToken)
+        public async Task<UserDetailsVm> Handle(GetUserDetails request, CancellationToken cancellationToken)
         {
             var entry = await _context.Users.FirstOrDefaultAsync(s=>s.Id == request.Id);
             if (entry == null)
             {
                 throw new NotFoundException(nameof(User), request.Id);
             }
-            return _mapper.Map<UserVm>(entry);
+            return _mapper.Map<UserDetailsVm>(entry);
         }
     }
 }

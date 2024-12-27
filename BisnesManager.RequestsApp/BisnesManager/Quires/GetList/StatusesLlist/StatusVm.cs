@@ -8,6 +8,6 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetList.StatusesLlist
 {
     internal class StatusVm
     {
-        public List<StatusDto> Statuses { get; set; }
+        public List<StatusListDto> Statuses { get; set; }
     }
 }

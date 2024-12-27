@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
 {
-    public class CreateStatisticCommandHandler : ImplementBase<Statistic>, IRequestHandler<StatisticCommandDTO>
+    public class CreateStatisticCommandHandler : ImplementBase<Statistic>, IRequestHandler<StatisticCreateCommandDTO>
     {
         private readonly BissnesExpertSystemDiplomaContext _context;
 
@@ -19,7 +19,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
             _context = context;
         }
 
-        public async Task Handle(StatisticCommandDTO request, CancellationToken cancellationToken)
+        public async Task Handle(StatisticCreateCommandDTO request, CancellationToken cancellationToken)
         {
             var statistic = new Statistic()
             {

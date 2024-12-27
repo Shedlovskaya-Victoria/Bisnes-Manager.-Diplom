@@ -11,7 +11,7 @@ using BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandDTO;
 using MediatR;
 namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
 {
-    public class CreateStatusCommandHandler : ImplementBase<Status>, IRequestHandler<StatusCommandDTO>
+    public class CreateStatusCommandHandler : ImplementBase<Status>, IRequestHandler<StatusCreateCommandDTO>
     {
         private readonly BissnesExpertSystemDiplomaContext _context;
         public CreateStatusCommandHandler(BissnesExpertSystemDiplomaContext context) : base(context)
@@ -19,7 +19,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
             _context = context;
         }
 
-        public async Task Handle(StatusCommandDTO request, CancellationToken cancellationToken)
+        public async Task Handle(StatusCreateCommandDTO request, CancellationToken cancellationToken)
         {
             var status = new Status()
             {

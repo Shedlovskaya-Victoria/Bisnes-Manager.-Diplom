@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
 {
-    public class CreateHolidayPlanCommandHandler : ImplementBase<HolidayPlan>, IRequestHandler<HolidayPlanCommandDTO>
+    public class CreateHolidayPlanCommandHandler : ImplementBase<HolidayPlan>, IRequestHandler<HolidayPlanCreateCommandDTO>
     {
         private readonly BissnesExpertSystemDiplomaContext _context;
         public CreateHolidayPlanCommandHandler(BissnesExpertSystemDiplomaContext context) : base(context)
@@ -18,7 +18,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
             _context = context;
         }
 
-        public async Task Handle(HolidayPlanCommandDTO request, CancellationToken cancellationToken)
+        public async Task Handle(HolidayPlanCreateCommandDTO request, CancellationToken cancellationToken)
         {
             var holidayPlan = new HolidayPlan()
             {

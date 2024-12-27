@@ -13,7 +13,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 namespace BisnesManager.RequestsApp.BisnesManager.Commands.Update.CommandHandler
 {
-    public class DeleteStatusCommandHandler : ImplementBase<Status>, IRequestHandler<StatusCommandDTO>
+    public class DeleteStatusCommandHandler : ImplementBase<Status>, IRequestHandler<StatusUpdateCommandDTO>
     {
         private readonly BissnesExpertSystemDiplomaContext _context;
         public DeleteStatusCommandHandler(BissnesExpertSystemDiplomaContext context) : base(context)
@@ -21,7 +21,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Update.CommandHandler
             _context = context;
         }
 
-        public async Task Handle(StatusCommandDTO request, CancellationToken cancellationToken)
+        public async Task Handle(StatusUpdateCommandDTO request, CancellationToken cancellationToken)
         {
             var entry = await _context.Statuses.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 

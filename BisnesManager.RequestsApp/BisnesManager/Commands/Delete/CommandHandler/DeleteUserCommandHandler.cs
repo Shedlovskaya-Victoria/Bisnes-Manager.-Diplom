@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Commands.Delete.CommandHandler
 {
-    public class DeleteUserCommandHandler : ImplementBase<User>, IRequestHandler<UserCommandDTO, Unit>
+    public class DeleteUserCommandHandler : ImplementBase<User>, IRequestHandler<UserDeleteCommandDTO, Unit>
     {
         private readonly BissnesExpertSystemDiplomaContext _context;
         public DeleteUserCommandHandler(BissnesExpertSystemDiplomaContext context) : base(context)
@@ -20,7 +20,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Delete.CommandHandler
             _context = context;
         }
 
-        public async Task<Unit> Handle(UserCommandDTO request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UserDeleteCommandDTO request, CancellationToken cancellationToken)
         {
             var entry = await _context.Users.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 

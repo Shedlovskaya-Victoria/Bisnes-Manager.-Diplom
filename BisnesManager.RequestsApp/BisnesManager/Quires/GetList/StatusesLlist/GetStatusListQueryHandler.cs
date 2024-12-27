@@ -24,7 +24,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetList.StatusesLlist
         public async Task<StatusVm> Handle(StatusQuery request, CancellationToken cancellationToken)
         {
             var statusesQuery = await _context.Statuses.Where(status => status.Id == request.Id)
-                 .ProjectTo<StatusDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
+                 .ProjectTo<StatusListDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
 
             return new StatusVm {  Statuses  = statusesQuery };
         }

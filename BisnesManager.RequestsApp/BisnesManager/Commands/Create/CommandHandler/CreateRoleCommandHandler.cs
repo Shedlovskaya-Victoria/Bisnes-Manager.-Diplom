@@ -10,7 +10,7 @@ using BisnesManager.DatabasePersistens.Context;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
 {
-    public class CreateRoleCommandHandler : ImplementBase<Role>, IRequestHandler<RoleCommandDTO>
+    public class CreateRoleCommandHandler : ImplementBase<Role>, IRequestHandler<RoleCreateCommandDTO>
     {
         private readonly BissnesExpertSystemDiplomaContext _context;
         public CreateRoleCommandHandler(BissnesExpertSystemDiplomaContext context) : base(context)
@@ -18,7 +18,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
             _context = context;
         }
 
-        public async Task Handle(RoleCommandDTO request, CancellationToken cancellationToken)
+        public async Task Handle(RoleCreateCommandDTO request, CancellationToken cancellationToken)
         {
             var role = new Role()
             {

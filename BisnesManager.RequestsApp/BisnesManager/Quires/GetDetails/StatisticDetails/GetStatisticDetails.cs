@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.StatisticDetails
 {
-    public class GetStatisticDetails : IRequest<StatisticVm>
+    public class GetStatisticDetails : IRequest<StatisticDetailsVm>
     {
         public int Id { get; set; }
 

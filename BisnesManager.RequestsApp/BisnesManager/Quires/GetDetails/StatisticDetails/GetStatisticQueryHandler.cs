@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.StatisticDetails
 {
-    public class GetStatisticQueryHandler : IRequestHandler<GetStatisticDetails, StatisticVm>
+    public class GetStatisticQueryHandler : IRequestHandler<GetStatisticDetails, StatisticDetailsVm>
     {
 
         private readonly BissnesExpertSystemDiplomaContext _context;
@@ -24,7 +24,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.StatisticDet
             _mapper = mapper;
         }
 
-        public async Task<StatisticVm> Handle(GetStatisticDetails request, CancellationToken cancellationToken)
+        public async Task<StatisticDetailsVm> Handle(GetStatisticDetails request, CancellationToken cancellationToken)
         {
             var entry = await _context.Statistics.FirstOrDefaultAsync(s => s.Id == request.Id, cancellationToken);
 
@@ -32,7 +32,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.StatisticDet
             {
                 throw new NotFoundException(nameof(Statistic), request.Id);
             }
-            return _mapper.Map<StatisticVm>(entry);
+            return _mapper.Map<StatisticDetailsVm>(entry);
         }
     }
 }

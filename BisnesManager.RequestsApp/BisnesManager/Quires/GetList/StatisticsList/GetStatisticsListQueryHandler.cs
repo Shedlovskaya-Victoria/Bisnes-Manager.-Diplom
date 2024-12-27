@@ -24,7 +24,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetList.StatisticsList
         public async Task<StatisticsVm> Handle(StatisticsQuery request, CancellationToken cancellationToken)
         {
             var statisticQuery = await _context.Statistics.Where(stat => stat.IdUser == request.IdUser)
-                .ProjectTo<StatisticsDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
+                .ProjectTo<StatisticsListDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
 
             return new StatisticsVm { Statistics = statisticQuery };
         }

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.HolidayPlanDetails
 {
-    public class GetHolidayPlanQueryHandler : IRequestHandler<GetHolidayPlanDetails, HolidayPlanVm>
+    public class GetHolidayPlanQueryHandler : IRequestHandler<GetHolidayPlanDetails, HolidayPlanDetailsVm>
     {
 
         private readonly BissnesExpertSystemDiplomaContext _context;
@@ -24,7 +24,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.HolidayPlanD
             _mapper = mapper;
         }
 
-        public async Task<HolidayPlanVm> Handle(GetHolidayPlanDetails request, CancellationToken cancellationToken)
+        public async Task<HolidayPlanDetailsVm> Handle(GetHolidayPlanDetails request, CancellationToken cancellationToken)
         {
            var entry = await _context.HolidayPlans.FirstOrDefaultAsync(s=>s.Id == request.Id, cancellationToken);
 
@@ -32,7 +32,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.HolidayPlanD
             {
                 throw new NotFoundException(nameof(HolidayPlan), request.Id);
             }
-            return _mapper.Map<HolidayPlanVm>(entry);
+            return _mapper.Map<HolidayPlanDetailsVm>(entry);
         }
     }
 }

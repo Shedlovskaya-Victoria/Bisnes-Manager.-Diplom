@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.StatusDetails
 {
-    public class GetStatusQueryHandler : IRequestHandler<GetStatusDetails, StatusVm>
+    public class GetStatusQueryHandler : IRequestHandler<GetStatusDetails, StatusDetailsVm>
     {
         private readonly BissnesExpertSystemDiplomaContext _context;
         private readonly IMapper _mapper;
@@ -22,14 +22,14 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.StatusDetail
             _context = context;
             _mapper = mapper;
         }
-        public async Task<StatusVm> Handle(GetStatusDetails request, CancellationToken cancellationToken)
+        public async Task<StatusDetailsVm> Handle(GetStatusDetails request, CancellationToken cancellationToken)
         {
             var entry = await _context.Statuses.FirstOrDefaultAsync(s => s.Id == request.Id);
             if (entry == null)
             {
                 throw new NotFoundException(nameof(Status), request.Id);
             }
-            return _mapper.Map<StatusVm>(entry);
+            return _mapper.Map<StatusDetailsVm>(entry);
         }
     }
 }
