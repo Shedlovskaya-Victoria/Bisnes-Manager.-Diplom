@@ -18,7 +18,8 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
             _context = context;
         }
 
-        public async Task Handle(UserCreateCommandDTO request, CancellationToken cancellationToken)
+       
+        async Task<Unit> IRequestHandler<UserCreateCommandDTO, Unit>.Handle(UserCreateCommandDTO request, CancellationToken cancellationToken)
         {
             var user = new User()
             {
@@ -29,16 +30,17 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
                 PhotoImage = request.PhotoImage,
                 CheckPhrase = request.CheckPhrase,
                 DateCreate = DateOnly.FromDateTime(DateTime.Now),
-                EndWorkTime = (DateTimeOffset)request.EndWorkTime,
-                StartWorkTime = (DateTime)request.StartWorkTime,
+                EndWorkTime = request.EndWorkTime,
+                StartWorkTime = request.StartWorkTime,
                 Family = request.Family,
                 IdRole = request.IdRole,
                 Login = request.Login,
             };
 
-            await _context.Users.AddAsync(user);
-            await SaveAsync();
+            await _context.Users.AddAsync(user, cancellationToken);
+            await SaveAsync(cancellationToken);
 
+            return Unit.Value;
         }
     }
 }

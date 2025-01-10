@@ -19,7 +19,8 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
             _context = context;
         }
 
-        public async Task Handle(StatisticCreateCommandDTO request, CancellationToken cancellationToken)
+       
+        async Task<Unit> IRequestHandler<StatisticCreateCommandDTO, Unit>.Handle(StatisticCreateCommandDTO request, CancellationToken cancellationToken)
         {
             var statistic = new Statistic()
             {
@@ -32,8 +33,9 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
                 DateCreate = DateOnly.FromDateTime(DateTime.Now),
             };
 
-            await _context.Statistics.AddAsync(statistic);
-            await SaveAsync();
+            await _context.Statistics.AddAsync(statistic, cancellationToken);
+            await SaveAsync(cancellationToken);
+            return Unit.Value;
         }
     }
 }

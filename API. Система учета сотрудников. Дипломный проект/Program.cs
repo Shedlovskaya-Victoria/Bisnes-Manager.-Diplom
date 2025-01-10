@@ -5,7 +5,6 @@ using BisnesManager.WebAPI.Diplom.Middleware;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using BisnesManager.RequestsApp;
-using BisnesManager.DatabasePersistens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,16 +18,17 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddRequestApp();
 
     // во имя DI! даешь DI!
-    var serviceProvider = builder.Services.BuildServiceProvider();
-    try
-    {
-        var context = serviceProvider.GetRequiredService<BissnesExpertSystemDiplomaContext>();
-        DBInitialazer.Initialize(context);
-    } 
-    catch (Exception ex)
-    {
-        //сюда еще вбросим ошибку... честно
-    }
+    //var serviceProvider = builder.Services.BuildServiceProvider();
+    //try
+    //{
+    //    var context = serviceProvider.GetRequiredService<BissnesExpertSystemDiplomaContext>();
+    //    DBInitialazer.Initialize(context);
+    //} 
+    //catch (Exception ex)
+    //{
+    //    //сюда еще вбросим ошибку... честно
+        
+    //}
 
 var app = builder.Build();
 

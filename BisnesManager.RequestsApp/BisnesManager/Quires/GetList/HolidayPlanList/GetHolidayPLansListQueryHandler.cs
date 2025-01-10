@@ -26,7 +26,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetList.HolidayPlanList
            var holidayPlansQuery = await _context.HolidayPlans.Where(plan=>plan.IdUser == request.IdUser)
                 .ProjectTo<HolidayPlanListDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
 
-            return new HolidayPlanVm { holidayPlans = holidayPlansQuery };
+            return new HolidayPlanVm { holidayPlansList = holidayPlansQuery };
         }
     }
 }

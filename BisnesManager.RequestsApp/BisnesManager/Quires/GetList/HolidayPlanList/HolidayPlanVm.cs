@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetList.HolidayPlanList
 {
-    internal class HolidayPlanVm
+    public class HolidayPlanVm
     {
-        public List<HolidayPlanListDto> holidayPlans { get; set; }
+        public List<HolidayPlanListDto> holidayPlansList { get; set; } = new();
     }
 }

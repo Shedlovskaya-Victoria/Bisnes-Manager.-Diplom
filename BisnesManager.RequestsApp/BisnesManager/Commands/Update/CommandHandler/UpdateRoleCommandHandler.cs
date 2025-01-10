@@ -20,7 +20,9 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Update.CommandHandler
             _context = context;
         }
 
-        public async Task Handle(RoleUpdateCommandDTO request, CancellationToken cancellationToken)
+       
+
+        async Task<Unit> IRequestHandler<RoleUpdateCommandDTO, Unit>.Handle(RoleUpdateCommandDTO request, CancellationToken cancellationToken)
         {
             var entry = await _context.Roles.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
@@ -36,7 +38,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Update.CommandHandler
             entry.Title = request.Title;
 
             await SaveAsync(cancellationToken);
-
+            return Unit.Value;
         }
     }
 }

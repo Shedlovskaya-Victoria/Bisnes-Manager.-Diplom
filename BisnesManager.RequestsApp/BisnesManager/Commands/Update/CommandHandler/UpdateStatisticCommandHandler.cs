@@ -21,7 +21,9 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Update.CommandHandler
             _context = context;
         }
 
-        public async Task Handle(StatisticUpdateCommandDTO request, CancellationToken cancellationToken)
+       
+
+        async Task<Unit> IRequestHandler<StatisticUpdateCommandDTO, Unit>.Handle(StatisticUpdateCommandDTO request, CancellationToken cancellationToken)
         {
             var entry = await _context.Statistics.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
@@ -37,9 +39,10 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Update.CommandHandler
             entry.SoftSkils = request.SoftSkils;
             entry.LevelResponibility = request.LevelResponibility;
             entry.DateCreate = DateOnly.FromDateTime(DateTime.Now);
-            
+
 
             await SaveAsync(cancellationToken);
+            return Unit.Value;
         }
     }
 }

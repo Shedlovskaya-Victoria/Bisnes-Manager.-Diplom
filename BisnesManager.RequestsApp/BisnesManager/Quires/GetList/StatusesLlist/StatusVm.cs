@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetList.StatusesLlist
 {
-    internal class StatusVm
+    public class StatusVm
     {
-        public List<StatusListDto> Statuses { get; set; }
+        public List<StatusListDto> Statuses { get; set; } 
     }
 }

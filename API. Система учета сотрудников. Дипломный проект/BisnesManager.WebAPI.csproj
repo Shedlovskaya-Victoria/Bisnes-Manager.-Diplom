@@ -20,4 +20,8 @@
     <ProjectReference Include="..\BisnesManager.RequestsApp\BisnesManager.RequestsApp.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="IdentityServer\" />
+  </ItemGroup>
+
 </Project>

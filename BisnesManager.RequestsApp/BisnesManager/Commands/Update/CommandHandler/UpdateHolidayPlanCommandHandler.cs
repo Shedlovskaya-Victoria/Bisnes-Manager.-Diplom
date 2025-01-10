@@ -19,8 +19,8 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Update.CommandHandler
         {
             _context = context;
         }
-
-        public async Task Handle(HolidayPlanUpdateCommandDTO request, CancellationToken cancellationToken)
+        
+        async Task<Unit> IRequestHandler<HolidayPlanUpdateCommandDTO, Unit>.Handle(HolidayPlanUpdateCommandDTO request, CancellationToken cancellationToken)
         {
             var entry = await _context.HolidayPlans.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
@@ -33,8 +33,10 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Update.CommandHandler
             entry.StartWeekends = request.StartWeekends;
             entry.IdUser = request.IdUser;
             entry.DateCreate = DateOnly.FromDateTime(DateTime.Now);
-            
+
             await SaveAsync(cancellationToken);
+
+            return Unit.Value;
         }
     }
 }

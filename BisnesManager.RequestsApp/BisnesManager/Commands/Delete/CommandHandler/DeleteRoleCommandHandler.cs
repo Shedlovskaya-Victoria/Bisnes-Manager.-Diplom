@@ -20,7 +20,9 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Delete.CommandHandler
             _context = context;
         }
 
-        public async Task Handle(RoleDeleteCommandDTO request, CancellationToken cancellationToken)
+       
+
+        async Task<Unit> IRequestHandler<RoleDeleteCommandDTO, Unit>.Handle(RoleDeleteCommandDTO request, CancellationToken cancellationToken)
         {
             var entry = await _context.Roles.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
@@ -32,7 +34,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Delete.CommandHandler
             await DeleteAsync(entry.Id);
 
             await SaveAsync(cancellationToken);
-
+            return Unit.Value;
         }
     }
 }

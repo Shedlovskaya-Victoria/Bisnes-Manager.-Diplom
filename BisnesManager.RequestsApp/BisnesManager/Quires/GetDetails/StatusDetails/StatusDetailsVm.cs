@@ -13,7 +13,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetDetails.StatusDetail
     {
         public short Id { get; set; }
 
-        public string Title { get; set; }
+        public string Title { get; set; } = "";
 
         public void Mapper(Profile profile)
         {

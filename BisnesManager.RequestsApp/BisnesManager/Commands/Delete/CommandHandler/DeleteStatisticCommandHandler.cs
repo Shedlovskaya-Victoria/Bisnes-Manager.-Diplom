@@ -21,7 +21,8 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Delete.CommandHandler
             _context = context;
         }
 
-        public async Task Handle(StatisticDeleteCommandDTO request, CancellationToken cancellationToken)
+       
+        async Task<Unit> IRequestHandler<StatisticDeleteCommandDTO, Unit>.Handle(StatisticDeleteCommandDTO request, CancellationToken cancellationToken)
         {
             var entry = await _context.Statistics.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
@@ -33,6 +34,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Delete.CommandHandler
             await DeleteAsync(entry.Id);
 
             await SaveAsync(cancellationToken);
+            return Unit.Value;
         }
     }
 }

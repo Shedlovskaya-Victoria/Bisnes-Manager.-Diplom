@@ -13,9 +13,9 @@ namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetList.StatusesLlist
     public class StatusListDto : IMapWith<Status>
     {
 
-        public string Title { get; set; }
+        public string Title { get; set; } = "";
 
-        public void Mapper(Profile profile)
+        public static void Mapper(Profile profile)
         {
             profile.CreateMap<Status, StatusListDto>()
                   .ForMember(userDto => userDto.Title,

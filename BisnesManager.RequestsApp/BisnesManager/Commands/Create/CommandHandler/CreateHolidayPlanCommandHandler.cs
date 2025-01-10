@@ -18,7 +18,7 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
             _context = context;
         }
 
-        public async Task Handle(HolidayPlanCreateCommandDTO request, CancellationToken cancellationToken)
+        async Task<Unit> IRequestHandler<HolidayPlanCreateCommandDTO, Unit>.Handle(HolidayPlanCreateCommandDTO request, CancellationToken cancellationToken)
         {
             var holidayPlan = new HolidayPlan()
             {
@@ -28,8 +28,9 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
                 DateCreate = DateOnly.FromDateTime(DateTime.Now),
             };
 
-            await _context.HolidayPlans.AddAsync(holidayPlan);
-            await SaveAsync();
+            await _context.HolidayPlans.AddAsync(holidayPlan, cancellationToken);
+            await SaveAsync(cancellationToken);
+            return Unit.Value;
         }
     }
 }

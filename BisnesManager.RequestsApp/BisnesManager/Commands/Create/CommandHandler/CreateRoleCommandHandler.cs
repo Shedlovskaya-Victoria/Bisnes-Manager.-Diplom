@@ -18,7 +18,8 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
             _context = context;
         }
 
-        public async Task Handle(RoleCreateCommandDTO request, CancellationToken cancellationToken)
+        
+        async Task<Unit> IRequestHandler<RoleCreateCommandDTO, Unit>.Handle(RoleCreateCommandDTO request, CancellationToken cancellationToken)
         {
             var role = new Role()
             {
@@ -30,9 +31,9 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
 
             };
 
-            await _context.Roles.AddAsync(role);
-            await SaveAsync();
-
+            await _context.Roles.AddAsync(role, cancellationToken);
+            await SaveAsync(cancellationToken);
+            return Unit.Value;
         }
     }
 }

@@ -13,12 +13,14 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
     public class CreateBisnesTaskCommandHandler : ImplementBase<BisnesTask>, IRequestHandler<BisnesTaskCreateCommandDTO>
     {
         private readonly BissnesExpertSystemDiplomaContext _context;
+
+       
         public CreateBisnesTaskCommandHandler(BissnesExpertSystemDiplomaContext context) : base(context)
         {
             _context = context;
         }
 
-        public async Task Handle(BisnesTaskCreateCommandDTO request, CancellationToken cancellationToken)
+        async Task<Unit>  IRequestHandler<BisnesTaskCreateCommandDTO, Unit>.Handle(BisnesTaskCreateCommandDTO request, CancellationToken cancellationToken)
         {
             var bisnesTask = new BisnesTask()
             {
@@ -32,8 +34,9 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
                 Indentation = request.Indentation,
             };
 
-            await _context.BisnesTasks.AddAsync(bisnesTask);
-            await SaveAsync();
+            await _context.BisnesTasks.AddAsync(bisnesTask, cancellationToken);
+            await SaveAsync(cancellationToken);
+            return Unit.Value;
         }
     }
 }

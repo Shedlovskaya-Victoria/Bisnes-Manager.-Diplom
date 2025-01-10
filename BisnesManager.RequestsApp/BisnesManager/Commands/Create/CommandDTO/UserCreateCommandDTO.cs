@@ -27,9 +27,9 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandDTO
 
         public byte[]? PhotoImage { get; set; }
 
-        public DateTime? StartWorkTime { get; set; }
+        public DateTime StartWorkTime { get; set; }
 
-        public DateTimeOffset? EndWorkTime { get; set; }
+        public DateTimeOffset EndWorkTime { get; set; }
 
         public DateOnly DateCreate { get; set; }
     }

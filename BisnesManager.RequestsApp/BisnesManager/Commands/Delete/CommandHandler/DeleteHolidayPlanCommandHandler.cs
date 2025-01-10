@@ -20,18 +20,20 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Delete.CommandHandler
             _context = context;
         }
 
-        public async Task Handle(HolidayPlanDeleteCommandDTO request, CancellationToken cancellationToken)
+      
+
+        async Task<Unit> IRequestHandler<HolidayPlanDeleteCommandDTO, Unit>.Handle(HolidayPlanDeleteCommandDTO request, CancellationToken cancellationToken)
         {
             var entry = await _context.HolidayPlans.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-            if (entry == null)
-            {
-                throw new NotFoundException(nameof(HolidayPlan), request.Id);
-            }
+            if (entry == null)   throw new NotFoundException(nameof(HolidayPlan), request.Id);
+            
 
             await DeleteAsync(entry.Id);
 
             await SaveAsync(cancellationToken);
+
+            return Unit.Value;
         }
     }
 }

@@ -19,17 +19,20 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Create.CommandHandler
             _context = context;
         }
 
-        public async Task Handle(StatusCreateCommandDTO request, CancellationToken cancellationToken)
+        
+
+        async Task<Unit> IRequestHandler<StatusCreateCommandDTO, Unit>.Handle(StatusCreateCommandDTO request, CancellationToken cancellationToken)
         {
             var status = new Status()
             {
                 Title = request.Title,
             };
 
-            await _context.Statuses.AddAsync(status);
-            await SaveAsync();
+            await _context.Statuses.AddAsync(status, cancellationToken);
+            await SaveAsync(cancellationToken);
 
 
+            return Unit.Value;
         }
     }
 }

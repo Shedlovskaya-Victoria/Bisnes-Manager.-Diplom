@@ -20,7 +20,9 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Update.CommandHandler
             _context = context;
         }
 
-        public async Task Handle(BisnesTaskUpdateCommandDTO request, CancellationToken cancellationToken)
+       
+
+        async Task<Unit> IRequestHandler<BisnesTaskUpdateCommandDTO, Unit>.Handle(BisnesTaskUpdateCommandDTO request, CancellationToken cancellationToken)
         {
             var entry = await _context.BisnesTasks.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
@@ -37,9 +39,10 @@ namespace BisnesManager.RequestsApp.BisnesManager.Commands.Update.CommandHandler
             entry.IdStatus = request.IdStatus;
             entry.IdUser = request.IdUser;
             entry.Indentation = request.Indentation;
-           
+
 
             await SaveAsync(cancellationToken);
+            return Unit.Value;
         }
     }
 }

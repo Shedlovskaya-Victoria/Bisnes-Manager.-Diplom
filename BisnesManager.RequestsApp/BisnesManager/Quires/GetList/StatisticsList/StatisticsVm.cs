@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.RequestsApp.BisnesManager.Quires.GetList.StatisticsList
 {
-    internal class StatisticsVm 
+    public class StatisticsVm 
     {
-        public List<StatisticsListDto> Statistics { get; set; } 
+        public List<StatisticsListDto> Statistics { get; set; } = new();
     }
 }

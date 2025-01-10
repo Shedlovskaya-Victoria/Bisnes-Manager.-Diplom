@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,6 +18,13 @@ namespace BisnesManager.RequestsApp.Common.Behaviours
     public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
+        private readonly ILogger<TRequest> _logger;
+
+        public ValidationBehaviour(IEnumerable<IValidator<TRequest>> validators, ILogger<TRequest> logger)
+        {
+            _validators = validators;
+            _logger = logger;
+        }
 
 
         /// <summary>
@@ -25,7 +34,7 @@ namespace BisnesManager.RequestsApp.Common.Behaviours
         /// <param name="next">асинхронное продолжение для следующего действия в цепочке вызовов нашего behavoira</param>
         /// <param name="cancellationToken">токен пользователя</param>
         /// <returns></returns>
-        public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+        public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken , RequestHandlerDelegate<TResponse> next)
         {
             var context = new ValidationContext<TRequest>(request);
             var failture = _validators
@@ -33,11 +42,24 @@ namespace BisnesManager.RequestsApp.Common.Behaviours
                 .SelectMany(result=>result.Errors)
                 .Where(failture=>failture != null)
                 .ToList();
-            if(failture.Count != 0)
+            if(failture.Any())
             {
                 throw new ValidationException(failture);
             }
-            return next();
+                 
+          
+            try
+            {
+                return  next();
+            }
+            catch (ValidationException ex)
+            {
+                //most likely internal server error
+                //better retain error as an inner exception for debugging
+                //but also return that an error occurred
+               
+                throw ex;
+            }
         }
     }
 }

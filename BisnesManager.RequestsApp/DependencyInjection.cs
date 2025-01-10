@@ -15,11 +15,13 @@ namespace BisnesManager.RequestsApp
     public static class DependencyInjection
     {
         public static IServiceCollection AddRequestApp(this IServiceCollection services)
-        {
+        {          
+           
             services.AddMediatR(Assembly.GetExecutingAssembly());
            // services.AddMediatR(cfg => { cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly() ); });
             services.AddValidatorsFromAssemblies(new[] { Assembly.GetExecutingAssembly() });
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>)); 
+          // services.AddScoped<IPipelineBehavior<>>, ValidationBehaviour>(); 
             return services;
         }
     }
