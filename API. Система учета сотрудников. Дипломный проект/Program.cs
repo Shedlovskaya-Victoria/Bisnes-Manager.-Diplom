@@ -1,10 +1,11 @@
 using BisnesManager.DatabasePersistens;
 using BisnesManager.DatabasePersistens.Context;
-using BisnesManager.RequestsApp.Common.Mappings;
+//using BisnesManager.RequestsApp.Common.Mappings; //   из другого апи
 using BisnesManager.WebAPI.Diplom.Middleware;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using BisnesManager.RequestsApp;
+//using BisnesManager.RequestsApp; //   из другого апи
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,20 +16,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddRequestApp();
+//builder.Services.AddRequestApp(); //   из другого апи
 
-    // во имя DI! даешь DI!
-    //var serviceProvider = builder.Services.BuildServiceProvider();
-    //try
-    //{
-    //    var context = serviceProvider.GetRequiredService<BissnesExpertSystemDiplomaContext>();
-    //    DBInitialazer.Initialize(context);
-    //} 
-    //catch (Exception ex)
-    //{
-    //    //сюда еще вбросим ошибку... честно
-        
-    //}
+builder.Services.AddDbContext<BissnesExpertSystemDiplomaContext>( options=>{            // БД ПОДЛКЛЮЧЕНИЕ
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+BisnesManager.DatabasePersistens.DBInitialazer.Initialize();
 
 var app = builder.Build();
 

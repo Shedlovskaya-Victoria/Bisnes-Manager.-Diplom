@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BisnesManager.DatabaseApp\BisnesManager.DatabasePersistens.csproj" />
-    <ProjectReference Include="..\BisnesManager.RequestsApp\BisnesManager.RequestsApp.csproj" />
   </ItemGroup>
 
   <ItemGroup>

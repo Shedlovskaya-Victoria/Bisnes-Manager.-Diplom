@@ -30,7 +30,7 @@ public partial class BissnesExpertSystemDiplomaContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=BissnesExpertSystem_Diploma;Username=postgres;Password=postgres");
+        => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=BissnesExpertSystem_Diploma7;Username=postgres;Password=postgres");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -40,7 +40,7 @@ public partial class BissnesExpertSystemDiplomaContext : DbContext
 
             entity.ToTable("BisnesTask");
 
-            entity.Property(e => e.Id).HasDefaultValueSql("nextval('\"Tasks_Id_seq\"'::regclass)");
+            entity.Property(e => e.Id);//.HasDefaultValueSql("nextval('\"Id\"'::regclass)");
             entity.Property(e => e.AssignmentsContent)
                 .HasMaxLength(255)
                 .IsFixedLength();

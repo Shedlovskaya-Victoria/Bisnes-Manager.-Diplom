@@ -4,14 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BisnesManager.DatabasePersistens.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace BisnesManager.DatabasePersistens
 {
-    public class DBInitialazer
+    public static class DBInitialazer
     {
-        public static void Initialize(BissnesExpertSystemDiplomaContext context)
+        private static BissnesExpertSystemDiplomaContext context;
+        public static void Initialize()
         {
-            context.Database.EnsureCreated();
+            if (context == null)
+                context = new();
+            
+                context.Database.Migrate();
+                context.SaveChanges();
+            
+        }
+
+        public static BissnesExpertSystemDiplomaContext GetContext()
+        {
+            if (context == null)
+                throw new Exception("База данных еще не инициализированна!");
+            else
+                return context;
         }
     }
 }
