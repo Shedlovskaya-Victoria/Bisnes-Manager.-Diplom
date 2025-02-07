@@ -18,10 +18,11 @@ builder.Services.AddSwaggerGen();
 
 //builder.Services.AddRequestApp(); //   èç äğóãîãî àïè
 
-builder.Services.AddDbContext<BissnesExpertSystemDiplomaContext>( options=>{            // ÁÄ ÏÎÄËÊËŞ×ÅÍÈÅ
+builder.Services.AddDbContext<BissnesExpertSystemDiplomaContext>(options =>
+{            // ÁÄ ÏÎÄËÊËŞ×ÅÍÈÅ
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-BisnesManager.DatabasePersistens.DBInitialazer.Initialize();
+///BisnesManager.DatabasePersistens.DBInitialazer.Initialize();
 
 var app = builder.Build();
 

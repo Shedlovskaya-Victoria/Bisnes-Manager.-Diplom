@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BisnesManager.DatabasePersistens.Context;
 using BisnesManager.DatabasePersistens.Model;
-using BisnesManager.Domain.DTO;
+using BisnesManager.ETL.DTO;
 using BisnesManager.RequestsApp.BisnesManager.Commands.Delete.CommandDTO;
 using BisnesManager.RequestsApp.Common.Exception;
 using MediatR;

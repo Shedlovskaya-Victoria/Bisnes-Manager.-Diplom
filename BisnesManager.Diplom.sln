@@ -5,21 +5,21 @@ VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BisnesManager.Client", "Система учета сотрудников. Дипломный проект\BisnesManager.Client.csproj", "{BC761F5D-1575-4779-9625-557061444062}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BisnesManager.WebAPI", "API. Система учета сотрудников. Дипломный проект\BisnesManager.WebAPI.csproj", "{4A379F70-C155-441C-97B2-566058465CD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BisnesManager.WebAPI", "API. Система учета сотрудников. Дипломный проект\BisnesManager.WebAPI.csproj", "{4A379F70-C155-441C-97B2-566058465CD3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{48E7F229-3B04-4BAD-AB88-0802DB673405}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Промежуточный уровень", "2. Промежуточный уровень", "{48E7F229-3B04-4BAD-AB88-0802DB673405}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrostructure", "Infrostructure", "{CF4C370A-BE42-4B67-AB46-62C27C3A6932}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Внутренний уровень", "1. Внутренний уровень", "{CF4C370A-BE42-4B67-AB46-62C27C3A6932}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{53983054-DC6D-4B2E-910E-45A31F0B3A59}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Внешний уровень", "3. Внешний уровень", "{53983054-DC6D-4B2E-910E-45A31F0B3A59}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{338E91B8-9C6A-4247-B5EA-E639C98B4DBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BisnesManager.Domain", "Model.Domain\BisnesManager.Domain.csproj", "{6E183D63-726F-42C5-B3DA-E126203F41A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BisnesManager.ETL", "Model.Domain\BisnesManager.ETL.csproj", "{6E183D63-726F-42C5-B3DA-E126203F41A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BisnesManager.RequestsApp", "BisnesManager.RequestsApp\BisnesManager.RequestsApp.csproj", "{EC50CD40-5358-4A52-9C9A-FE09DA66A5DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BisnesManager.BissnesLogic", "BisnesManager.RequestsApp\BisnesManager.BissnesLogic.csproj", "{EC50CD40-5358-4A52-9C9A-FE09DA66A5DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BisnesManager.DatabasePersistens", "BisnesManager.DatabaseApp\BisnesManager.DatabasePersistens.csproj", "{A2F68C2A-A5A1-419A-A3EE-691A400E509E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BisnesManager.Database", "BisnesManager.DatabaseApp\BisnesManager.Database.csproj", "{A2F68C2A-A5A1-419A-A3EE-691A400E509E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

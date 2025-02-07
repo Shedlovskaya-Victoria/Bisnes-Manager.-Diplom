@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BisnesManager.Domain.DTO
+namespace BisnesManager.ETL.DTO
 {
     public class BisnesTaskDTO
     {

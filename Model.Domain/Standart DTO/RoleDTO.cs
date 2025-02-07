@@ -5,12 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BisnesManager.Domain.DTO
+namespace BisnesManager.ETL.DTO
 {
     public class RoleDTO
     {
-        public short Id { get; set; }
-
         public string Title { get; set; } = null!;
 
         public bool IsEditWorkersRoles { get; set; }

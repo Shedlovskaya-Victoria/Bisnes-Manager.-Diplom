@@ -16,7 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BisnesManager.DatabaseApp\BisnesManager.DatabasePersistens.csproj" />
+    <ProjectReference Include="..\BisnesManager.DatabaseApp\BisnesManager.Database.csproj" />
+    <ProjectReference Include="..\Model.Domain\BisnesManager.ETL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
