@@ -8,6 +8,7 @@ namespace BisnesManager.ETL.DTO
 {
     public class UserDTO
     {
+        public short Id { get; set; }
         public string FIO { get; set; } = null!;
 
         public string Role { get; set; }

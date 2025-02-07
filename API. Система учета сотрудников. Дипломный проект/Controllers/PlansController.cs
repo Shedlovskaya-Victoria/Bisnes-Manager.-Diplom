@@ -1,4 +1,5 @@
 ﻿using BisnesManager.DatabasePersistens.Context;
+using BisnesManager.ETL.Mapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,13 +17,13 @@ namespace API._Система_учета_сотрудников._Дипломн�
         [HttpGet]
         public IActionResult GetAll()
         {
-            var list = _context.HolidayPlans.ToList();
+            var list = _context.HolidayPlans.ToList().Select(s=>s.ToPlanDTO());
 
             return Ok(list);
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get([FromRoute] short id)
+        public IActionResult Get([FromRoute] int id)
         {
             var data = _context.HolidayPlans.Find(id);
 
@@ -31,7 +32,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
                 return NotFound();
             }
 
-            return Ok(data);
+            return Ok(data.ToPlanDTO());
         }
     }
 }

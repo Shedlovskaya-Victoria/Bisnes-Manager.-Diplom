@@ -8,9 +8,7 @@ namespace BisnesManager.ETL.DTO
 {
     public class BisnesTaskDTO
     {
-        public int Id { get; set; }
-
-        public short IdUser { get; set; }
+        public string Author { get; set; }
 
         public string Content { get; set; } = null!;
 
@@ -22,8 +20,7 @@ namespace BisnesManager.ETL.DTO
 
         public string? AssignmentsContent { get; set; }
 
-        public short IdStatus { get; set; }
+        public string Status { get; set; }
 
-        public DateOnly DateCreate { get; set; }
     }
 }

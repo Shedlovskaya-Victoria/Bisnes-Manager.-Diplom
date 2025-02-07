@@ -7,11 +7,7 @@ using System.Threading.Tasks;
 namespace BisnesManager.ETL.DTO
 {
     public class StatisticDTO
-    {
-        public int Id { get; set; }
-
-        public short IdUser { get; set; }
-
+    { 
 
         public int QualityWork { get; set; }
 

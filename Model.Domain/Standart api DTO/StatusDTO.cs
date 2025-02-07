@@ -8,8 +8,6 @@ namespace BisnesManager.ETL.DTO
 {
     public class StatusDTO
     {
-        public short Id { get; set; }
-
         public string Title { get; set; } = null!;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BisnesManager.DatabasePersistens.Context;
+using BisnesManager.ETL.Mapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +18,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
         [HttpGet]
         public IActionResult GetAll()
         {
-            var list = context.Statuses.ToList();
+            var list = context.Statuses.ToList().Select(s=>s.ToStatusDTO());
             return Ok(list);
         }
         [HttpGet("{id}")]
@@ -30,7 +31,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
                 return NotFound();
             }
 
-            return Ok(data);
+            return Ok(data.ToStatusDTO());
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using BisnesManager.DatabasePersistens.Context;
+using BisnesManager.ETL.Mapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API._Система_учета_сотрудников._Дипломный_проект.Controllers
 {
@@ -16,7 +18,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
         [HttpGet]
         public IActionResult GetAll()
         {
-            var list = _context.BisnesTasks.ToList();
+            var list = _context.BisnesTasks.Include(s=>s.IdUserNavigation).Include(s=>s.IdStatusNavigation).ToList().Select(s=>s.ToTaskDTO());
 
             return Ok(list);
         }
@@ -24,14 +26,14 @@ namespace API._Система_учета_сотрудников._Дипломн�
         [HttpGet("{id}")]
         public IActionResult Get([FromRoute] short id)
         {
-            var data = _context.BisnesTasks.Find(id);
+            var data = _context.BisnesTasks.Include(s => s.IdUserNavigation).Include(s => s.IdStatusNavigation).First(s=>s.Id == id);
 
             if (data == null)
             {
                 return NotFound();
             }
 
-            return Ok(data);
+            return Ok(data.ToTaskDTO());
         }
     }
 }

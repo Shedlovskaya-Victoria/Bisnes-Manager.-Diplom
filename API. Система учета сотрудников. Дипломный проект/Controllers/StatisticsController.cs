@@ -1,4 +1,6 @@
 ﻿using BisnesManager.DatabasePersistens.Context;
+using BisnesManager.DatabasePersistens.Model;
+using BisnesManager.ETL.Mapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,25 +15,25 @@ namespace API._Система_учета_сотрудников._Дипломн�
         {
             _context = context;
         }
-        [HttpGet]
-        public IActionResult GetAll()
+        [HttpPost("GetAllFromUserId")]
+        public IActionResult GetAll([FromBody] short UserId)
         {
-            var list = _context.Statistics.ToList();
-
+            var list = _context.Statistics.Where(s => s.IdUser == UserId).ToList().Select(s => s.ToStatisticDTO()).ToList();
+             
             return Ok(list);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult Get([FromRoute] short id)
+        [HttpPost("GetOneFromDate")]
+        public IActionResult Get([FromBody] DateTime dateCreate)
         {
-            var data = _context.Statistics.Find(id);
-
+            var data = _context.Statistics.First(s=>s.DateCreate == DateOnly.FromDateTime( dateCreate));
+             
             if (data == null)
             {
                 return NotFound();
             }
 
-            return Ok(data);
+            return Ok(data.ToStatisticDTO());
         }
     }
 }
