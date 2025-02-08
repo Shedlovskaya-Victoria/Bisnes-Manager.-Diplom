@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BisnesManager.DatabasePersistens.Context;
+using BisnesManager.Database.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace BisnesManager.DatabasePersistens
+namespace BisnesManager.Database
 {
     public static class DBInitialazer
     {

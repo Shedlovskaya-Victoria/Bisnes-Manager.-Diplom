@@ -1,5 +1,7 @@
-﻿using BisnesManager.DatabasePersistens.Context;
+﻿using BisnesManager.Database.Context;
+using BisnesManager.Database.Model;
 using BisnesManager.ETL.Mapper;
+using BisnesManager.ETL.request_DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,8 +11,8 @@ namespace API._Система_учета_сотрудников._Дипломн�
     [ApiController]
     public class PlansController : ControllerBase
     {
-        private readonly BissnesExpertSystemDiplomaContext _context;
-        public PlansController(BissnesExpertSystemDiplomaContext context)
+        private readonly BissnesExpertSystemDiploma7Context _context;
+        public PlansController(BissnesExpertSystemDiploma7Context context)
         {
             _context = context;
         }
@@ -23,7 +25,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get([FromRoute] int id)
+        public IActionResult GetById([FromRoute] int id)
         {
             var data = _context.HolidayPlans.Find(id);
 
@@ -33,6 +35,15 @@ namespace API._Система_учета_сотрудников._Дипломн�
             }
 
             return Ok(data.ToPlanDTO());
+        }
+        [HttpPost]
+        public IActionResult Create([FromBody] PlanDtoRequest dtoRequest)
+        {
+            var roleModel = dtoRequest.ToPlanFromCreateDTO();
+            _context.HolidayPlans.Add(roleModel);
+            _context.SaveChanges();
+
+            return CreatedAtAction(nameof(GetById), new { roleModel.Id }, roleModel.ToPlanDTO());
         }
     }
 }

@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace BisnesManager.DatabasePersistens.Migrations
+namespace BisnesManager.Database.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

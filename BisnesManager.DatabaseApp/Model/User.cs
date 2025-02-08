@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BisnesManager.DatabasePersistens.Model;
+namespace BisnesManager.Database.Model;
 
 public partial class User
 {
@@ -25,11 +25,11 @@ public partial class User
 
     public byte[]? PhotoImage { get; set; }
 
-    public DateTime StartWorkTime { get; set; }
-
-    public DateTimeOffset EndWorkTime { get; set; }
+    public DateOnly StartWorkTime { get; set; }
 
     public DateOnly DateCreate { get; set; }
+
+    public DateOnly? EndWorkTime { get; set; }
 
     public virtual ICollection<BisnesTask> BisnesTasks { get; set; } = new List<BisnesTask>();
 

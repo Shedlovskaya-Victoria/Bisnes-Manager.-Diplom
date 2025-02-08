@@ -1,5 +1,7 @@
-﻿using BisnesManager.DatabasePersistens.Context;
+﻿using BisnesManager.Database.Context;
+using BisnesManager.Database.Model;
 using BisnesManager.ETL.Mapper;
+using BisnesManager.ETL.request_DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,9 +12,9 @@ namespace API._Система_учета_сотрудников._Дипломн�
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private BissnesExpertSystemDiplomaContext context;
+        private BissnesExpertSystemDiploma7Context context;
 
-        public UsersController(BissnesExpertSystemDiplomaContext context)
+        public UsersController(BissnesExpertSystemDiploma7Context context)
         {
             this.context = context;
         }
@@ -23,7 +25,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
             return Ok(list);
         }
         [HttpGet("{id}")]
-        public IActionResult Get([FromRoute] short id)
+        public IActionResult GetById([FromRoute] short id)
         {
             var data = context.Users.Include(s => s.IdRoleNavigation).First(s=>s.Id == id);
 
@@ -33,6 +35,18 @@ namespace API._Система_учета_сотрудников._Дипломн�
             }
 
             return Ok(data.ToUserDTO());
+        }
+        [HttpPost]
+        public IActionResult Create([FromBody] UserDtoRequest dtoRequest)
+        {
+            var userModel = dtoRequest.ToUserFromCreateDTO();
+            context.Users.Add(userModel);
+            context.SaveChanges();
+            return CreatedAtAction(nameof(GetById), new { userModel.Id }, context.Users
+                .Include(s => s.IdRoleNavigation)
+                .First(s => s.Id == userModel.Id)
+                .ToUserDTO()
+                );
         }
     }
 }

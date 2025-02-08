@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using BisnesManager.DatabasePersistens;
+using BisnesManager.Database;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
 //using BisnesManager.RequestsApp.Common.Mappings;
 using AutoMapper;
-using BisnesManager.DatabasePersistens.Context;
+//using BisnesManager.Database.Context;
 
 namespace BisnesManager.WebAPI.Diplom
 {

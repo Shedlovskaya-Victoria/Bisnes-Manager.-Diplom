@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BisnesManager.DatabasePersistens.Model;
+namespace BisnesManager.Database.Model;
 
 public partial class Role
 {

@@ -1,5 +1,6 @@
-﻿using BisnesManager.DatabasePersistens.Model;
+﻿using BisnesManager.Database.Model;
 using BisnesManager.ETL.DTO;
+using BisnesManager.ETL.request_DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,16 @@ namespace BisnesManager.ETL.Mapper
         {
             return new StatusDTO
             {
+                Id = status.Id,
                 Title = status.Title,
             };
-        } 
+        }
+        public static Status ToStatus(this StatusDtoRequest dtoRequest)
+        {
+            return new Status
+            {
+                Title = dtoRequest.Title
+            };
+        }
     }
 }

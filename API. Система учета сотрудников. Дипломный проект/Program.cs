@@ -1,11 +1,12 @@
-using BisnesManager.DatabasePersistens;
-using BisnesManager.DatabasePersistens.Context;
+using BisnesManager.Database;
 //using BisnesManager.RequestsApp.Common.Mappings; //   из другого апи
 using BisnesManager.WebAPI.Diplom.Middleware;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 //using BisnesManager.RequestsApp; //   из другого апи
 using Microsoft.EntityFrameworkCore;
+using BisnesManager.Database.Context;
+using BisnesManager.Database.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,11 +19,11 @@ builder.Services.AddSwaggerGen();
 
 //builder.Services.AddRequestApp(); //   из другого апи
 
-builder.Services.AddDbContext<BissnesExpertSystemDiplomaContext>(options =>
+builder.Services.AddDbContext<BissnesExpertSystemDiploma7Context>(options =>
 {            // БД ПОДЛКЛЮЧЕНИЕ
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-///BisnesManager.DatabasePersistens.DBInitialazer.Initialize();
+///BisnesManager.Database.DBInitialazer.Initialize();
 
 var app = builder.Build();
 

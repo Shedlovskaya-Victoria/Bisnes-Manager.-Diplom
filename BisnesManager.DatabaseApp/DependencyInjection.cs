@@ -1,5 +1,4 @@
-﻿using BisnesManager.DatabasePersistens.Context;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -8,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using BisnesManager.Database.Context;
 
-namespace BisnesManager.DatabasePersistens
+namespace BisnesManager.Database
 {
     public static class DependencyInjection
     {

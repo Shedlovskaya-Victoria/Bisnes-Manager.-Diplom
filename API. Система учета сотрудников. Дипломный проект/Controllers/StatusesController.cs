@@ -1,5 +1,7 @@
-﻿using BisnesManager.DatabasePersistens.Context;
+﻿using BisnesManager.Database.Context;
+using BisnesManager.Database.Model;
 using BisnesManager.ETL.Mapper;
+using BisnesManager.ETL.request_DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +11,9 @@ namespace API._Система_учета_сотрудников._Дипломн�
     [ApiController]
     public class StatusesController : ControllerBase
     {
-        private BissnesExpertSystemDiplomaContext context;
+        private BissnesExpertSystemDiploma7Context context;
 
-        public StatusesController(BissnesExpertSystemDiplomaContext context)
+        public StatusesController(BissnesExpertSystemDiploma7Context context)
         {
             this.context = context;
         }
@@ -32,6 +34,14 @@ namespace API._Система_учета_сотрудников._Дипломн�
             }
 
             return Ok(data.ToStatusDTO());
+        }
+        [HttpPost]
+        public IActionResult Create([FromBody] StatusDtoRequest dtoRequest)
+        {
+            var statusModel = dtoRequest.ToStatus();
+            context.Statuses.Add(statusModel);
+            context.SaveChanges();
+            return CreatedAtAction(nameof(Get), new { statusModel.Id}, statusModel.ToStatusDTO());
         }
     }
 }

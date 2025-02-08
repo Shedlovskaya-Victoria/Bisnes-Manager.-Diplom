@@ -1,6 +1,7 @@
-﻿using BisnesManager.DatabasePersistens.Context;
-using BisnesManager.DatabasePersistens.Model;
+﻿using BisnesManager.Database.Context;
+using BisnesManager.Database.Model;
 using BisnesManager.ETL.Mapper;
+using BisnesManager.ETL.request_DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,8 +11,8 @@ namespace API._Система_учета_сотрудников._Дипломн�
     [ApiController]
     public class StatisticsController : ControllerBase
     {
-        private readonly BissnesExpertSystemDiplomaContext _context;
-        public StatisticsController(BissnesExpertSystemDiplomaContext context)
+        private readonly BissnesExpertSystemDiploma7Context _context;
+        public StatisticsController(BissnesExpertSystemDiploma7Context context)
         {
             _context = context;
         }
@@ -23,10 +24,10 @@ namespace API._Система_учета_сотрудников._Дипломн�
             return Ok(list);
         }
 
-        [HttpPost("GetOneFromDate")]
-        public IActionResult Get([FromBody] DateTime dateCreate)
+        [HttpGet("{id}")]
+        public IActionResult GetByDate([FromRoute] int id)
         {
-            var data = _context.Statistics.First(s=>s.DateCreate == DateOnly.FromDateTime( dateCreate));
+            var data = _context.Statistics.Find(id);
              
             if (data == null)
             {
@@ -34,6 +35,14 @@ namespace API._Система_учета_сотрудников._Дипломн�
             }
 
             return Ok(data.ToStatisticDTO());
+        }
+        [HttpPost("Create")]
+        public IActionResult Create([FromBody] StatisticDtoRequest dtoRequest)
+        {
+            var statisticModelm = dtoRequest.ToStatisticFromCreateDTO();
+            _context.Statistics.Add(statisticModelm);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetByDate), new { statisticModelm.DateCreate }, statisticModelm.ToStatisticDTO());
         }
     }
 }

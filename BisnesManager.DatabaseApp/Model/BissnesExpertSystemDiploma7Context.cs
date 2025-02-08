@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using BisnesManager.Database.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace BisnesManager.Database.Context;
+namespace BisnesManager.Database.Model;
 
-public partial class BissnesExpertSystemDiplomaContext : DbContext
+public partial class BissnesExpertSystemDiploma7Context : DbContext
 {
-    public BissnesExpertSystemDiplomaContext()
+    public BissnesExpertSystemDiploma7Context()
     {
     }
 
-    public BissnesExpertSystemDiplomaContext(DbContextOptions<BissnesExpertSystemDiplomaContext> options)
+    public BissnesExpertSystemDiploma7Context(DbContextOptions<BissnesExpertSystemDiploma7Context> options)
         : base(options)
     {
     }
@@ -36,19 +35,16 @@ public partial class BissnesExpertSystemDiplomaContext : DbContext
     {
         modelBuilder.Entity<BisnesTask>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("Tasks_pkey");
+            entity.HasKey(e => e.Id).HasName("BisnesTask_pkey");
 
             entity.ToTable("BisnesTask");
 
-            entity.Property(addition => addition.Id).ValueGeneratedOnAdd();//.HasDefaultValueSql("nextval('\"Id\"'::regclass)");
-            entity.Property(e => e.AssignmentsContent)
-                .HasMaxLength(255)
-                .IsFixedLength();
-            entity.Property(e => e.Content)
-                .HasMaxLength(500)
-                .IsFixedLength();
-            entity.Property(e => e.IdStatus).HasDefaultValueSql("nextval('\"Tasks_IdStatus_seq\"'::regclass)");
-            entity.Property(e => e.IdUser).HasDefaultValueSql("nextval('\"Tasks_IdUser_seq\"'::regclass)");
+            entity.HasIndex(e => e.IdStatus, "IX_BisnesTask_IdStatus");
+
+            entity.HasIndex(e => e.IdUser, "IX_BisnesTask_IdUser");
+
+            entity.Property(e => e.AssignmentsContent).HasMaxLength(255);
+            entity.Property(e => e.Content).HasMaxLength(500);
 
             entity.HasOne(d => d.IdStatusNavigation).WithMany(p => p.BisnesTasks)
                 .HasForeignKey(d => d.IdStatus)
@@ -67,8 +63,7 @@ public partial class BissnesExpertSystemDiplomaContext : DbContext
 
             entity.ToTable("HolidayPlan");
 
-            entity.Property(adding => adding.Id).ValueGeneratedOnAdd();
-            entity.Property(e => e.IdUser).ValueGeneratedOnAdd();
+            entity.HasIndex(e => e.IdUser, "IX_HolidayPlan_IdUser");
 
             entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.HolidayPlans)
                 .HasForeignKey(d => d.IdUser)
@@ -80,13 +75,8 @@ public partial class BissnesExpertSystemDiplomaContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("Roles_pkey");
 
-            entity.Property(adding => adding.Id).ValueGeneratedOnAdd();
-            entity.Property(e => e.Post)
-                .HasMaxLength(255)
-                .IsFixedLength();
-            entity.Property(e => e.Title)
-                .HasMaxLength(255)
-                .IsFixedLength();
+            entity.Property(e => e.Post).HasMaxLength(255);
+            entity.Property(e => e.Title).HasMaxLength(255);
         });
 
         modelBuilder.Entity<Statistic>(entity =>
@@ -95,8 +85,7 @@ public partial class BissnesExpertSystemDiplomaContext : DbContext
 
             entity.ToTable("Statistic");
 
-            entity.Property(addition => addition.Id).ValueGeneratedOnAdd();
-            entity.Property(e => e.IdUser).ValueGeneratedOnAdd();
+            entity.HasIndex(e => e.IdUser, "IX_Statistic_IdUser");
 
             entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.Statistics)
                 .HasForeignKey(d => d.IdUser)
@@ -108,41 +97,22 @@ public partial class BissnesExpertSystemDiplomaContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("Statuses_pkey");
 
-            entity.Property(addition => addition.Id).ValueGeneratedOnAdd();
-            entity.Property(e => e.Title)
-                .HasMaxLength(255)
-                .IsFixedLength();
+            entity.Property(e => e.Title).HasMaxLength(255);
         });
 
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("Users_pkey");
 
-            entity.Property(addition => addition.Id).ValueGeneratedOnAdd();
-            entity.Property(e => e.CheckPhrase)
-                .HasMaxLength(255)
-                .IsFixedLength();
-            entity.Property(e => e.Email)
-                .HasMaxLength(255)
-                .IsFixedLength();
-            entity.Property(e => e.EndWorkTime).HasColumnType("date");
-            entity.Property(e => e.Family)
-                .HasMaxLength(255)
-                .IsFixedLength();
-            entity.Property(e => e.IdRole).ValueGeneratedOnAdd();
-            entity.Property(e => e.Login)
-                .HasMaxLength(50)
-                .IsFixedLength();
-            entity.Property(e => e.Name)
-                .HasMaxLength(255)
-                .IsFixedLength();
-            entity.Property(e => e.Password)
-                .HasMaxLength(50)
-                .IsFixedLength();
-            entity.Property(e => e.Patronymic)
-                .HasMaxLength(255)
-                .IsFixedLength();
-            entity.Property(e => e.StartWorkTime).HasColumnType("date");
+            entity.HasIndex(e => e.IdRole, "IX_Users_IdRole");
+
+            entity.Property(e => e.CheckPhrase).HasMaxLength(255);
+            entity.Property(e => e.Email).HasMaxLength(255);
+            entity.Property(e => e.Family).HasMaxLength(255);
+            entity.Property(e => e.Login).HasMaxLength(50);
+            entity.Property(e => e.Name).HasMaxLength(255);
+            entity.Property(e => e.Password).HasMaxLength(50);
+            entity.Property(e => e.Patronymic).HasMaxLength(255);
 
             entity.HasOne(d => d.IdRoleNavigation).WithMany(p => p.Users)
                 .HasForeignKey(d => d.IdRole)
