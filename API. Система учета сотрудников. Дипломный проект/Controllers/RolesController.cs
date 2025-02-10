@@ -6,6 +6,7 @@ using BisnesManager.Database.Context;
 using BisnesManager.Database.Model;
 using BisnesManager.ETL.update_DTO;
 using Microsoft.EntityFrameworkCore;
+using BisnesManager.Database.Interfaces;
 
 namespace API._Система_учета_сотрудников._Дипломный_проект.Controllers
 {
@@ -14,14 +15,16 @@ namespace API._Система_учета_сотрудников._Дипломн�
     public class RolesController : ControllerBase
     {
         private readonly BissnesExpertSystemDiploma7Context _context;
-        public RolesController(BissnesExpertSystemDiploma7Context context)
+        private readonly IRoleRepository roleRepo;
+        public RolesController(BissnesExpertSystemDiploma7Context context, IRoleRepository roleRepo)
         {
             _context = context;
+            this.roleRepo = roleRepo;
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var roles = await _context.Roles.ToListAsync();
+            var roles = await roleRepo.GetAllAsync();
             var roleDto = roles.Select(s=>s.ToRoleDTO());
 
             return Ok(roleDto);
