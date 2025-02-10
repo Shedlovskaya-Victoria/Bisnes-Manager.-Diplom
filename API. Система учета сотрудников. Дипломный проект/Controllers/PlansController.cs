@@ -2,6 +2,7 @@
 using BisnesManager.Database.Model;
 using BisnesManager.ETL.Mapper;
 using BisnesManager.ETL.request_DTO;
+using BisnesManager.ETL.update_DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,6 +45,38 @@ namespace API._Система_учета_сотрудников._Дипломн�
             _context.SaveChanges();
 
             return CreatedAtAction(nameof(GetById), new { roleModel.Id }, roleModel.ToPlanDTO());
+        }
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult Update([FromRoute] int id,  [FromBody] UpdatePlanDto updateDto)
+        {
+            if (updateDto == null)
+                return NotFound();
+
+            var plan = _context.HolidayPlans.FirstOrDefault(s => s.Id == id);
+            plan.StartWeekends = DateOnly.FromDateTime(updateDto.StartWeekends);
+            plan.DateCreate = DateOnly.FromDateTime(updateDto.DateCreate);
+            plan.EndWeekends = DateOnly.FromDateTime(updateDto.EndWeekends);
+            plan.IdUser = updateDto.IdUser;
+           
+
+            _context.SaveChanges();
+            return Ok(plan.ToPlanDTO());
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            var plan = _context.HolidayPlans.FirstOrDefault(s=>s.Id == id);
+
+            if(plan == null) return NotFound();
+
+            _context.HolidayPlans.Remove(plan);
+
+            _context.SaveChanges();
+
+            return NoContent();
         }
     }
 }

@@ -19,7 +19,6 @@ namespace BisnesManager.ETL.Mapper
                 Id = holidayPlan.Id,
                 EndWeekends = holidayPlan.EndWeekends,
                 StartWeekends = holidayPlan.StartWeekends,
-                IdUser = holidayPlan.IdUser,
             };
         }
         public static HolidayPlan ToPlanFromCreateDTO(this PlanDtoRequest holidayPlan)

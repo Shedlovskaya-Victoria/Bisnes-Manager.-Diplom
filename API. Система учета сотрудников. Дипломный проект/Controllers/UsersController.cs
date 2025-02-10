@@ -2,6 +2,7 @@
 using BisnesManager.Database.Model;
 using BisnesManager.ETL.Mapper;
 using BisnesManager.ETL.request_DTO;
+using BisnesManager.ETL.update_DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +48,46 @@ namespace API._Система_учета_сотрудников._Дипломн�
                 .First(s => s.Id == userModel.Id)
                 .ToUserDTO()
                 );
+        }
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult Update([FromRoute] int id, [FromBody] UpdateUserDto updateDto)
+        {
+            if (updateDto == null)
+                return NotFound();
+
+            var user = context.Users.Include(s=>s.IdRoleNavigation).FirstOrDefault(s => s.Id == id);
+
+            user.Login = updateDto.Login;
+            user.Password = updateDto.Password;
+            user.Email = updateDto.Email;
+            user.CheckPhrase = updateDto.CheckPhrase;
+            user.IdRole = updateDto.IdRole;
+            user.DateCreate = DateOnly.FromDateTime(updateDto.DateCreate);
+            user.EndWorkTime = DateOnly.FromDateTime(updateDto.EndWorkTime);
+            user.Family = updateDto.Family;
+            user.Name = updateDto.Name;
+            user.Patronymic = updateDto.Patronymic;
+            user.PhotoImage = updateDto.PhotoImage;
+            user.StartWorkTime = DateOnly.FromDateTime(updateDto.StartWorkTime);
+
+            context.SaveChanges();
+
+            return Ok(user.ToUserDTO());
+        }
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            var user = context.Users.FirstOrDefault(s => s.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            context.Users.Remove(user);
+            context.SaveChanges();
+            return NoContent();
         }
     }
 }

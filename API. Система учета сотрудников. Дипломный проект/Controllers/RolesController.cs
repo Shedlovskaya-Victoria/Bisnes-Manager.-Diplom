@@ -4,6 +4,7 @@ using BisnesManager.ETL.Mapper;
 using BisnesManager.ETL.request_DTO;
 using BisnesManager.Database.Context;
 using BisnesManager.Database.Model;
+using BisnesManager.ETL.update_DTO;
 
 namespace API._Система_учета_сотрудников._Дипломный_проект.Controllers
 {
@@ -44,6 +45,39 @@ namespace API._Система_учета_сотрудников._Дипломн�
             _context.SaveChanges();
             return CreatedAtAction(nameof(GetById), new { roleModel.Id }, roleModel.ToRoleDTO());
         }
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult Update([FromRoute] int id, [FromBody] UpdateRoleDto updateDto)
+        {
+            if(updateDto == null)
+                return NotFound();
 
+            var role = _context.Roles.FirstOrDefault(s=>s.Id == id);
+            role.Title = updateDto.Title;
+            role.DateCreate = DateOnly.FromDateTime(updateDto.DateCreate);
+            role.IsEditWorkersRoles = updateDto.IsEditWorkersRoles;
+            role.IsEditWorkTimeTable = updateDto.IsEditWorkTimeTable;
+            role.Post = updateDto.Post;
+
+            _context.SaveChanges();
+
+            return Ok(role.ToRoleDTO());
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            var role = _context.Roles.FirstOrDefault(s=> s.Id == id);
+
+            if(role == null)
+                return NotFound();
+
+            _context.Roles.Remove(role);
+
+            _context.SaveChanges();
+
+            return NoContent();
+        }
     }
 }
