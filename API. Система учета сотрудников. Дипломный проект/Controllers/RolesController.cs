@@ -5,6 +5,7 @@ using BisnesManager.ETL.request_DTO;
 using BisnesManager.Database.Context;
 using BisnesManager.Database.Model;
 using BisnesManager.ETL.update_DTO;
+using Microsoft.EntityFrameworkCore;
 
 namespace API._Система_учета_сотрудников._Дипломный_проект.Controllers
 {
@@ -18,17 +19,18 @@ namespace API._Система_учета_сотрудников._Дипломн�
             _context = context;
         }
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var roles = _context.Roles.ToList().Select(s=>s.ToRoleDTO());
+            var roles = await _context.Roles.ToListAsync();
+            var roleDto = roles.Select(s=>s.ToRoleDTO());
 
-            return Ok(roles);
+            return Ok(roleDto);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById([FromRoute] short id)
+        public async Task<IActionResult> GetById([FromRoute] short id)
         {
-            var role = _context.Roles.Find(id);
+            var role = await _context.Roles.FindAsync(id);
 
             if (role == null)
             {
@@ -38,44 +40,44 @@ namespace API._Система_учета_сотрудников._Дипломн�
             return Ok(role.ToRoleDTO());
         }
         [HttpPost]
-        public IActionResult Create([FromBody] RoleDtoRequest dtoRequest)
+        public async  Task<IActionResult> Create([FromBody] RoleDtoRequest dtoRequest)
         {
             var roleModel = dtoRequest.ToRoleFromCreateDTO();
-            _context.Roles.Add(roleModel);
-            _context.SaveChanges();
+            await _context.Roles.AddAsync(roleModel);
+            await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetById), new { roleModel.Id }, roleModel.ToRoleDTO());
         }
         [HttpPut]
         [Route("{id}")]
-        public IActionResult Update([FromRoute] int id, [FromBody] UpdateRoleDto updateDto)
+        public async  Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateRoleDto updateDto)
         {
             if(updateDto == null)
                 return NotFound();
 
-            var role = _context.Roles.FirstOrDefault(s=>s.Id == id);
+            var role = await _context.Roles.FirstOrDefaultAsync(s=>s.Id == id);
             role.Title = updateDto.Title;
             role.DateCreate = DateOnly.FromDateTime(updateDto.DateCreate);
             role.IsEditWorkersRoles = updateDto.IsEditWorkersRoles;
             role.IsEditWorkTimeTable = updateDto.IsEditWorkTimeTable;
             role.Post = updateDto.Post;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return Ok(role.ToRoleDTO());
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult Delete([FromRoute] int id)
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var role = _context.Roles.FirstOrDefault(s=> s.Id == id);
+            var role = await _context.Roles.FirstOrDefaultAsync(s=> s.Id == id);
 
             if(role == null)
                 return NotFound();
 
             _context.Roles.Remove(role);
 
-            _context.SaveChanges();
+           await _context.SaveChangesAsync();
 
             return NoContent();
         }

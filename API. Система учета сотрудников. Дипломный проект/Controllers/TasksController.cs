@@ -19,17 +19,18 @@ namespace API._Система_учета_сотрудников._Дипломн�
             _context = context;
         }
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var list = _context.BisnesTasks.Include(s=>s.IdUserNavigation).Include(s=>s.IdStatusNavigation).ToList().Select(s=>s.ToTaskDTO());
+            var list = await _context.BisnesTasks.Include(s => s.IdUserNavigation).Include(s => s.IdStatusNavigation).ToListAsync();
+            var listDto = list.Select(s=>s.ToTaskDTO());
 
-            return Ok(list);
+            return Ok(listDto);
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get([FromRoute] short id)
+        public async Task<IActionResult> Get([FromRoute] short id)
         {
-            var data = _context.BisnesTasks.Include(s => s.IdUserNavigation).Include(s => s.IdStatusNavigation).First(s=>s.Id == id);
+            var data = await _context.BisnesTasks.Include(s => s.IdUserNavigation).Include(s => s.IdStatusNavigation).FirstOrDefaultAsync(s=>s.Id == id);
 
             if (data == null)
             {
@@ -39,26 +40,26 @@ namespace API._Система_учета_сотрудников._Дипломн�
             return Ok(data.ToTaskDTO());
         }
         [HttpPost]
-        public IActionResult Create([FromBody] TaskDtoRequest dtoRequest)
+        public async Task<IActionResult> Create([FromBody] TaskDtoRequest dtoRequest)
         {
             var taskModel = dtoRequest.ToTaskFromCreateDTO();
-            _context.BisnesTasks.Add(taskModel);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(Get), new { taskModel.Id }, _context.BisnesTasks
-                .Include(s=>s.IdStatusNavigation)
-                .Include(s=>s.IdUserNavigation)
-                .First(s=>s.Id == taskModel.Id)
-                .ToTaskDTO() 
-                );
+            await _context.BisnesTasks.AddAsync(taskModel);
+            await _context.SaveChangesAsync();
+
+            var returnValue = await _context.BisnesTasks
+                .Include(s => s.IdStatusNavigation)
+                .Include(s => s.IdUserNavigation)
+                .FirstOrDefaultAsync(s => s.Id == taskModel.Id);
+            return CreatedAtAction(nameof(Get), new { taskModel.Id }, returnValue.ToTaskDTO() );
         }
 
         [HttpPut]
         [Route("{id}")]
-        public IActionResult Update([FromRoute] int id,  [FromBody] UpdateTaskDto updateDto)
+        public async Task<IActionResult> Update([FromRoute] int id,  [FromBody] UpdateTaskDto updateDto)
         {
             if(updateDto == null)
                 return NotFound();
-            var task = _context.BisnesTasks.Include(s=>s.IdStatusNavigation).Include(s=>s.IdUserNavigation).FirstOrDefault(s => s.Id == id);
+            var task = await _context.BisnesTasks.Include(s=>s.IdStatusNavigation).Include(s=>s.IdUserNavigation).FirstOrDefaultAsync(s => s.Id == id);
 
             task.StartDate = DateOnly.FromDateTime(updateDto.StartDate);
             task.DateCreate = DateOnly.FromDateTime(updateDto.DateCreate);
@@ -70,20 +71,20 @@ namespace API._Система_учета_сотрудников._Дипломн�
             task.Content = updateDto.Content;
            
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Ok(task.ToTaskDTO());
         }
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult Delete([FromRoute] int id)
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var task = _context.BisnesTasks.FirstOrDefault(s=>s.Id == id);
+            var task = await _context.BisnesTasks.FirstOrDefaultAsync(s=>s.Id == id);
 
             if(task == null)
                 return NotFound();
 
             _context.BisnesTasks.Remove(task);
-            _context.SaveChanges();
+           await _context.SaveChangesAsync();
             return NoContent();
         }
     }

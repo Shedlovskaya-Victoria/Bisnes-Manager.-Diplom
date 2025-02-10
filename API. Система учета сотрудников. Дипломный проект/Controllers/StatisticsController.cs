@@ -5,6 +5,7 @@ using BisnesManager.ETL.request_DTO;
 using BisnesManager.ETL.update_DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API._Система_учета_сотрудников._Дипломный_проект.Controllers
 {
@@ -18,17 +19,18 @@ namespace API._Система_учета_сотрудников._Дипломн�
             _context = context;
         }
         [HttpPost("GetAllFromUserId")]
-        public IActionResult GetAll([FromBody] short UserId)
+        public async Task<IActionResult> GetAll([FromBody] short UserId)
         {
-            var list = _context.Statistics.Where(s => s.IdUser == UserId).ToList().Select(s => s.ToStatisticDTO()).ToList();
+            var list = await _context.Statistics.Where(s => s.IdUser == UserId).ToListAsync();
+            var listDto = list.Select(s => s.ToStatisticDTO());
              
-            return Ok(list);
+            return Ok(listDto);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetByDate([FromRoute] int id)
+        public async Task<IActionResult> GetByDate([FromRoute] int id)
         {
-            var data = _context.Statistics.Find(id);
+            var data = await _context.Statistics.FindAsync(id);
              
             if (data == null)
             {
@@ -38,22 +40,22 @@ namespace API._Система_учета_сотрудников._Дипломн�
             return Ok(data.ToStatisticDTO());
         }
         [HttpPost("Create")]
-        public IActionResult Create([FromBody] StatisticDtoRequest dtoRequest)
+        public async Task<IActionResult> Create([FromBody] StatisticDtoRequest dtoRequest)
         {
             var statisticModelm = dtoRequest.ToStatisticFromCreateDTO();
-            _context.Statistics.Add(statisticModelm);
-            _context.SaveChanges();
+            await _context.Statistics.AddAsync(statisticModelm);
+            await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetByDate), new { statisticModelm.DateCreate }, statisticModelm.ToStatisticDTO());
         }
 
         [HttpPut]
         [Route("{id}")]
-        public IActionResult Update([FromRoute] int id, UpdateStatisticDto updateDto)
+        public async Task<IActionResult> Update([FromRoute] int id, UpdateStatisticDto updateDto)
         {
             if (updateDto == null)
                 return NotFound();
 
-            var statistic = _context.Statistics.FirstOrDefault(s => s.Id == id);
+            var statistic = await _context.Statistics.FirstOrDefaultAsync(s => s.Id == id);
 
             statistic.QualityWork = updateDto.QualityWork;
             statistic.DateCreate = DateOnly.FromDateTime(updateDto.DateCreate);
@@ -63,23 +65,23 @@ namespace API._Система_учета_сотрудников._Дипломн�
             statistic.LevelResponibility = updateDto.LevelResponibility;
             statistic.IdUser = updateDto.IdUser;
 
-            _context.SaveChanges();
+           await _context.SaveChangesAsync();
 
             return Ok(statistic.ToStatisticDTO());
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult Delete([FromRoute] int id)
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var statistic = _context.Statistics.FirstOrDefault(s=>s.Id == id);
+            var statistic = await _context.Statistics.FirstOrDefaultAsync(s=>s.Id == id);
 
             if(statistic == null)
                 return NotFound();
 
             _context.Statistics.Remove(statistic);
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return NoContent();
         }

@@ -5,6 +5,7 @@ using BisnesManager.ETL.request_DTO;
 using BisnesManager.ETL.update_DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API._Система_учета_сотрудников._Дипломный_проект.Controllers
 {
@@ -18,17 +19,18 @@ namespace API._Система_учета_сотрудников._Дипломн�
             _context = context;
         }
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var list = _context.HolidayPlans.ToList().Select(s=>s.ToPlanDTO());
+            var list = await _context.HolidayPlans.ToListAsync();
+            var listDto = list.Select(s=>s.ToPlanDTO());
 
-            return Ok(list);
+            return Ok(listDto);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById([FromRoute] int id)
+        public async  Task<IActionResult> GetById([FromRoute] int id)
         {
-            var data = _context.HolidayPlans.Find(id);
+            var data = await _context.HolidayPlans.FindAsync(id);
 
             if (data == null)
             {
@@ -38,43 +40,43 @@ namespace API._Система_учета_сотрудников._Дипломн�
             return Ok(data.ToPlanDTO());
         }
         [HttpPost]
-        public IActionResult Create([FromBody] PlanDtoRequest dtoRequest)
+        public async Task<IActionResult> Create([FromBody] PlanDtoRequest dtoRequest)
         {
             var roleModel = dtoRequest.ToPlanFromCreateDTO();
-            _context.HolidayPlans.Add(roleModel);
-            _context.SaveChanges();
+            await _context.HolidayPlans.AddAsync(roleModel);
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetById), new { roleModel.Id }, roleModel.ToPlanDTO());
         }
         [HttpPut]
         [Route("{id}")]
-        public IActionResult Update([FromRoute] int id,  [FromBody] UpdatePlanDto updateDto)
+        public async Task<IActionResult> Update([FromRoute] int id,  [FromBody] UpdatePlanDto updateDto)
         {
             if (updateDto == null)
                 return NotFound();
 
-            var plan = _context.HolidayPlans.FirstOrDefault(s => s.Id == id);
+            var plan = await _context.HolidayPlans.FirstOrDefaultAsync(s => s.Id == id);
             plan.StartWeekends = DateOnly.FromDateTime(updateDto.StartWeekends);
             plan.DateCreate = DateOnly.FromDateTime(updateDto.DateCreate);
             plan.EndWeekends = DateOnly.FromDateTime(updateDto.EndWeekends);
             plan.IdUser = updateDto.IdUser;
            
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Ok(plan.ToPlanDTO());
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult Delete([FromRoute] int id)
+        public async  Task<IActionResult> Delete([FromRoute] int id)
         {
-            var plan = _context.HolidayPlans.FirstOrDefault(s=>s.Id == id);
+            var plan = await _context.HolidayPlans.FirstOrDefaultAsync(s=>s.Id == id);
 
             if(plan == null) return NotFound();
 
             _context.HolidayPlans.Remove(plan);
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return NoContent();
         }

@@ -5,6 +5,7 @@ using BisnesManager.ETL.request_DTO;
 using BisnesManager.ETL.update_DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API._Система_учета_сотрудников._Дипломный_проект.Controllers
 {
@@ -19,15 +20,16 @@ namespace API._Система_учета_сотрудников._Дипломн�
             this.context = context;
         }
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var list = context.Statuses.ToList().Select(s=>s.ToStatusDTO());
-            return Ok(list);
+            var list = await context.Statuses.ToListAsync();
+            var listDto = list.Select(s=>s.ToStatusDTO());
+            return Ok(listDto);
         }
         [HttpGet("{id}")]
-        public IActionResult Get([FromRoute] short id)
+        public async Task<IActionResult> Get([FromRoute] short id)
         {
-            var data = context.Statuses.Find(id);
+            var data = await context.Statuses.FindAsync(id);
 
             if (data == null)
             {
@@ -37,39 +39,39 @@ namespace API._Система_учета_сотрудников._Дипломн�
             return Ok(data.ToStatusDTO());
         }
         [HttpPost]
-        public IActionResult Create([FromBody] StatusDtoRequest dtoRequest)
+        public async Task<IActionResult> Create([FromBody] StatusDtoRequest dtoRequest)
         {
             var statusModel = dtoRequest.ToStatus();
-            context.Statuses.Add(statusModel);
-            context.SaveChanges();
+            await context.Statuses.AddAsync(statusModel);
+            await context.SaveChangesAsync();
             return CreatedAtAction(nameof(Get), new { statusModel.Id}, statusModel.ToStatusDTO());
         }
         [HttpPut]
         [Route("{id}")]
-        public IActionResult Update([FromRoute] int id, [FromBody] UpdateStatusDto updateDto)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStatusDto updateDto)
         {
             if(updateDto == null)
                 return NotFound();
 
-            var statusModel = context.Statuses.FirstOrDefault(s => s.Id == id);
+            var statusModel = await context.Statuses.FirstOrDefaultAsync(s => s.Id == id);
 
             statusModel.Title = updateDto.Title;
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return Ok(statusModel.ToStatusDTO());
         }
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult Delete([FromRoute] int id)
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var status = context.Statuses.FirstOrDefault(s=>s.Id == id);
+            var status = await context.Statuses.FirstOrDefaultAsync(s=>s.Id == id);
 
             if(status == null)
                 return NotFound();
 
             context.Statuses.Remove(status);
 
-            context.SaveChanges();
+           await  context.SaveChangesAsync();
 
             return NoContent();
         }

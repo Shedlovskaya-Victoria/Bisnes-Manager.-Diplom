@@ -20,15 +20,16 @@ namespace API._Система_учета_сотрудников._Дипломн�
             this.context = context;
         }
         [HttpGet]
-        public IActionResult GetAll()
+        public  async Task<IActionResult> GetAll()
         {
-            var list = context.Users.Include(s=>s.IdRoleNavigation).ToList().Select(s=>s.ToUserDTO());
-            return Ok(list);
+            var list = await context.Users.Include(s => s.IdRoleNavigation).ToListAsync();
+            var listDto = list.Select(s=>s.ToUserDTO());
+            return Ok(listDto);
         }
         [HttpGet("{id}")]
-        public IActionResult GetById([FromRoute] short id)
+        public async Task<IActionResult> GetById([FromRoute] short id)
         {
-            var data = context.Users.Include(s => s.IdRoleNavigation).First(s=>s.Id == id);
+            var data = await context.Users.Include(s => s.IdRoleNavigation).FirstOrDefaultAsync(s=>s.Id == id);
 
             if (data == null)
             {
@@ -38,25 +39,24 @@ namespace API._Система_учета_сотрудников._Дипломн�
             return Ok(data.ToUserDTO());
         }
         [HttpPost]
-        public IActionResult Create([FromBody] UserDtoRequest dtoRequest)
+        public async Task<IActionResult> Create([FromBody] UserDtoRequest dtoRequest)
         {
             var userModel = dtoRequest.ToUserFromCreateDTO();
-            context.Users.Add(userModel);
-            context.SaveChanges();
-            return CreatedAtAction(nameof(GetById), new { userModel.Id }, context.Users
+           await context.Users.AddAsync(userModel);
+           await context.SaveChangesAsync();
+            var returnValue = await context.Users
                 .Include(s => s.IdRoleNavigation)
-                .First(s => s.Id == userModel.Id)
-                .ToUserDTO()
-                );
+                .FirstOrDefaultAsync(s => s.Id == userModel.Id);
+            return CreatedAtAction(nameof(GetById), new { userModel.Id }, returnValue.ToUserDTO() );
         }
         [HttpPut]
         [Route("{id}")]
-        public IActionResult Update([FromRoute] int id, [FromBody] UpdateUserDto updateDto)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateUserDto updateDto)
         {
             if (updateDto == null)
                 return NotFound();
 
-            var user = context.Users.Include(s=>s.IdRoleNavigation).FirstOrDefault(s => s.Id == id);
+            var user = await context.Users.Include(s=>s.IdRoleNavigation).FirstOrDefaultAsync(s => s.Id == id);
 
             user.Login = updateDto.Login;
             user.Password = updateDto.Password;
@@ -71,22 +71,22 @@ namespace API._Система_учета_сотрудников._Дипломн�
             user.PhotoImage = updateDto.PhotoImage;
             user.StartWorkTime = DateOnly.FromDateTime(updateDto.StartWorkTime);
 
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return Ok(user.ToUserDTO());
         }
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult Delete([FromRoute] int id)
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var user = context.Users.FirstOrDefault(s => s.Id == id);
+            var user = await context.Users.FirstOrDefaultAsync(s => s.Id == id);
             if (user == null)
             {
                 return NotFound();
             }
 
             context.Users.Remove(user);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return NoContent();
         }
     }
