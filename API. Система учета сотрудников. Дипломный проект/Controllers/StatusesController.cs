@@ -1,6 +1,7 @@
 ﻿using BisnesManager.Database.Context;
 using BisnesManager.Database.Model;
 using BisnesManager.ETL.Mapper;
+using BisnesManager.ETL.Repositories;
 using BisnesManager.ETL.request_DTO;
 using BisnesManager.ETL.update_DTO;
 using Microsoft.AspNetCore.Http;
@@ -13,23 +14,24 @@ namespace API._Система_учета_сотрудников._Дипломн�
     [ApiController]
     public class StatusesController : ControllerBase
     {
-        private BissnesExpertSystemDiploma7Context context;
+        private readonly StatusRepository _statusRepo;
 
-        public StatusesController(BissnesExpertSystemDiploma7Context context)
+        public StatusesController(StatusRepository statusRepo)
         {
-            this.context = context;
+            _statusRepo = statusRepo;
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var list = await context.Statuses.ToListAsync();
+            var list = await _statusRepo.GetAllAsync();
+            if(list == null) return NotFound();
             var listDto = list.Select(s=>s.ToStatusDTO());
             return Ok(listDto);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] short id)
         {
-            var data = await context.Statuses.FindAsync(id);
+            var data = await _statusRepo.GetByIdAsync(id);
 
             if (data == null)
             {
@@ -40,10 +42,9 @@ namespace API._Система_учета_сотрудников._Дипломн�
         }
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] StatusDtoRequest dtoRequest)
-        {
+        {            
             var statusModel = dtoRequest.ToStatus();
-            await context.Statuses.AddAsync(statusModel);
-            await context.SaveChangesAsync();
+            await _statusRepo.CreateAsync(statusModel);
             return CreatedAtAction(nameof(Get), new { statusModel.Id}, statusModel.ToStatusDTO());
         }
         [HttpPut]
@@ -53,25 +54,18 @@ namespace API._Система_учета_сотрудников._Дипломн�
             if(updateDto == null)
                 return NotFound();
 
-            var statusModel = await context.Statuses.FirstOrDefaultAsync(s => s.Id == id);
-
-            statusModel.Title = updateDto.Title;
-            await context.SaveChangesAsync();
-
+            var statusModel = await _statusRepo.UpdateAsync(id, updateDto);           
+            if(statusModel == null) return NotFound();
             return Ok(statusModel.ToStatusDTO());
         }
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        public async Task<IActionResult> Delete([FromRoute] short id)
         {
-            var status = await context.Statuses.FirstOrDefaultAsync(s=>s.Id == id);
+            var status = await _statusRepo.DeleteAsync(id);
 
             if(status == null)
                 return NotFound();
-
-            context.Statuses.Remove(status);
-
-           await  context.SaveChangesAsync();
 
             return NoContent();
         }

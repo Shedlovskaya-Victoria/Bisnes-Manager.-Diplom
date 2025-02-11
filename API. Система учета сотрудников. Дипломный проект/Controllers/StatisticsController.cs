@@ -1,6 +1,7 @@
 ﻿using BisnesManager.Database.Context;
 using BisnesManager.Database.Model;
 using BisnesManager.ETL.Mapper;
+using BisnesManager.ETL.Repositories;
 using BisnesManager.ETL.request_DTO;
 using BisnesManager.ETL.update_DTO;
 using Microsoft.AspNetCore.Http;
@@ -13,24 +14,24 @@ namespace API._Система_учета_сотрудников._Дипломн�
     [ApiController]
     public class StatisticsController : ControllerBase
     {
-        private readonly BissnesExpertSystemDiploma7Context _context;
-        public StatisticsController(BissnesExpertSystemDiploma7Context context)
+        private readonly StatisticRepository _statisticRepo;
+        public StatisticsController(StatisticRepository statisticRepo)
         {
-            _context = context;
+            _statisticRepo = statisticRepo;
         }
-        [HttpPost("GetAllFromUserId")]
-        public async Task<IActionResult> GetAll([FromBody] short UserId)
+        [HttpPost("GetAllByUserId")]
+        public async Task<IActionResult> GetAllByUserId([FromBody] short UserId)
         {
-            var list = await _context.Statistics.Where(s => s.IdUser == UserId).ToListAsync();
+            var list = await _statisticRepo.GetAllById(UserId);
             var listDto = list.Select(s => s.ToStatisticDTO());
              
             return Ok(listDto);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetByDate([FromRoute] int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var data = await _context.Statistics.FindAsync(id);
+            var data = await _statisticRepo.GetByIdAsync(id);
              
             if (data == null)
             {
@@ -42,10 +43,10 @@ namespace API._Система_учета_сотрудников._Дипломн�
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] StatisticDtoRequest dtoRequest)
         {
-            var statisticModelm = dtoRequest.ToStatisticFromCreateDTO();
-            await _context.Statistics.AddAsync(statisticModelm);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetByDate), new { statisticModelm.DateCreate }, statisticModelm.ToStatisticDTO());
+            if (dtoRequest == null) return NotFound();
+            var statisticModel = dtoRequest.ToStatisticFromCreateDTO();
+            await _statisticRepo.CreateAsync(statisticModel);
+            return CreatedAtAction(nameof(GetById), new { statisticModel.Id }, statisticModel.ToStatisticDTO());
         }
 
         [HttpPut]
@@ -55,18 +56,8 @@ namespace API._Система_учета_сотрудников._Дипломн�
             if (updateDto == null)
                 return NotFound();
 
-            var statistic = await _context.Statistics.FirstOrDefaultAsync(s => s.Id == id);
-
-            statistic.QualityWork = updateDto.QualityWork;
-            statistic.DateCreate = DateOnly.FromDateTime(updateDto.DateCreate);
-            statistic.EffectivCommunication = updateDto.EffectivCommunication;
-            statistic.HardSkils = updateDto.HardSkils;
-            statistic.SoftSkils = updateDto.SoftSkils;
-            statistic.LevelResponibility = updateDto.LevelResponibility;
-            statistic.IdUser = updateDto.IdUser;
-
-           await _context.SaveChangesAsync();
-
+            var statistic = await _statisticRepo.UpdateAsync(id, updateDto);
+            if(statistic == null) return NotFound();
             return Ok(statistic.ToStatisticDTO());
         }
 
@@ -74,14 +65,11 @@ namespace API._Система_учета_сотрудников._Дипломн�
         [Route("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var statistic = await _context.Statistics.FirstOrDefaultAsync(s=>s.Id == id);
+            var statistic = await _statisticRepo.DeleteAsync(id);
 
             if(statistic == null)
                 return NotFound();
 
-            _context.Statistics.Remove(statistic);
-
-            await _context.SaveChangesAsync();
 
             return NoContent();
         }

@@ -7,6 +7,7 @@ using BisnesManager.Database.Context;
 using BisnesManager.Database.Model;
 using BisnesManager.Database.Interfaces;
 using BisnesManager.Database.Repositories;
+using BisnesManager.ETL.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +24,12 @@ builder.Services.AddDbContext<BissnesExpertSystemDiploma7Context>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 ///BisnesManager.Database.DBInitialazer.Initialize();
-builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<PlanRepository>();
+builder.Services.AddScoped<RoleRepository>();
+builder.Services.AddScoped<StatisticRepository>();
+builder.Services.AddScoped<StatusRepository>();
+builder.Services.AddScoped<TaskRepository>();
+builder.Services.AddScoped<UserRepository>();
 
 var app = builder.Build();
 

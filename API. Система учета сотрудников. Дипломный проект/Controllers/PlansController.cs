@@ -1,6 +1,7 @@
 ﻿using BisnesManager.Database.Context;
 using BisnesManager.Database.Model;
 using BisnesManager.ETL.Mapper;
+using BisnesManager.ETL.Repositories;
 using BisnesManager.ETL.request_DTO;
 using BisnesManager.ETL.update_DTO;
 using Microsoft.AspNetCore.Http;
@@ -13,24 +14,25 @@ namespace API._Система_учета_сотрудников._Дипломн�
     [ApiController]
     public class PlansController : ControllerBase
     {
-        private readonly BissnesExpertSystemDiploma7Context _context;
-        public PlansController(BissnesExpertSystemDiploma7Context context)
+        private readonly PlanRepository _planRepo;
+        public PlansController(PlanRepository planRepo)
         {
-            _context = context;
+            _planRepo = planRepo;
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var list = await _context.HolidayPlans.ToListAsync();
+            var list = await _planRepo.GetAllAsync();
+            if (list == null) return NotFound();
             var listDto = list.Select(s=>s.ToPlanDTO());
 
             return Ok(listDto);
         }
 
         [HttpGet("{id}")]
-        public async  Task<IActionResult> GetById([FromRoute] int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var data = await _context.HolidayPlans.FindAsync(id);
+            var data = await _planRepo.GetByIdAsync(id);
 
             if (data == null)
             {
@@ -43,8 +45,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
         public async Task<IActionResult> Create([FromBody] PlanDtoRequest dtoRequest)
         {
             var roleModel = dtoRequest.ToPlanFromCreateDTO();
-            await _context.HolidayPlans.AddAsync(roleModel);
-            await _context.SaveChangesAsync();
+            await _planRepo.CreateAsync(roleModel);
 
             return CreatedAtAction(nameof(GetById), new { roleModel.Id }, roleModel.ToPlanDTO());
         }
@@ -55,14 +56,8 @@ namespace API._Система_учета_сотрудников._Дипломн�
             if (updateDto == null)
                 return NotFound();
 
-            var plan = await _context.HolidayPlans.FirstOrDefaultAsync(s => s.Id == id);
-            plan.StartWeekends = DateOnly.FromDateTime(updateDto.StartWeekends);
-            plan.DateCreate = DateOnly.FromDateTime(updateDto.DateCreate);
-            plan.EndWeekends = DateOnly.FromDateTime(updateDto.EndWeekends);
-            plan.IdUser = updateDto.IdUser;
-           
-
-            await _context.SaveChangesAsync();
+            var plan = await _planRepo.UpdateAsync(id, updateDto);       
+           if(plan == null) return NotFound();
             return Ok(plan.ToPlanDTO());
         }
 
@@ -70,13 +65,9 @@ namespace API._Система_учета_сотрудников._Дипломн�
         [Route("{id}")]
         public async  Task<IActionResult> Delete([FromRoute] int id)
         {
-            var plan = await _context.HolidayPlans.FirstOrDefaultAsync(s=>s.Id == id);
+            var plan = await _planRepo.DeleteAsync(id);
 
             if(plan == null) return NotFound();
-
-            _context.HolidayPlans.Remove(plan);
-
-            await _context.SaveChangesAsync();
 
             return NoContent();
         }

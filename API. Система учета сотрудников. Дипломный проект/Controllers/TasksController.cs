@@ -1,6 +1,7 @@
 ﻿using BisnesManager.Database.Context;
 using BisnesManager.Database.Model;
 using BisnesManager.ETL.Mapper;
+using BisnesManager.ETL.Repositories;
 using BisnesManager.ETL.request_DTO;
 using BisnesManager.ETL.update_DTO;
 using Microsoft.AspNetCore.Http;
@@ -14,9 +15,12 @@ namespace API._Система_учета_сотрудников._Дипломн�
     public class TasksController : ControllerBase
     {
         private readonly BissnesExpertSystemDiploma7Context _context;
-        public TasksController(BissnesExpertSystemDiploma7Context context)
+        private readonly TaskRepository _taskRepo;
+
+        public TasksController(BissnesExpertSystemDiploma7Context context, TaskRepository taskRepo)
         {
             _context = context;
+            _taskRepo = taskRepo;
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
@@ -42,14 +46,19 @@ namespace API._Система_учета_сотрудников._Дипломн�
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] TaskDtoRequest dtoRequest)
         {
+            if (dtoRequest == null)
+                return NotFound();
+
             var taskModel = dtoRequest.ToTaskFromCreateDTO();
-            await _context.BisnesTasks.AddAsync(taskModel);
-            await _context.SaveChangesAsync();
+            await _taskRepo.CreateAsync(taskModel);
 
             var returnValue = await _context.BisnesTasks
                 .Include(s => s.IdStatusNavigation)
                 .Include(s => s.IdUserNavigation)
                 .FirstOrDefaultAsync(s => s.Id == taskModel.Id);
+            if (returnValue == null)
+                return NotFound();
+
             return CreatedAtAction(nameof(Get), new { taskModel.Id }, returnValue.ToTaskDTO() );
         }
 
@@ -59,32 +68,19 @@ namespace API._Система_учета_сотрудников._Дипломн�
         {
             if(updateDto == null)
                 return NotFound();
-            var task = await _context.BisnesTasks.Include(s=>s.IdStatusNavigation).Include(s=>s.IdUserNavigation).FirstOrDefaultAsync(s => s.Id == id);
-
-            task.StartDate = DateOnly.FromDateTime(updateDto.StartDate);
-            task.DateCreate = DateOnly.FromDateTime(updateDto.DateCreate);
-            task.IdUser = updateDto.IdUser;
-            task.EndDate = DateOnly.FromDateTime(updateDto.EndDate);
-            task.Indentation = updateDto.Indentation;
-            task.AssignmentsContent = updateDto.AssignmentsContent;
-            task.IdStatus = updateDto.IdStatus;
-            task.Content = updateDto.Content;
-           
-
-            await _context.SaveChangesAsync();
+            var task = await _taskRepo.UpdateAsync(id, updateDto);         
+            if(task == null) return NotFound();
             return Ok(task.ToTaskDTO());
         }
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var task = await _context.BisnesTasks.FirstOrDefaultAsync(s=>s.Id == id);
+            var task = await _taskRepo.DeleteAsync(id);
 
             if(task == null)
                 return NotFound();
 
-            _context.BisnesTasks.Remove(task);
-           await _context.SaveChangesAsync();
             return NoContent();
         }
     }

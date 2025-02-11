@@ -24,7 +24,7 @@ namespace BisnesManager.WebAPI.Diplom.Middleware
             }
         }
 
-        private Task HandleExceptionAsync(HttpContext context, Exception ex)
+        private static Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
             var code = HttpStatusCode.InternalServerError;
             var result = string.Empty;
@@ -42,9 +42,8 @@ namespace BisnesManager.WebAPI.Diplom.Middleware
             context.Response.StatusCode = (int)code;
 
             if (result == null)
-            {
                 result = JsonSerializer.Serialize(new { error = ex.Message });
-            }
+            
             
             return context.Response.WriteAsync(result);
         }

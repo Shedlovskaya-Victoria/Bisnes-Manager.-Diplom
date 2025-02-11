@@ -11,7 +11,7 @@ namespace BisnesManager.ETL.DTO
         public short Id { get; set; }
         public string FIO { get; set; } = null!;
 
-        public string Role { get; set; }
+        public string? Role { get; set; }
 
         public byte[]? PhotoImage { get; set; }
 

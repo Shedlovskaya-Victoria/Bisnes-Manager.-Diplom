@@ -19,7 +19,7 @@ namespace BisnesManager.ETL.Mapper
                 FIO = $"{user.Name} {user.Family} {user.Patronymic}",
                 Role = user.IdRoleNavigation.Title,
                 PhotoImage = user.PhotoImage,
-                EndWorkTime = DateTime.Parse( user.EndWorkTime.ToString()),
+                EndWorkTime = DateTime.Parse(user.EndWorkTime.ToString()),
                 StartWorkTime = DateTime.Parse(user.StartWorkTime.ToString()),
             };
         }

@@ -10,7 +10,7 @@ namespace BisnesManager.ETL.DTO
     {
         public int Id {  get; set; }
         
-        public string Author { get; set; }
+        public string? Author { get; set; }
 
         public string Content { get; set; } = null!;
 
@@ -22,7 +22,7 @@ namespace BisnesManager.ETL.DTO
 
         public string? AssignmentsContent { get; set; }
 
-        public string Status { get; set; }
+        public string? Status { get; set; }
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using BisnesManager.Database.Context;
 using BisnesManager.Database.Model;
 using BisnesManager.ETL.Mapper;
+using BisnesManager.ETL.Repositories;
 using BisnesManager.ETL.request_DTO;
 using BisnesManager.ETL.update_DTO;
 using Microsoft.AspNetCore.Http;
@@ -13,11 +14,13 @@ namespace API._Система_учета_сотрудников._Дипломн�
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private BissnesExpertSystemDiploma7Context context;
+        private readonly BissnesExpertSystemDiploma7Context context;
+        private readonly UserRepository _userRepo;
 
-        public UsersController(BissnesExpertSystemDiploma7Context context)
+        public UsersController(BissnesExpertSystemDiploma7Context context, UserRepository userRepo)
         {
             this.context = context;
+            _userRepo = userRepo;
         }
         [HttpGet]
         public  async Task<IActionResult> GetAll()
@@ -41,12 +44,19 @@ namespace API._Система_учета_сотрудников._Дипломн�
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] UserDtoRequest dtoRequest)
         {
+            if (dtoRequest == null)
+                return NotFound();
+
             var userModel = dtoRequest.ToUserFromCreateDTO();
-           await context.Users.AddAsync(userModel);
-           await context.SaveChangesAsync();
+
+           await _userRepo.CreateAsync(userModel);
+
             var returnValue = await context.Users
                 .Include(s => s.IdRoleNavigation)
                 .FirstOrDefaultAsync(s => s.Id == userModel.Id);
+            if (returnValue == null)
+                return NotFound();
+
             return CreatedAtAction(nameof(GetById), new { userModel.Id }, returnValue.ToUserDTO() );
         }
         [HttpPut]
@@ -56,37 +66,22 @@ namespace API._Система_учета_сотрудников._Дипломн�
             if (updateDto == null)
                 return NotFound();
 
-            var user = await context.Users.Include(s=>s.IdRoleNavigation).FirstOrDefaultAsync(s => s.Id == id);
+            var user = await _userRepo.UpdateAsync(id, updateDto);           
 
-            user.Login = updateDto.Login;
-            user.Password = updateDto.Password;
-            user.Email = updateDto.Email;
-            user.CheckPhrase = updateDto.CheckPhrase;
-            user.IdRole = updateDto.IdRole;
-            user.DateCreate = DateOnly.FromDateTime(updateDto.DateCreate);
-            user.EndWorkTime = DateOnly.FromDateTime(updateDto.EndWorkTime);
-            user.Family = updateDto.Family;
-            user.Name = updateDto.Name;
-            user.Patronymic = updateDto.Patronymic;
-            user.PhotoImage = updateDto.PhotoImage;
-            user.StartWorkTime = DateOnly.FromDateTime(updateDto.StartWorkTime);
-
-            await context.SaveChangesAsync();
+            if(user == null) return NotFound();
 
             return Ok(user.ToUserDTO());
         }
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        public async Task<IActionResult> Delete([FromRoute] short id)
         {
-            var user = await context.Users.FirstOrDefaultAsync(s => s.Id == id);
+            var user = await _userRepo.DeleteAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            context.Users.Remove(user);
-            await context.SaveChangesAsync();
             return NoContent();
         }
     }
