@@ -54,6 +54,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
             var returnValue = await context.Users
                 .Include(s => s.IdRoleNavigation)
                 .FirstOrDefaultAsync(s => s.Id == userModel.Id);
+
             if (returnValue == null)
                 return NotFound();
 

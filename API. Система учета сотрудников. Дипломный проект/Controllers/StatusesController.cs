@@ -29,7 +29,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
             return Ok(listDto);
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get([FromRoute] short id)
+        public async Task<IActionResult> GetById([FromRoute] short id)
         {
             var data = await _statusRepo.GetByIdAsync(id);
 
@@ -45,7 +45,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
         {            
             var statusModel = dtoRequest.ToStatus();
             await _statusRepo.CreateAsync(statusModel);
-            return CreatedAtAction(nameof(Get), new { statusModel.Id}, statusModel.ToStatusDTO());
+            return CreatedAtAction(nameof(GetById), new { statusModel.Id}, statusModel.ToStatusDTO());
         }
         [HttpPut]
         [Route("{id}")]

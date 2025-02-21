@@ -46,10 +46,14 @@ namespace BisnesManager.Database.Repositories
         public async Task<T?> DeleteAsync(short id)
         {
             var delete = await _context.Set<T>().FindAsync(id);
+
             if (delete == null)
                 return null;
+
             _context.Set<T>().Remove(delete);
+
             await _context.SaveChangesAsync();
+
             return delete;
         }
 

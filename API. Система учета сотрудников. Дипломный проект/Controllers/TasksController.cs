@@ -32,7 +32,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get([FromRoute] short id)
+        public async Task<IActionResult> GetById([FromRoute] short id)
         {
             var data = await _context.BisnesTasks.Include(s => s.IdUserNavigation).Include(s => s.IdStatusNavigation).FirstOrDefaultAsync(s=>s.Id == id);
 
@@ -59,7 +59,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
             if (returnValue == null)
                 return NotFound();
 
-            return CreatedAtAction(nameof(Get), new { taskModel.Id }, returnValue.ToTaskDTO() );
+            return CreatedAtAction(nameof(GetById), new { taskModel.Id }, returnValue.ToTaskDTO() );
         }
 
         [HttpPut]
