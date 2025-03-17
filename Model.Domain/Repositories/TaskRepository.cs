@@ -1,5 +1,7 @@
 ﻿using BisnesManager.Database.Model;
 using BisnesManager.Database.Repositories;
+using BisnesManager.ETL.Helpers;
+using BisnesManager.ETL.Interfaces;
 using BisnesManager.ETL.update_DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,13 +12,29 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.ETL.Repositories
 {
-    public class TaskRepository : BaseRepository<BisnesTask, UpdateTaskDto>
+    public class TaskRepository : BaseRepository<BisnesTask, UpdateTaskDto>, ITaskRepository
     {
         private readonly BissnesExpertSystemDiploma7Context _context;
 
         public TaskRepository(BissnesExpertSystemDiploma7Context context) : base(context)
         {
             _context = context;
+        }
+
+        public async Task<IList<BisnesTask>?> GetAllAsync(FilterDateQueryDto query)
+        {
+            var list = _context.BisnesTasks.Include(s => s.IdUserNavigation).Include(s => s.IdStatusNavigation).AsQueryable();
+
+            if (query.dateStart != DateTime.Parse("01.01.0001"))
+            {
+                list = list.Where(s => s.DateCreate >= DateOnly.FromDateTime(query.dateStart.Date));
+            }
+            if (query.dateEnd != DateTime.Parse("01.01.0001"))
+            {
+                list = list.Where(s => s.DateCreate <= DateOnly.FromDateTime(query.dateEnd));
+            }
+
+            return await list.ToListAsync();
         }
 
         public override async Task<BisnesTask?> UpdateAsync(int id, UpdateTaskDto model)

@@ -1,7 +1,10 @@
 ﻿using BisnesManager.Database.Model;
 using BisnesManager.Database.Repositories;
+using BisnesManager.ETL.Helpers;
+using BisnesManager.ETL.Interfaces;
 using BisnesManager.ETL.update_DTO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.ETL.Repositories
 {
-    public class StatisticRepository : BaseRepository<Statistic, UpdateStatisticDto>
+    public class StatisticRepository : BaseRepository<Statistic, UpdateStatisticDto>, IStatisticRepository
     {
         private readonly BissnesExpertSystemDiploma7Context _context;
 
@@ -18,8 +21,20 @@ namespace BisnesManager.ETL.Repositories
         {
             _context = context;
         }
-
-        public async Task<List<Statistic>> GetAllById(int UserId)
+        public async Task<IList<Statistic>?> GetAllAsync(FilterDateQueryDto query)
+        {
+            var statistics = _context.Statistics.AsQueryable();
+            if(query.dateStart != DateTime.Parse("01.01.0001") )
+            {
+                statistics = statistics.Where(s => s.DateCreate >= DateOnly.FromDateTime(query.dateStart.Date));
+            }
+            if(query.dateEnd != DateTime.Parse("01.01.0001"))
+            {
+                statistics = statistics.Where(s => s.DateCreate <= DateOnly.FromDateTime(query.dateEnd));
+            }
+            return await statistics.ToListAsync();
+        }
+        public async Task<IList<Statistic>?> GetAllByIdAsync(int UserId)
         {
             return await _context.Statistics.Where(s=>s.IdUser == UserId).ToListAsync();
         }
@@ -45,5 +60,6 @@ namespace BisnesManager.ETL.Repositories
 
             return statistic;
         }
+
     }
 }

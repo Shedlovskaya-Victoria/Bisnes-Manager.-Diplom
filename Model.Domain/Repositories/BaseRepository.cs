@@ -62,6 +62,7 @@ namespace BisnesManager.Database.Repositories
             return await _context.Set<T>().AsNoTracking().ToListAsync();
         }
 
+
         public async Task<T?> GetByIdAsync(short id)
         {
             return await _context.Set<T>().FindAsync(id);

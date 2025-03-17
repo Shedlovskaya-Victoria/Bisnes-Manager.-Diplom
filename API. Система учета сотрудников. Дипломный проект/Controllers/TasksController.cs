@@ -1,5 +1,6 @@
 ﻿using BisnesManager.Database.Context;
 using BisnesManager.Database.Model;
+using BisnesManager.ETL.Helpers;
 using BisnesManager.ETL.Mapper;
 using BisnesManager.ETL.Repositories;
 using BisnesManager.ETL.request_DTO;
@@ -23,9 +24,10 @@ namespace API._Система_учета_сотрудников._Дипломн�
             _taskRepo = taskRepo;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] FilterDateQueryDto query)
         {
-            var list = await _context.BisnesTasks.Include(s => s.IdUserNavigation).Include(s => s.IdStatusNavigation).ToListAsync();
+            var list = await _taskRepo.GetAllAsync(query);
+            if(list == null) return NotFound();
             var listDto = list.Select(s=>s.ToTaskDTO());
 
             return Ok(listDto);
@@ -59,7 +61,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
             if (returnValue == null)
                 return NotFound();
 
-            return CreatedAtAction(nameof(GetById), new { taskModel.Id }, returnValue.ToTaskDTO() );
+            return CreatedAtAction(nameof(GetById), new { taskModel.Id }, taskModel.ToTaskDTO() );
         }
 
         [HttpPut]

@@ -1,5 +1,6 @@
 ﻿using BisnesManager.Database.Context;
 using BisnesManager.Database.Model;
+using BisnesManager.ETL.Helpers;
 using BisnesManager.ETL.Mapper;
 using BisnesManager.ETL.Repositories;
 using BisnesManager.ETL.request_DTO;
@@ -19,10 +20,20 @@ namespace API._Система_учета_сотрудников._Дипломн�
         {
             _statisticRepo = statisticRepo;
         }
+        [HttpGet]
+        public async Task<IActionResult> FilterAllByDate([FromQuery] FilterDateQueryDto query) 
+        {
+            var list = await _statisticRepo.GetAllAsync(query);
+            if (list == null) return NotFound();
+            var listDto = list.Select(s => s.ToStatisticDTO());
+
+            return Ok(listDto);
+        }
         [HttpPost("GetAllByUserId")]
         public async Task<IActionResult> GetAllByUserId([FromBody] short UserId)
         {
-            var list = await _statisticRepo.GetAllById(UserId);
+            var list = await _statisticRepo.GetAllByIdAsync(UserId);
+            if (list == null) return NotFound();
             var listDto = list.Select(s => s.ToStatisticDTO());
              
             return Ok(listDto);

@@ -13,15 +13,18 @@ namespace BisnesManager.ETL.Mapper
     {
         public static UserDTO ToUserDTO(this User user)
         {
-            return new UserDTO()
-            {
-                Id = user.Id,
-                FIO = $"{user.Name} {user.Family} {user.Patronymic}",
-                Role = user.IdRoleNavigation.Title,
-                PhotoImage = user.PhotoImage,
-                EndWorkTime = DateTime.Parse(user.EndWorkTime.ToString()),
-                StartWorkTime = DateTime.Parse(user.StartWorkTime.ToString()),
-            };
+            var dto = new UserDTO();
+
+            if (user.EndWorkTime != null)
+                dto.EndWorkTime = DateTime.Parse(user.EndWorkTime.ToString());
+
+            dto.Id = user.Id;
+            dto.FIO = $"{user.Name} {user.Family} {user.Patronymic}";
+            dto.Role = user.IdRoleNavigation.Title;
+            dto.PhotoImage = user.PhotoImage;
+            dto.StartWorkTime = DateTime.Parse(user.StartWorkTime.ToString());
+            
+            return dto;
         }
         public static User ToUserFromCreateDTO(this UserDtoRequest user)
         {

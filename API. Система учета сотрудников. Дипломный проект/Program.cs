@@ -8,6 +8,7 @@ using BisnesManager.Database.Model;
 using BisnesManager.Database.Interfaces;
 using BisnesManager.Database.Repositories;
 using BisnesManager.ETL.Repositories;
+using BisnesManager.ETL.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -17,7 +17,7 @@ namespace BisnesManager.ETL.DTO
 
         public DateTime? StartWorkTime { get; set; }
 
-        public DateTime? EndWorkTime { get; set; }
+        public DateTime? EndWorkTime { get; set; } = null;
 
     }
 }

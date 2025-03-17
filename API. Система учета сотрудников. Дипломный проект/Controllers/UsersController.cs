@@ -1,5 +1,6 @@
 ﻿using BisnesManager.Database.Context;
 using BisnesManager.Database.Model;
+using BisnesManager.ETL.Helpers;
 using BisnesManager.ETL.Mapper;
 using BisnesManager.ETL.Repositories;
 using BisnesManager.ETL.request_DTO;
@@ -23,9 +24,10 @@ namespace API._Система_учета_сотрудников._Дипломн�
             _userRepo = userRepo;
         }
         [HttpGet]
-        public  async Task<IActionResult> GetAll()
+        public  async Task<IActionResult> GetAll([FromQuery] SortQueryDto query)
         {
-            var list = await context.Users.Include(s => s.IdRoleNavigation).ToListAsync();
+            var list = await _userRepo.GetAllAsync(query);
+            if(list == null) return NotFound();
             var listDto = list.Select(s=>s.ToUserDTO());
             return Ok(listDto);
         }

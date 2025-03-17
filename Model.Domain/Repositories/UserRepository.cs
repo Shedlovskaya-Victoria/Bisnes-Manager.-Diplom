@@ -1,5 +1,7 @@
 ﻿using BisnesManager.Database.Model;
 using BisnesManager.Database.Repositories;
+using BisnesManager.ETL.Helpers;
+using BisnesManager.ETL.Interfaces;
 using BisnesManager.ETL.update_DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,13 +12,28 @@ using System.Threading.Tasks;
 
 namespace BisnesManager.ETL.Repositories
 {
-    public class UserRepository : BaseRepository<User, UpdateUserDto>
+    public class UserRepository : BaseRepository<User, UpdateUserDto>, IUserRepository
     {
         private readonly BissnesExpertSystemDiploma7Context _context;
 
         public UserRepository(BissnesExpertSystemDiploma7Context context) : base(context)
         {
             _context = context; 
+        }
+
+        public async Task<IList<User>?> GetAllAsync(SortQueryDto query)
+        {
+            var list = _context.Users.Include(s => s.IdRoleNavigation).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(query.SortBy))
+            {
+                if (query.SortBy.ToUpper().Equals("FAMILY"))
+                {
+                    list = query.IsDecsending ? list.OrderByDescending(s => s.Family) : list.OrderBy(s => s.Family);
+                }
+            }
+
+            return await list.ToListAsync();
         }
 
         public override async Task<User?> UpdateAsync(int id, UpdateUserDto model)
