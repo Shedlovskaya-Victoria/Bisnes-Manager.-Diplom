@@ -11,7 +11,7 @@ namespace BisnesManager.ETL.Interfaces
     public interface IStatisticRepository
     {
         Task<IList<Statistic>?> GetAllByIdAsync(int UserId);
-        Task<IList<Statistic>?> GetAllAsync(FilterDateQueryDto query);
+        Task<IList<Statistic>?> GetAllAsync(FilterDateAndPaginateQueryDto query);
 
     }
 }

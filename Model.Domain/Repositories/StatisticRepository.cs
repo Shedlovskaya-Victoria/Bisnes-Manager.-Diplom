@@ -21,7 +21,7 @@ namespace BisnesManager.ETL.Repositories
         {
             _context = context;
         }
-        public async Task<IList<Statistic>?> GetAllAsync(FilterDateQueryDto query)
+        public async Task<IList<Statistic>?> GetAllAsync(FilterDateAndPaginateQueryDto query)
         {
             var statistics = _context.Statistics.AsQueryable();
             if(query.dateStart != DateTime.Parse("01.01.0001") )
@@ -32,7 +32,9 @@ namespace BisnesManager.ETL.Repositories
             {
                 statistics = statistics.Where(s => s.DateCreate <= DateOnly.FromDateTime(query.dateEnd));
             }
-            return await statistics.ToListAsync();
+            
+            var skipNumber = (query.PageNumber - 1) * query.PageSize;
+            return await statistics.Skip(skipNumber).Take(query.PageSize).ToListAsync();
         }
         public async Task<IList<Statistic>?> GetAllByIdAsync(int UserId)
         {

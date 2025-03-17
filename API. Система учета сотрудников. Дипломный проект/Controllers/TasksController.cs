@@ -24,7 +24,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
             _taskRepo = taskRepo;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] FilterDateQueryDto query)
+        public async Task<IActionResult> GetAll([FromQuery] FilterDateAndPaginateQueryDto query)
         {
             var list = await _taskRepo.GetAllAsync(query);
             if(list == null) return NotFound();

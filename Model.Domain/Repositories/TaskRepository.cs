@@ -21,7 +21,7 @@ namespace BisnesManager.ETL.Repositories
             _context = context;
         }
 
-        public async Task<IList<BisnesTask>?> GetAllAsync(FilterDateQueryDto query)
+        public async Task<IList<BisnesTask>?> GetAllAsync(FilterDateAndPaginateQueryDto query)
         {
             var list = _context.BisnesTasks.Include(s => s.IdUserNavigation).Include(s => s.IdStatusNavigation).AsQueryable();
 
@@ -34,6 +34,11 @@ namespace BisnesManager.ETL.Repositories
                 list = list.Where(s => s.DateCreate <= DateOnly.FromDateTime(query.dateEnd));
             }
 
+            if (query.PageSize > 2)
+            {
+                var skipNumber = (query.PageNumber - 1) * query.PageSize;
+                return await list.Skip(skipNumber).Take(query.PageSize).ToListAsync();
+            }
             return await list.ToListAsync();
         }
 

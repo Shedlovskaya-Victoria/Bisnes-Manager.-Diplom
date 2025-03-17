@@ -27,7 +27,7 @@ namespace BisnesManager.ETL.Repositories
 
             if (!string.IsNullOrWhiteSpace(query.SortBy))
             {
-                if (query.SortBy.ToUpper().Equals("FAMILY"))
+                if (query.SortBy.ToUpper().Equals("FAMILY", StringComparison.CurrentCultureIgnoreCase))
                 {
                     list = query.IsDecsending ? list.OrderByDescending(s => s.Family) : list.OrderBy(s => s.Family);
                 }

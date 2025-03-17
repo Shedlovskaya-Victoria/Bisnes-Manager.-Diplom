@@ -21,7 +21,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
             _statisticRepo = statisticRepo;
         }
         [HttpGet]
-        public async Task<IActionResult> FilterAllByDate([FromQuery] FilterDateQueryDto query) 
+        public async Task<IActionResult> FilterAllByDate([FromQuery] FilterDateAndPaginateQueryDto query) 
         {
             var list = await _statisticRepo.GetAllAsync(query);
             if (list == null) return NotFound();
