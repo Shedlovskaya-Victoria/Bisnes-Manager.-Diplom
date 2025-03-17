@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace BisnesManager.Database.Model;
+namespace BisnesManager.Database.Models;
 
 public partial class BissnesExpertSystemDiploma7Context : DbContext
 {
@@ -19,13 +19,13 @@ public partial class BissnesExpertSystemDiploma7Context : DbContext
 
     public virtual DbSet<HolidayPlan> HolidayPlans { get; set; }
 
-    public virtual DbSet<Role> Roles { get; set; }
-
     public virtual DbSet<Statistic> Statistics { get; set; }
 
     public virtual DbSet<Status> Statuses { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<UserRole> UserRoles { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -71,14 +71,6 @@ public partial class BissnesExpertSystemDiploma7Context : DbContext
                 .HasConstraintName("HolidayPlan_IdUser_fkey");
         });
 
-        modelBuilder.Entity<Role>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("Roles_pkey");
-
-            entity.Property(e => e.Post).HasMaxLength(255);
-            entity.Property(e => e.Title).HasMaxLength(255);
-        });
-
         modelBuilder.Entity<Statistic>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("Statistic_pkey");
@@ -118,6 +110,15 @@ public partial class BissnesExpertSystemDiploma7Context : DbContext
                 .HasForeignKey(d => d.IdRole)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Users_IdRole_fkey");
+        });
+
+        modelBuilder.Entity<UserRole>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("UserRoles_pkey");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("nextval('\"UserRoles_Id_seq\"'::regclass)");
+            entity.Property(e => e.Post).HasMaxLength(255);
+            entity.Property(e => e.Title).HasMaxLength(255);
         });
 
         OnModelCreatingPartial(modelBuilder);

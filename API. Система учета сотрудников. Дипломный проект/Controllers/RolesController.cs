@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using BisnesManager.ETL.Mapper;
 using BisnesManager.ETL.request_DTO;
-using BisnesManager.Database.Context;
-using BisnesManager.Database.Model;
+using BisnesManager.Database.Models;
 using BisnesManager.ETL.update_DTO;
 using Microsoft.EntityFrameworkCore;
 using BisnesManager.Database.Interfaces;

@@ -1,4 +1,4 @@
-﻿using BisnesManager.Database.Model;
+﻿using BisnesManager.Database.Models;
 using BisnesManager.ETL.DTO;
 using BisnesManager.ETL.request_DTO;
 using System;
@@ -12,7 +12,7 @@ namespace BisnesManager.ETL.Mapper
 {
     public static class RoleMapper
     {
-        public static RoleDTO ToRoleDTO(this Role role)
+        public static RoleDTO ToRoleDTO(this UserRole role)
         {
             return new RoleDTO {
                 Id = role.Id,
@@ -22,9 +22,9 @@ namespace BisnesManager.ETL.Mapper
                 Post = role.Post,
             };
         }
-        public static Role ToRoleFromCreateDTO(this RoleDtoRequest dtoRequest)
+        public static UserRole ToRoleFromCreateDTO(this RoleDtoRequest dtoRequest)
         {
-            return new Role
+            return new UserRole
             {
                 IsEditWorkersRoles = dtoRequest.IsEditWorkersRoles,
                 IsEditWorkTimeTable = dtoRequest.IsEditWorkTimeTable,

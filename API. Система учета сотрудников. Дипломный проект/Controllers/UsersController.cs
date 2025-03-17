@@ -1,5 +1,5 @@
-﻿using BisnesManager.Database.Context;
-using BisnesManager.Database.Model;
+﻿
+using BisnesManager.Database.Models;
 using BisnesManager.ETL.Helpers;
 using BisnesManager.ETL.Mapper;
 using BisnesManager.ETL.Repositories;

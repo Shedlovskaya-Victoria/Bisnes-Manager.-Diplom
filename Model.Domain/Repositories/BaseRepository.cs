@@ -1,6 +1,6 @@
-﻿using BisnesManager.Database.Context;
+﻿
 using BisnesManager.Database.Interfaces;
-using BisnesManager.Database.Model;
+using BisnesManager.Database.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

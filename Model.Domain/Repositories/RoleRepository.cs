@@ -1,4 +1,4 @@
-﻿using BisnesManager.Database.Model;
+﻿using BisnesManager.Database.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BisnesManager.Database.Repositories
 {
-    public class RoleRepository : BaseRepository<Role, UpdateRoleDto>
+    public class RoleRepository : BaseRepository<UserRole, UpdateRoleDto>
     {
         private readonly BissnesExpertSystemDiploma7Context _context;
         public RoleRepository(BissnesExpertSystemDiploma7Context context) : base(context)
@@ -20,12 +20,12 @@ namespace BisnesManager.Database.Repositories
             _context = context;
         }
 
-        public async override Task<Role?> UpdateAsync(int id, UpdateRoleDto model)
+        public async override Task<UserRole?> UpdateAsync(int id, UpdateRoleDto model)
         {
             if (model == null) return null;
             if (id == 0) return null;
 
-            var role = await _context.Roles.FirstOrDefaultAsync(s=>s.Id == id);
+            var role = await _context.UserRoles.FirstOrDefaultAsync(s=>s.Id == id);
 
             if (role == null) return null;
 

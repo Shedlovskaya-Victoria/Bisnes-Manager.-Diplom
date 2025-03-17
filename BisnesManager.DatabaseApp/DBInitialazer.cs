@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BisnesManager.Database.Context;
+using BisnesManager.Database.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BisnesManager.Database
 {
     public static class DBInitialazer
     {
-        private static BissnesExpertSystemDiplomaContext context;
+        private static BissnesExpertSystemDiploma7Context context;
         public static void Initialize()
         {
             if (context == null)
@@ -21,7 +21,7 @@ namespace BisnesManager.Database
             
         }
 
-        public static BissnesExpertSystemDiplomaContext GetContext()
+        public static BissnesExpertSystemDiploma7Context GetContext()
         {
             if (context == null)
                 throw new Exception("База данных еще не инициализированна!");

@@ -1,4 +1,4 @@
-﻿using BisnesManager.Database.Model;
+﻿using BisnesManager.Database.Models;
 using BisnesManager.Database.Repositories;
 using BisnesManager.ETL.Helpers;
 using BisnesManager.ETL.Interfaces;

@@ -1,5 +1,5 @@
 ﻿using BisnesManager.Database.Interfaces;
-using BisnesManager.Database.Model;
+using BisnesManager.Database.Models;
 using BisnesManager.Database.Repositories;
 using BisnesManager.ETL.DTO;
 using BisnesManager.ETL.update_DTO;

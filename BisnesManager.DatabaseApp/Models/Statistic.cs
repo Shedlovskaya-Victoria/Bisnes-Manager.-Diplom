@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BisnesManager.Database.Model;
+namespace BisnesManager.Database.Models;
 
 public partial class Statistic
 {

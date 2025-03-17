@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BisnesManager.Database.Model;
+namespace BisnesManager.Database.Models;
 
 public partial class User
 {
@@ -35,7 +35,7 @@ public partial class User
 
     public virtual ICollection<HolidayPlan> HolidayPlans { get; set; } = new List<HolidayPlan>();
 
-    public virtual Role IdRoleNavigation { get; set; } = null!;
+    public virtual UserRole IdRoleNavigation { get; set; } = null!;
 
     public virtual ICollection<Statistic> Statistics { get; set; } = new List<Statistic>();
 }

@@ -1,4 +1,4 @@
-﻿using BisnesManager.Database.Model;
+﻿using BisnesManager.Database.Models;
 using BisnesManager.ETL.DTO;
 using BisnesManager.ETL.request_DTO;
 using Npgsql.Internal;

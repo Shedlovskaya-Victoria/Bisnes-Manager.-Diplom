@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BisnesManager.Database.Model;
+namespace BisnesManager.Database.Models;
 
-public partial class Role
+public partial class UserRole
 {
     public short Id { get; set; }
 

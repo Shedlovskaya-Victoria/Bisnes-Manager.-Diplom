@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
-using BisnesManager.Database.Context;
+using BisnesManager.Database.Models;
 
 namespace BisnesManager.Database
 {
@@ -16,11 +16,11 @@ namespace BisnesManager.Database
         public static IServiceCollection AddDBPersistens(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration["DbConnection"];
-            services.AddDbContext<BissnesExpertSystemDiplomaContext>(options =>
+            services.AddDbContext<BissnesExpertSystemDiploma7Context>(options =>
             {
                 options.UseNpgsql(connectionString);
             });
-            services.AddScoped<BissnesExpertSystemDiplomaContext>(provider => provider.GetService<BissnesExpertSystemDiplomaContext>());
+            services.AddScoped<BissnesExpertSystemDiploma7Context>(provider => provider.GetService<BissnesExpertSystemDiploma7Context>());
             return services;
         }
     }
