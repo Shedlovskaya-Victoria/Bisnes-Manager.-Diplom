@@ -64,8 +64,9 @@ namespace API._Система_учета_сотрудников._Дипломн�
                 var hasedPassword = _passwordHasher.HashPassword(new IdentityUser(), dtoRequest.Password);
                 userModel.Password = hasedPassword;
                
-                await _userRepo.CreateAsync(userModel);
-
+                var user = await _userRepo.CreateAsync(userModel);
+                if (user == null) return BadRequest("Пользователь с таким логином уже существует!");
+                
                 var returnValue = await context.Users
                     .Include(s => s.IdRoleNavigation)
                     .FirstOrDefaultAsync(s => s.Id == userModel.Id);

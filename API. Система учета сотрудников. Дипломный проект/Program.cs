@@ -12,6 +12,8 @@ using BisnesManager.ETL.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using BisnesManager.ETL.Services;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +27,33 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(option =>
+{
+    option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" }); //customize swager for use jwt token
+    option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter a valid token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
+    });
+    option.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type=ReferenceType.SecurityScheme,
+                    Id="Bearer"
+                }
+            },
+            new string[]{}
+        }
+    });
+});
 
 
 builder.Services.AddDbContext<BissnesExpertSystemDiploma7Context>(options =>                   //db context
@@ -42,26 +71,21 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {        //c
     options.Password.RequiredLength = 8;
 }).AddEntityFrameworkStores<BissnesExpertSystemDiploma7Context>();
 
-builder.Services.AddAuthentication(options => {                           // ~ jwt token? jwt token.
-    options.DefaultAuthenticateScheme =
-    options.DefaultChallengeScheme = 
-    options.DefaultForbidScheme = 
-    options.DefaultScheme = 
-    options.DefaultSignInScheme = 
-    options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options => {
-    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidIssuer = builder.Configuration["JWT:Issuer"],
-        ValidateAudience = true,
-        ValidAudience = builder.Configuration["JWT:Audience"],
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey( 
-            System.Text.Encoding.UTF8.GetBytes( builder.Configuration["JWT:SigningKey"]) 
-        ),
-    };
-});
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options => {
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["JWT:Issuer"],
+            ValidateAudience = true,
+            ValidAudience = builder.Configuration["JWT:Audience"],
+            ValidateIssuerSigningKey = true,
+            ValidateLifetime = true,
+            IssuerSigningKey = new SymmetricSecurityKey( 
+                System.Text.Encoding.UTF8.GetBytes( builder.Configuration["JWT:SigningKey"]) 
+            ),
+        };
+    });
 
 ///BisnesManager.Database.DBInitialazer.Initialize();
 builder.Services.AddScoped<PlanRepository>();                           //repositories
@@ -70,6 +94,9 @@ builder.Services.AddScoped<StatisticRepository>();
 builder.Services.AddScoped<StatusRepository>();
 builder.Services.AddScoped<TaskRepository>();
 builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<AuthRepository>();
+
+builder.Services.AddScoped<TokenServices>();
 
 var app = builder.Build();
 

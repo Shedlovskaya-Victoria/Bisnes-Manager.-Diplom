@@ -103,7 +103,7 @@ public partial class BissnesExpertSystemDiploma7Context : DbContext
             entity.Property(e => e.Family).HasMaxLength(255);
             entity.Property(e => e.Login).HasMaxLength(50);
             entity.Property(e => e.Name).HasMaxLength(255);
-            entity.Property(e => e.Password).HasMaxLength(50);
+            entity.Property(e => e.Password).HasMaxLength(600);
             entity.Property(e => e.Patronymic).HasMaxLength(255);
 
             entity.HasOne(d => d.IdRoleNavigation).WithMany(p => p.Users)
@@ -114,9 +114,9 @@ public partial class BissnesExpertSystemDiploma7Context : DbContext
 
         modelBuilder.Entity<UserRole>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("UserRoles_pkey");
+            entity.HasKey(e => e.Id).HasName("Roles_pkey");
 
-            entity.Property(e => e.Id).HasDefaultValueSql("nextval('\"UserRoles_Id_seq\"'::regclass)");
+            entity.Property(e => e.Id).HasDefaultValueSql("nextval('\"Roles_Id_seq\"'::regclass)");
             entity.Property(e => e.Post).HasMaxLength(255);
             entity.Property(e => e.Title).HasMaxLength(255);
         });

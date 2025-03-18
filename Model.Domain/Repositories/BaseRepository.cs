@@ -18,7 +18,7 @@ namespace BisnesManager.Database.Repositories
             _context = context;
         }
 
-        public async Task<T?> CreateAsync(T model)
+        public virtual async Task<T?> CreateAsync(T model)
         {
             if (model == null) return null;
 

@@ -1,5 +1,6 @@
 ﻿using BisnesManager.Database.Models;
 using BisnesManager.Database.Repositories;
+using BisnesManager.ETL.DTO;
 using BisnesManager.ETL.Helpers;
 using BisnesManager.ETL.Interfaces;
 using BisnesManager.ETL.update_DTO;
@@ -60,6 +61,24 @@ namespace BisnesManager.ETL.Repositories
             await _context.SaveChangesAsync();
 
             return user;
+        }
+        public async override Task<User> CreateAsync(User user)
+        {
+
+            if (user == null) throw new ArgumentNullException("User can't be null!");
+
+            var IsExists =  _context.Users.FirstOrDefault(s => s.Login == user.Login) != null ? false : true;
+
+            if(IsExists)
+            {
+                await _context.Users.AddAsync(user);
+                await _context.SaveChangesAsync();
+                return user;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
