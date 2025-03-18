@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace BisnesManager.Database.Models;
 
-public partial class User
+public partial class User //: IdentityUser
 {
     public short Id { get; set; }
 

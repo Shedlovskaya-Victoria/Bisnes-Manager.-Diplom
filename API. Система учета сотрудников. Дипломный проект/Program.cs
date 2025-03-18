@@ -19,7 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers().AddNewtonsoftJson(options => 
         { 
-            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; 
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;  //json
         } 
 );
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -27,11 +27,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddDbContext<BissnesExpertSystemDiploma7Context>(options =>
+builder.Services.AddDbContext<BissnesExpertSystemDiploma7Context>(options =>                   //db context
 {            // ¡ƒ œŒƒÀ Àﬁ◊≈Õ»≈
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddIdentity<AppUser, IdentityRole>(options => {
+
+builder.Services.AddScoped<IPasswordHasher<IdentityUser>, PasswordHasher<IdentityUser>>();               //password hasher
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {        //check verify passsword 
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireUppercase = true;
@@ -39,7 +42,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options => {
     options.Password.RequiredLength = 8;
 }).AddEntityFrameworkStores<BissnesExpertSystemDiploma7Context>();
 
-builder.Services.AddAuthentication(options => { 
+builder.Services.AddAuthentication(options => {                           // ~ jwt token? jwt token.
     options.DefaultAuthenticateScheme =
     options.DefaultChallengeScheme = 
     options.DefaultForbidScheme = 
@@ -61,7 +64,7 @@ builder.Services.AddAuthentication(options => {
 });
 
 ///BisnesManager.Database.DBInitialazer.Initialize();
-builder.Services.AddScoped<PlanRepository>();
+builder.Services.AddScoped<PlanRepository>();                           //repositories
 builder.Services.AddScoped<RoleRepository>();
 builder.Services.AddScoped<StatisticRepository>();
 builder.Services.AddScoped<StatusRepository>();

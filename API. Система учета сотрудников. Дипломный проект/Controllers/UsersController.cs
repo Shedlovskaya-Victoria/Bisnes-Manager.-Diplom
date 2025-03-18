@@ -6,6 +6,7 @@ using BisnesManager.ETL.Repositories;
 using BisnesManager.ETL.request_DTO;
 using BisnesManager.ETL.update_DTO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,13 +16,18 @@ namespace API._Система_учета_сотрудников._Дипломн�
     [ApiController]
     public class UsersController : ControllerBase
     {
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly BissnesExpertSystemDiploma7Context context;
         private readonly UserRepository _userRepo;
+        private readonly IPasswordHasher<IdentityUser> _passwordHasher;
 
-        public UsersController(BissnesExpertSystemDiploma7Context context, UserRepository userRepo)
+        public UsersController(BissnesExpertSystemDiploma7Context context, UserRepository userRepo,
+            UserManager<IdentityUser> userManager, IPasswordHasher<IdentityUser> passwordHasher)
         {
             this.context = context;
             _userRepo = userRepo;
+            _userManager = userManager;
+            _passwordHasher = passwordHasher;
         }
         [HttpGet]
         public  async Task<IActionResult> GetAll([FromQuery] SortQueryDto query)
@@ -49,18 +55,32 @@ namespace API._Система_учета_сотрудников._Дипломн�
             if (dtoRequest == null)
                 return NotFound();
 
-            var userModel = dtoRequest.ToUserFromCreateDTO();
+            var passwordValidator = new PasswordValidator<IdentityUser>();
+            var result = await passwordValidator.ValidateAsync(_userManager, null, dtoRequest.Password);
 
-           await _userRepo.CreateAsync(userModel);
+            if (result.Succeeded)
+            {
+                var userModel = dtoRequest.ToUserFromCreateDTO();
+                var hasedPassword = _passwordHasher.HashPassword(new IdentityUser(), dtoRequest.Password);
+                userModel.Password = hasedPassword;
+               
+                await _userRepo.CreateAsync(userModel);
 
-            var returnValue = await context.Users
-                .Include(s => s.IdRoleNavigation)
-                .FirstOrDefaultAsync(s => s.Id == userModel.Id);
+                var returnValue = await context.Users
+                    .Include(s => s.IdRoleNavigation)
+                    .FirstOrDefaultAsync(s => s.Id == userModel.Id);
 
-            if (returnValue == null)
-                return NotFound();
+                if (returnValue == null)
+                    return NotFound();
 
-            return CreatedAtAction(nameof(GetById), new { userModel.Id }, returnValue.ToUserDTO() );
+                return CreatedAtAction(nameof(GetById), new { userModel.Id }, returnValue.ToUserDTO());
+            }
+            else
+            {
+               return BadRequest(result);
+            }
+
+           
         }
         [HttpPut]
         [Route("{id}")]
