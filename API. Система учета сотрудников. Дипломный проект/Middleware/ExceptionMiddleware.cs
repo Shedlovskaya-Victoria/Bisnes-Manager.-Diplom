@@ -24,28 +24,16 @@ namespace BisnesManager.WebAPI.Diplom.Middleware
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception ex)
+        private async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            var code = HttpStatusCode.InternalServerError;
-            var result = string.Empty;
-            switch (ex)
-            {
-                case ValidationException validationException:
-                    code = HttpStatusCode.BadRequest;
-                    result = JsonSerializer.Serialize(validationException.ValidationResult);
-                    break;
-                case NotFoundException:
-                    code = HttpStatusCode.NotFound;
-                    break;
-            }
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)code;
+            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-            if (result == null)
-                result = JsonSerializer.Serialize(new { error = ex.Message });
-            
-            
-            return context.Response.WriteAsync(result);
+            await context.Response.WriteAsync(new ErrorDetails()
+            {
+                StatusCode = context.Response.StatusCode,
+                Message = ex.Message
+            }.ToString());
         }
     }
 }

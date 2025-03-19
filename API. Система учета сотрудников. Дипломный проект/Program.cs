@@ -19,12 +19,32 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers().AddNewtonsoftJson(options => 
+builder.Services.AddControllers().AddJsonOptions(options => 
         { 
-            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;  //json
+            options.JsonSerializerOptions.PropertyNamingPolicy = null;  //json
         } 
 );
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options => {
+    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidIssuer = builder.Configuration["JWT:Issuer"],
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["JWT:Audience"],
+        ValidateIssuerSigningKey = true,
+        ValidateLifetime = true,
+        IssuerSigningKey = new SymmetricSecurityKey( 
+            System.Text.Encoding.UTF8.GetBytes( builder.Configuration["JWT:SigningKey"]) 
+        ),
+    };
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerGen(option =>
@@ -55,37 +75,10 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
-
 builder.Services.AddDbContext<BissnesExpertSystemDiploma7Context>(options =>                   //db context
 {            // ¡ƒ œŒƒÀ Àﬁ◊≈Õ»≈
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-
-builder.Services.AddScoped<IPasswordHasher<IdentityUser>, PasswordHasher<IdentityUser>>();               //password hasher
-
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {        //check verify passsword 
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequiredLength = 8;
-}).AddEntityFrameworkStores<BissnesExpertSystemDiploma7Context>();
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options => {
-        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidIssuer = builder.Configuration["JWT:Issuer"],
-            ValidateAudience = true,
-            ValidAudience = builder.Configuration["JWT:Audience"],
-            ValidateIssuerSigningKey = true,
-            ValidateLifetime = true,
-            IssuerSigningKey = new SymmetricSecurityKey( 
-                System.Text.Encoding.UTF8.GetBytes( builder.Configuration["JWT:SigningKey"]) 
-            ),
-        };
-    });
 
 ///BisnesManager.Database.DBInitialazer.Initialize();
 builder.Services.AddScoped<PlanRepository>();                           //repositories
@@ -97,6 +90,15 @@ builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<AuthRepository>();
 
 builder.Services.AddScoped<TokenServices>();
+builder.Services.AddScoped<IPasswordHasher<IdentityUser>, PasswordHasher<IdentityUser>>();               //password hasher
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {        //check verify passsword 
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequiredLength = 8;
+}).AddEntityFrameworkStores<BissnesExpertSystemDiploma7Context>();
 
 var app = builder.Build();
 
@@ -112,11 +114,9 @@ app.UseRouting();     //
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAll"); //
+//app.UseCors("AllowAll"); //
 
 app.UseAuthentication(); // for jwt and identity
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

@@ -7,6 +7,7 @@ using BisnesManager.ETL.update_DTO;
 using Microsoft.EntityFrameworkCore;
 using BisnesManager.Database.Interfaces;
 using BisnesManager.Database.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API._Система_учета_сотрудников._Дипломный_проект.Controllers
 {
@@ -19,6 +20,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
         {
             this.roleRepo = roleRepo;
         }
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -28,7 +30,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
 
             return Ok(roleDto);
         }
-
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] short id)
         {

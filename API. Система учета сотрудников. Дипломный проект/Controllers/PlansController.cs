@@ -6,13 +6,14 @@ using BisnesManager.ETL.request_DTO;
 using BisnesManager.ETL.update_DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc; 
 using Microsoft.EntityFrameworkCore;
 
 namespace API._Система_учета_сотрудников._Дипломный_проект.Controllers
 {
-    [Route("api/[controller]")]
+
     [ApiController]
+    [Route("api/[controller]")]
     public class PlansController : ControllerBase
     {
         private readonly PlanRepository _planRepo;
@@ -22,9 +23,10 @@ namespace API._Система_учета_сотрудников._Дипломн�
         }
 
         [Authorize]
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
+            
             var list = await _planRepo.GetAllAsync();
             if (list == null) return NotFound();
             var listDto = list.Select(s=>s.ToPlanDTO());
