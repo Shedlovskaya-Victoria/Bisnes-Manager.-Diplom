@@ -22,7 +22,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
             _planRepo = planRepo;
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
@@ -34,7 +34,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
             return Ok(listDto);
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
@@ -47,6 +47,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
 
             return Ok(data.ToPlanDTO());
         }
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] PlanDtoRequest dtoRequest)
         {
@@ -55,6 +56,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
 
             return CreatedAtAction(nameof(GetById), new { roleModel.Id }, roleModel.ToPlanDTO());
         }
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPut]
         [Route("{id}")]
         public async Task<IActionResult> Update([FromRoute] int id,  [FromBody] UpdatePlanDto updateDto)
@@ -66,7 +68,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
            if(plan == null) return NotFound();
             return Ok(plan.ToPlanDTO());
         }
-
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpDelete]
         [Route("{id}")]
         public async  Task<IActionResult> Delete([FromRoute] int id)

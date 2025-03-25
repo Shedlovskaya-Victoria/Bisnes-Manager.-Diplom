@@ -4,6 +4,7 @@ using BisnesManager.ETL.Mapper;
 using BisnesManager.ETL.Repositories;
 using BisnesManager.ETL.request_DTO;
 using BisnesManager.ETL.update_DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
         {
             _statusRepo = statusRepo;
         }
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -28,6 +30,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
             var listDto = list.Select(s=>s.ToStatusDTO());
             return Ok(listDto);
         }
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] short id)
         {
@@ -40,6 +43,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
 
             return Ok(data.ToStatusDTO());
         }
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] StatusDtoRequest dtoRequest)
         {            
@@ -47,6 +51,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
             await _statusRepo.CreateAsync(statusModel);
             return CreatedAtAction(nameof(GetById), new { statusModel.Id}, statusModel.ToStatusDTO());
         }
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPut]
         [Route("{id}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStatusDto updateDto)
@@ -58,6 +63,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
             if(statusModel == null) return NotFound();
             return Ok(statusModel.ToStatusDTO());
         }
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> Delete([FromRoute] short id)

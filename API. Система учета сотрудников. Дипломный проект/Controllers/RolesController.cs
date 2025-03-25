@@ -20,7 +20,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
         {
             this.roleRepo = roleRepo;
         }
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -30,7 +30,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
 
             return Ok(roleDto);
         }
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] short id)
         {
@@ -44,6 +44,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
 
             return Ok(role.ToRoleDTO());
         }
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost]
         public async  Task<IActionResult> Create([FromBody] RoleDtoRequest dtoRequest)
         {
@@ -51,6 +52,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
             await roleRepo.CreateAsync(roleModel);
             return CreatedAtAction(nameof(GetById), new { roleModel.Id }, roleModel.ToRoleDTO());
         }
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPut]
         [Route("{id}")]
         public async  Task<IActionResult> Update([FromRoute] short id, [FromBody] UpdateRoleDto updateDto)
@@ -65,7 +67,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
 
             return Ok(role.ToRoleDTO());
         }
-
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> Delete([FromRoute] short id)

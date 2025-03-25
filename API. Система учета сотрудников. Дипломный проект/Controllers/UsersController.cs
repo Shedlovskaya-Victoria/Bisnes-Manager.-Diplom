@@ -5,6 +5,7 @@ using BisnesManager.ETL.Mapper;
 using BisnesManager.ETL.Repositories;
 using BisnesManager.ETL.request_DTO;
 using BisnesManager.ETL.update_DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
             _userManager = userManager;
             _passwordHasher = passwordHasher;
         }
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet]
         public  async Task<IActionResult> GetAll([FromQuery] SortQueryDto query)
         {
@@ -37,6 +39,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
             var listDto = list.Select(s=>s.ToUserDTO());
             return Ok(listDto);
         }
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] short id)
         {
@@ -49,6 +52,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
 
             return Ok(data.ToUserDTO());
         }
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] UserDtoRequest dtoRequest)
         {
@@ -69,7 +73,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
                 
                 var returnValue = await context.Users
                     .Include(s => s.IdRoleNavigation)
-                    .FirstOrDefaultAsync(s => s.Id == userModel.Id);
+                    .FirstOrDefaultAsync(s => s.Id == userModel.Id);        //для ответа включающего роль юзера
 
                 if (returnValue == null)
                     return NotFound();
@@ -83,6 +87,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
 
            
         }
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPut]
         [Route("{id}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateUserDto updateDto)
@@ -96,6 +101,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
 
             return Ok(user.ToUserDTO());
         }
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> Delete([FromRoute] short id)

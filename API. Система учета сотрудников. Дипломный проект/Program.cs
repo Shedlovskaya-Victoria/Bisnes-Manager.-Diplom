@@ -14,6 +14,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using BisnesManager.ETL.Services;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Text;
+using BisnesManager.WebAPI.Diplom.Auth;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,30 +26,42 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddJsonOptions(options => 
         { 
             options.JsonSerializerOptions.PropertyNamingPolicy = null;  //json
+            
         } 
 );
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddAuthorization();
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options => {
-    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+builder.Services.AddAuthorization();//(opt=>
+//{
+//    var policy = new AuthorizationPolicyBuilder("Bearer").Build();
+//    opt.DefaultPolicy = policy;
+//});        //
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)          //
+    .AddJwtBearer(options =>
     {
-        ValidateIssuer = true,
-        ValidIssuer = builder.Configuration["JWT:Issuer"],
-        ValidateAudience = true,
-        ValidAudience = builder.Configuration["JWT:Audience"],
-        ValidateIssuerSigningKey = true,
-        ValidateLifetime = true,
-        IssuerSigningKey = new SymmetricSecurityKey( 
-            System.Text.Encoding.UTF8.GetBytes( builder.Configuration["JWT:SigningKey"]) 
-        ),
-    };
-});
-builder.Services.AddEndpointsApiExplorer();
+        
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.UseSecurityTokenValidators = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            
+            // указывает, будет ли валидироваться издатель при валидации токена
+            ValidateIssuer = true,
+            // строка, представляющая издателя
+            ValidIssuer = AuthOptions.ISSUER,
+            // будет ли валидироваться потребитель токена
+            ValidateAudience = false,
+            // установка потребителя токена
+            ValidAudience = AuthOptions.AUDIENCE,
+            // будет ли валидироваться время существования
+            ValidateLifetime = false,
+            // установка ключа безопасности
+            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+            // валидация ключа безопасности
+            ValidateIssuerSigningKey = true,
+        };
+    });
+
+
 builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerGen(option =>
 {
@@ -102,6 +118,9 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {        //c
 
 var app = builder.Build();
 
+
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -109,14 +128,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseExceptionMiddlewareExtensions();      //
-
-app.UseRouting();     //
-
-app.UseHttpsRedirection();
-
-//app.UseCors("AllowAll"); //
+//app.UseHttpsRedirection();
 
 app.UseAuthentication(); // for jwt and identity
+app.UseRouting();
 app.UseAuthorization();
+
+
 app.MapControllers();
 app.Run();

@@ -7,6 +7,9 @@ using BisnesManager.WebAPI.Diplom.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace API._Система_учета_сотрудников._Дипломный_проект.Controllers
 {
@@ -28,9 +31,9 @@ namespace API._Система_учета_сотрудников._Дипломн�
         [HttpPost("Authorizate")]
         public async Task<ActionResult<string>> Authorizate([FromBody]AuthDataDto dataDto)
         {
-            if (!ModelState.IsValid)
+            if (dataDto == null)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Authorization data is not be null");
             }
 
             var user = await _authRepository.FindUser(dataDto);
@@ -41,7 +44,17 @@ namespace API._Система_учета_сотрудников._Дипломн�
             if(_passwordHasher.VerifyHashedPassword(null, user.Password, dataDto.Password) 
                 != PasswordVerificationResult.Failed )
             {
-                return Ok(_tokenServices.CreateToken(user));
+                var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.Login) };
+                var jwt = new JwtSecurityToken(
+                        issuer: AuthOptions.ISSUER,
+                        audience: AuthOptions.AUDIENCE,
+                        claims: claims,
+                        expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(20)), // время действия 2 минуты
+                        signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+
+                return new JwtSecurityTokenHandler().WriteToken(jwt);
+
+              //  return Ok(_tokenServices.CreateToken(user));
             }
             else
             {
