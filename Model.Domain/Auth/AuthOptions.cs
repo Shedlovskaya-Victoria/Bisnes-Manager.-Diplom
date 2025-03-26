@@ -1,7 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace BisnesManager.WebAPI.Diplom.Auth
+namespace BisnesManager.ETL.Auth
 {
     public class AuthOptions
     {

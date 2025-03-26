@@ -10,17 +10,14 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using BisnesManager.Client.Tools;
 using BisnesManager.Client.View;
+using Система_учета_сотрудников._Дипломный_проект.Tools;
+using Система_учета_сотрудников._Дипломный_проект.Tools.API;
 
 namespace BisnesManager.Client.ViewModel
 {
     public class EnterVM 
     {
-       // public User User { get; set; }
-
-
-       // public CommandWithParametr<User> Autentification { get; set; }
-        public Command Autentification { get; set; }
-        public Command Autorization { get; set; }
+        public CommandWithParametr<string> Autentification { get; set; }
         public Command Recover { get; set; }
        
         public EnterVM(PasswordBox passwordBox) 
@@ -38,22 +35,18 @@ namespace BisnesManager.Client.ViewModel
              });
             */
 
-           
+            Autentification = new CommandWithParametr<string>(
+            async (login) =>
+            {
+                if (string.IsNullOrEmpty(login) | string.IsNullOrEmpty(passwordBox.Password))
+                    MessageBox.Show(SystemMessages.BadAuth);
 
-            
-
-            Autentification = new Command(
-            () =>
-            {
-                Navigation.Instance().CurrentPage = new Home();
-            }, () => 
-            {
-                return true;
-            });
-            Autorization = new Command(
-            () =>
-            {
-                Navigation.Instance().CurrentPage = new Registrate();
+                var answer =  (await MyHttpClient.Auth(login, passwordBox));
+                 
+                if(answer.Item1 == SystemMessages.SuccessAuth)
+                    Navigation.Instance().CurrentPage = new Home(answer.Item2);
+                else 
+                    MessageBox.Show(answer.Item1);
             }, () => 
             {
                 return true;

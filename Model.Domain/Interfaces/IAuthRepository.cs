@@ -1,5 +1,5 @@
 ﻿using BisnesManager.Database.Models;
-using BisnesManager.WebAPI.Diplom.Auth;
+using BisnesManager.ETL.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;

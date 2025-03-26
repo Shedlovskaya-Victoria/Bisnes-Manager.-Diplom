@@ -9,6 +9,7 @@ using BisnesManager.Client.View;
 using BisnesManager.Client.View.PageParts;
 using BisnesManager.Client.View.Pages;
 using BisnesManager.Client.View.ProgramUserControl;
+using BisnesManager.ETL.DTO;
 
 namespace BisnesManager.Client.ViewModel
 {
@@ -31,10 +32,14 @@ namespace BisnesManager.Client.ViewModel
         public Command EditWorkers {  get; set; }
         public Command EditPosition {  get; set; }
 
+
+        public string UserName { get; set; }   
         public HomeVM() { }
 
-        public HomeVM(ContentControl control)
+        public HomeVM(ContentControl control, UserDTO user)
         {
+            UserName = $"{user.Role}: {user.FIO}";
+
             Find = new Command(() =>
             {
                
@@ -45,7 +50,7 @@ namespace BisnesManager.Client.ViewModel
             // go to
             GoToPersonalCabinet = new Command(() =>
             {
-                Navigation.Instance().CurrentPage = new PersonalCabinet();
+                Navigation.Instance().CurrentPage = new PersonalCabinet(user);
             }, () =>
             {
                 return true;

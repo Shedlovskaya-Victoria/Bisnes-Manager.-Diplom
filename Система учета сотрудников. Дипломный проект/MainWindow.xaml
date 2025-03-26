@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BisnesManager.Client"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="600" Width="800">
+        Title="MainWindow" MinHeight="600" Width="840">
     <Grid>
         <Frame Grid.Row="0" NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}"/>
     </Grid>

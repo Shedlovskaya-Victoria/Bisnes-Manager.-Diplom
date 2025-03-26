@@ -12,12 +12,12 @@ using BisnesManager.ETL.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using BisnesManager.ETL.Services;
+
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
-using BisnesManager.WebAPI.Diplom.Auth;
 using Microsoft.AspNetCore.Authorization;
+using BisnesManager.ETL.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,11 +29,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
             
         } 
 );
-builder.Services.AddAuthorization();//(opt=>
-//{
-//    var policy = new AuthorizationPolicyBuilder("Bearer").Build();
-//    opt.DefaultPolicy = policy;
-//});        //
+builder.Services.AddAuthorization();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)          //
     .AddJwtBearer(options =>
     {
@@ -105,7 +102,6 @@ builder.Services.AddScoped<TaskRepository>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<AuthRepository>();
 
-builder.Services.AddScoped<TokenServices>();
 builder.Services.AddScoped<IPasswordHasher<IdentityUser>, PasswordHasher<IdentityUser>>();               //password hasher
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {        //check verify passsword 
@@ -118,9 +114,6 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {        //c
 
 var app = builder.Build();
 
-
-
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -131,7 +124,7 @@ app.UseExceptionMiddlewareExtensions();      //
 //app.UseHttpsRedirection();
 
 app.UseAuthentication(); // for jwt and identity
-app.UseRouting();
+app.UseRouting();    // for jwt 
 app.UseAuthorization();
 
 

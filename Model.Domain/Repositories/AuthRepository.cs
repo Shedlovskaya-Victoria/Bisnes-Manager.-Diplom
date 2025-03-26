@@ -1,8 +1,9 @@
 ﻿using BisnesManager.Database.Interfaces;
 using BisnesManager.Database.Models;
 using BisnesManager.Database.Repositories;
+using BisnesManager.ETL.Auth;
 using BisnesManager.ETL.Interfaces;
-using BisnesManager.WebAPI.Diplom.Auth;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace BisnesManager.ETL.Repositories
 
         public async Task<User> FindUser(AuthDataDto authDataDto)
         {
-            return _context.Users.FirstOrDefault(s=>s.Login ==  authDataDto.Login) ;
+            return _context.Users.Include(s=>s.IdRoleNavigation).FirstOrDefault(s=>s.Login ==  authDataDto.Login) ;
         }
 
 

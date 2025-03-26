@@ -71,14 +71,8 @@ namespace API._Система_учета_сотрудников._Дипломн�
                 var user = await _userRepo.CreateAsync(userModel);
                 if (user == null) return BadRequest("Пользователь с таким логином уже существует!");
                 
-                var returnValue = await context.Users
-                    .Include(s => s.IdRoleNavigation)
-                    .FirstOrDefaultAsync(s => s.Id == userModel.Id);        //для ответа включающего роль юзера
-
-                if (returnValue == null)
-                    return NotFound();
-
-                return CreatedAtAction(nameof(GetById), new { userModel.Id }, returnValue.ToUserDTO());
+               
+                return CreatedAtAction(nameof(GetById), new { userModel.Id }, user.ToUserDTO());
             }
             else
             {

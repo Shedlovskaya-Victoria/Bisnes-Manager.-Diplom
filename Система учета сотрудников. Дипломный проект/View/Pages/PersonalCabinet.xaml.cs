@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BisnesManager.ETL.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,10 @@ namespace BisnesManager.Client.View.Pages
     /// </summary>
     public partial class PersonalCabinet : Page
     {
-        public PersonalCabinet()
+        public PersonalCabinet(UserDTO userDTO)
         {
             InitializeComponent();
+            DataContext = new PersonalCabinet(userDTO);
         }
     }
 }

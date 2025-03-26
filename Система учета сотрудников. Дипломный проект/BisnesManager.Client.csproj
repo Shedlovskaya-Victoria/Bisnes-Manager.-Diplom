@@ -40,6 +40,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Model.Domain\BisnesManager.ETL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="View\PageParts\Image\Delete.png" />
     <Resource Include="View\PageParts\Image\Pencil.png" />
     <Resource Include="View\PageParts\Image\Pencil2.png" />

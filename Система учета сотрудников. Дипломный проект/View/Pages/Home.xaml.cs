@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BisnesManager.Client.View.ProgramUserControl;
 using BisnesManager.Client.ViewModel;
+using BisnesManager.ETL.DTO;
 
 namespace BisnesManager.Client.View
 {
@@ -22,12 +23,12 @@ namespace BisnesManager.Client.View
     /// </summary>
     public partial class Home : Page
     {
-        public Home()
+        public Home(UserDTO userDTO)
         {
             InitializeComponent();
 
             contentControl.Content = new TasksBoard();
-            DataContext = new HomeVM(contentControl);
+            DataContext = new HomeVM(contentControl, userDTO);
         }
     }
 }

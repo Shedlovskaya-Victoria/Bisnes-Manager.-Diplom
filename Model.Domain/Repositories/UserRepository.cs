@@ -73,7 +73,7 @@ namespace BisnesManager.ETL.Repositories
             {
                 await _context.Users.AddAsync(user);
                 await _context.SaveChangesAsync();
-                return user;
+                return _context.Users.Include(s=>s.IdRoleNavigation).FirstOrDefault(s => s.Login == user.Login); //чтобы для дто ответа включало роль
             }
             else
             {

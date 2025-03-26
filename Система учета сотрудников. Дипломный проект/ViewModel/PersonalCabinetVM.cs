@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BisnesManager.Client.Tools;
 using BisnesManager.Client.View;
+using BisnesManager.ETL.DTO;
 
 namespace BisnesManager.Client.ViewModel
 {
@@ -18,13 +19,13 @@ namespace BisnesManager.Client.ViewModel
         public Command ChangePassword { get; set; }
         public Command SaveAll { get; set; }
         public Command DeleteAll { get; set; }
-
-        public PersonalCabinetVM()
+        public PersonalCabinetVM() { }
+        public PersonalCabinetVM(UserDTO user)
         {
             Back = new Command(
             () =>
             {
-                Navigation.Instance().CurrentPage = new Home();
+                Navigation.Instance().CurrentPage = new Home(user);
             }, () =>
             {
                 return true;

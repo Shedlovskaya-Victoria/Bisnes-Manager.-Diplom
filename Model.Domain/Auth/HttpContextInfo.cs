@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace BisnesManager.WebAPI.Diplom.Auth
+namespace BisnesManager.ETL.Auth
 {
     public class HttpContextInfo
     {

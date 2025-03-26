@@ -1,9 +1,10 @@
 ﻿using BisnesManager.Database;
 using BisnesManager.Database.Models;
+using BisnesManager.ETL.Auth;
 using BisnesManager.ETL.Interfaces;
+using BisnesManager.ETL.Mapper;
 using BisnesManager.ETL.Repositories;
-using BisnesManager.ETL.Services;
-using BisnesManager.WebAPI.Diplom.Auth;
+using BisnesManager.ETL.request_DTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,19 +18,16 @@ namespace API._Система_учета_сотрудников._Дипломн�
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly TokenServices _tokenServices;
         private readonly AuthRepository _authRepository;
         private readonly IPasswordHasher<IdentityUser> _passwordHasher;
-        public AuthController(TokenServices tokenServices, 
-            AuthRepository authRepository, IPasswordHasher<IdentityUser> passwordHasher)
+        public AuthController(AuthRepository authRepository, IPasswordHasher<IdentityUser> passwordHasher)
         {
-            _tokenServices = tokenServices;
             _authRepository = authRepository;
             _passwordHasher = passwordHasher;
         }
 
         [HttpPost("Authorizate")]
-        public async Task<ActionResult<string>> Authorizate([FromBody]AuthDataDto dataDto)
+        public async Task<IActionResult> Authorizate([FromBody]AuthDataDto dataDto)
         {
             if (dataDto == null)
             {
@@ -52,7 +50,8 @@ namespace API._Система_учета_сотрудников._Дипломн�
                         expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(20)), // время действия 2 минуты
                         signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
-                return new JwtSecurityTokenHandler().WriteToken(jwt);
+                var authResponse = new AuthDtoRequest { Token = new JwtSecurityTokenHandler().WriteToken(jwt), User = user.ToUserDTO() };
+                return Ok(authResponse);
 
               //  return Ok(_tokenServices.CreateToken(user));
             }

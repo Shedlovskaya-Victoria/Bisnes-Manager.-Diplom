@@ -14,16 +14,15 @@
         <Label Content="Добро пожаловать!" FontSize="16" ToolTip="Да, это адресовано именно вам, моя госпожа"/>
         <Label Content="Введите логин" Margin="0" FontSize="10" 
                ToolTip="Да, это адресовано именно вам, моя госпожа"/>
-        <TextBox Text="{Binding User.Login, ElementName=login}"  Margin="3 0 3 3"
+        <TextBox x:Name="login"  Margin="3 0 3 3"
                  ToolTip="Да, это адресовано именно вам, моя госпожа!"/>
         <Label Content="Введите пароль" Margin="0" FontSize="10"/>
         <PasswordBox x:Name="password"  Margin="3 0 3 3"/>
         <StackPanel>
-           <StackPanel Orientation="Horizontal" Margin="0">
-               <Button Content="Войти" Command="{Binding Autentification}" CommandParameter="{Binding login}"
+           
+           <Button Content="Войти" Command="{Binding Autentification}" CommandParameter="{Binding ElementName=login, Path=Text}"
                        ToolTip="Да, это адресовано именно вам, моя госпожа"/>
-                <Button Content="Регистрация" Command="{Binding Autorization}"/>
-           </StackPanel>
+            
            <Button Content="Восстановить доступ" Command="{Binding  Recover}"/>
         </StackPanel>
     </StackPanel>
