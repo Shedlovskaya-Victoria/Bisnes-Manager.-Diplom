@@ -17,6 +17,10 @@ namespace Система_учета_сотрудников._Дипломный_�
     public static class MyHttpClient
     {
         static HttpClient httpClient = new HttpClient();
+        public static HttpClient GetHttpClient() 
+        {
+            return httpClient;
+        }
         public static async Task<(string, UserDTO)> Auth(string login, PasswordBox password)
         {
             httpClient.BaseAddress = new Uri("https://localhost:7285/api/");

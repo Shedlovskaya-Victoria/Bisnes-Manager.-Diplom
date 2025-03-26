@@ -41,7 +41,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
         }
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([FromRoute] short id)
+        public async Task<IActionResult> GetById(short id)
         {
             var data = await context.Users.Include(s => s.IdRoleNavigation).FirstOrDefaultAsync(s=>s.Id == id);
 
@@ -50,7 +50,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
                 return NotFound();
             }
 
-            return Ok(data.ToUserDTO());
+            return Ok(data.ToUpdateDto());
         }
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost]
@@ -89,6 +89,12 @@ namespace API._Система_учета_сотрудников._Дипломн�
             if (updateDto == null)
                 return NotFound();
 
+            if (!string.IsNullOrEmpty(updateDto.Password))
+            {
+                var hasedPassword = _passwordHasher.HashPassword(new IdentityUser(), updateDto.Password);
+                updateDto.Password = hasedPassword;
+            }
+            updateDto.DateCreate = DateTime.Now;
             var user = await _userRepo.UpdateAsync(id, updateDto);           
 
             if(user == null) return NotFound();

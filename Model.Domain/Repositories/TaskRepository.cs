@@ -23,7 +23,7 @@ namespace BisnesManager.ETL.Repositories
 
         public async Task<IList<BisnesTask>?> GetAllAsync(FilterDateAndPaginateQueryDto query)
         {
-            var list = _context.BisnesTasks.Include(s => s.IdUserNavigation).Include(s => s.IdStatusNavigation).AsQueryable();
+            var list = _context.BisnesTasks.Include(s => s.IdUserNavigation).AsQueryable();
 
             if (query.dateStart != DateTime.Parse("01.01.0001"))
             {

@@ -11,13 +11,11 @@ namespace BisnesManager.ETL.DTO
         public short Id { get; set; }
         public string FIO { get; set; } = null!;
 
+        public short? IdRole { get; set; }
         public string? Role { get; set; }
 
-        public byte[]? PhotoImage { get; set; }
+        public short? WorkTimeCount { get; set; }
 
-        public DateTime? StartWorkTime { get; set; }
-
-        public DateTime? EndWorkTime { get; set; } = null;
 
     }
 }

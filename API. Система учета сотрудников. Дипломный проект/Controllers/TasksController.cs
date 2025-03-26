@@ -36,16 +36,16 @@ namespace API._Система_учета_сотрудников._Дипломн�
         }
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([FromRoute] short id)
+        public async Task<IActionResult> GetById(short id)
         {
-            var data = await _context.BisnesTasks.Include(s => s.IdUserNavigation).Include(s => s.IdStatusNavigation).FirstOrDefaultAsync(s=>s.Id == id);
+            var data = await _context.BisnesTasks.Include(s => s.IdUserNavigation).Where(s=>s.IdUser == id).ToListAsync();
 
             if (data == null)
             {
                 return NotFound();
             }
 
-            return Ok(data.ToTaskDTO());
+            return Ok(data.Select(s=>s.ToTaskDTO()));
         }
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost]

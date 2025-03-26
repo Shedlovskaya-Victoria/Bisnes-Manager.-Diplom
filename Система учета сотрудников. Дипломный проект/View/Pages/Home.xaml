@@ -20,8 +20,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="600"/>
+            <ColumnDefinition MinWidth="200"/>
+            <ColumnDefinition MinWidth="600"/>
         </Grid.ColumnDefinitions>
         <!---логотип-->
         <Button Width="100" Grid.RowSpan="3" Height="100" Grid.Column="0" Command="{Binding GoToHome}">

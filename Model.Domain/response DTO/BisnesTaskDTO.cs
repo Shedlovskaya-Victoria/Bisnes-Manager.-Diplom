@@ -16,13 +16,13 @@ namespace BisnesManager.ETL.DTO
 
         public int? Indentation { get; set; }
 
-        public DateOnly StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public DateOnly EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public string? AssignmentsContent { get; set; }
 
-        public string? Status { get; set; }
+        public int? IdStatus { get; set; }
 
     }
 }

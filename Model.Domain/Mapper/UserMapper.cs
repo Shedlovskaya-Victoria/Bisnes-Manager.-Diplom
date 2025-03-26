@@ -1,6 +1,7 @@
 ﻿using BisnesManager.Database.Models;
 using BisnesManager.ETL.DTO;
 using BisnesManager.ETL.request_DTO;
+using BisnesManager.ETL.update_DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,25 +16,39 @@ namespace BisnesManager.ETL.Mapper
         {
             var dto = new UserDTO();
 
-            if (user.EndWorkTime != null)
-                dto.EndWorkTime = DateTime.Parse(user.EndWorkTime.ToString());
-
+            
             dto.Id = user.Id;
             dto.FIO = $"{user.Name} {user.Family} {user.Patronymic}";
             dto.Role = user.IdRoleNavigation.Title;
-            dto.PhotoImage = user.PhotoImage;
-            dto.StartWorkTime = DateTime.Parse(user.StartWorkTime.ToString());
+            dto.IdRole = user.IdRole;
+            dto.WorkTimeCount = user.WorkTimeCount;
             
             return dto;
         }
+        public static UpdateUserDto ToUpdateDto(this User user)
+        {
+            return new UpdateUserDto
+            {
+                IdRole = user.IdRole,
+                CheckPhrase = user.CheckPhrase,
+                Password = user.Password,
+                WorkTimeCount = user.WorkTimeCount,
+                Email = user.Email,
+                Family = user.Family,
+                Login = user.Login,
+                Name = user.Name,
+                Patronymic = user.Patronymic,
+                
+            };
+        }
+       
         public static User ToUserFromCreateDTO(this UserDtoRequest user)
         {
             return new User
             {
                 Email = user.Email,
                 CheckPhrase = user.CheckPhrase,
-                EndWorkTime = DateOnly.FromDateTime(user.EndWorkTime),
-                StartWorkTime= DateOnly.FromDateTime(user.StartWorkTime),
+                WorkTimeCount = user.WorkTimeCount,
                 DateCreate = DateOnly.FromDateTime(DateTime.UtcNow),
                 Login = user.Login,
                 Password = user.Password,
@@ -41,7 +56,6 @@ namespace BisnesManager.ETL.Mapper
                 Family = user.Family,
                 IdRole = user.IdRole,
                 Name = user.Name,
-                PhotoImage = user.PhotoImage,
                 
             };
         }

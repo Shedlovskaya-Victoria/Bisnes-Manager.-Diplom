@@ -14,48 +14,46 @@
     </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <!--профиль-->
-        <StackPanel Grid.Row="0" Grid.Column="0">
-            <Image Source="{Binding User.Photo}" MinWidth="170" MinHeight="200"/>
-            <Button Command="{Binding ChangePhoto}">
-                <Image Height="20" Source="Image\Pencil2.png" />
-            </Button>
-        </StackPanel>
+        
         <!--Фио-->
-        <StackPanel  Grid.Row="0" Grid.Column="1">
+        <StackPanel  Grid.Row="0" Grid.Column="0" Margin="10" >
             <Label Content="Имя" Margin="0" FontSize="10"/>
             <TextBox Text="{Binding User.Name}" Margin="3 0 3 3"/>
             <Label Content="Фамилия" Margin="0" FontSize="10"/>
-            <TextBox Text="{Binding User.Surname}" Margin="3 0 3 3"/>
+            <TextBox Text="{Binding User.Family}" Margin="3 0 3 3"/>
             <Label Content="Отчество" Margin="0" FontSize="10"/>
             <TextBox Text="{Binding User.Patronymic}" Margin="3 0 3 3"/>
+            <Label Content="Проверочная фраза" Margin="0" FontSize="10"/>
+            <TextBox Text="{Binding User.CheckPhrase}" Margin="3 0 3 3"/>
         </StackPanel>
         <!--сменить данные-->
-        <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" >
-            <Button Content="Сменить почту" Command="{Binding ChangeEmail}"/>
-            <Button Content="Сменить логин" Command="{Binding ChangeLogin}"/>
-            <Button Content="Сменить пароль" Command="{Binding ChangePassword}"/>
+        <StackPanel Grid.Row="0" Grid.Column="2" Margin="10">
+            <Label Content="Почта" Margin="0" FontSize="10"/>
+            <TextBox Text="{Binding User.Email}" Margin="3 0 3 3"/>
+            <Label Content="Логин" Margin="0" FontSize="10"/>
+            <TextBox Text="{Binding User.Login}" Margin="3 0 3 3"/>
+            <Label Content="Пароль" Margin="0" FontSize="10"/>
+            <TextBox Text="{Binding User.Password}" Margin="3 0 3 3"/>
+            <Label Content="Рабочие часы в день" Margin="0" FontSize="10"/>
+            <TextBox Text="{Binding User.WorkTimeCount}" Margin="3 0 3 3"/>
         </StackPanel>
-        <!--данные по компании -->
-        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
-            <Label Content="Название организации" Margin="0" FontSize="10"/>
-            <TextBox Text="{Binding User.CompanyName}" Margin="3 0 3 3"/>
-            
-            <!--общая кнопка сохранения-->
-            <Button Content="Назад" Margin="3 60 3 3" Background="LightGray" Command="{Binding Back}"/>
-            <Button Content="Сохранить" Margin="3 7 3 3" Background="GreenYellow" Command="{Binding SaveAll}"/>
+
+        <!--общая кнопка сохранения-->
+        <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" >
+            <Button Content="Назад" Background="LightGray" Command="{Binding Back}"/>
+            <Button Content="Сохранить"  Background="GreenYellow" Command="{Binding SaveAll}"/>
         </StackPanel>
         <!--удаление аккакунта-->
         <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button Margin="3 59 3 3" Height="90" Width="100" Command="{Binding DeleteAll}">
+            <Button Height="90" Width="100" Command="{Binding DeleteAll}">
                 <Image Source="Image\Delete.png"/>
             </Button>
         </StackPanel>

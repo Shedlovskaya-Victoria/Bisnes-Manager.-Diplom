@@ -24,10 +24,6 @@ namespace BisnesManager.ETL.request_DTO
 
         public short IdRole { get; set; }
 
-        public byte[]? PhotoImage { get; set; }
-
-        public DateTime StartWorkTime { get; set; }
-
-        public DateTime EndWorkTime { get; set; }
+        public short? WorkTimeCount { get; set; }
     }
 }

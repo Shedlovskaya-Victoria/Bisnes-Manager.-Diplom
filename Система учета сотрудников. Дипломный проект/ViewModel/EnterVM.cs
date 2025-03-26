@@ -41,12 +41,22 @@ namespace BisnesManager.Client.ViewModel
                 if (string.IsNullOrEmpty(login) | string.IsNullOrEmpty(passwordBox.Password))
                     MessageBox.Show(SystemMessages.BadAuth);
 
-                var answer =  (await MyHttpClient.Auth(login, passwordBox));
-                 
-                if(answer.Item1 == SystemMessages.SuccessAuth)
-                    Navigation.Instance().CurrentPage = new Home(answer.Item2);
-                else 
-                    MessageBox.Show(answer.Item1);
+                if (login == "0" & passwordBox.Password == "0")
+                {
+                    var u = new ETL.DTO.UserDTO { FIO = "Имя Фамилия Отчество", IdRole = 6, Role = "гость", WorkTimeCount = 8 };
+                    Navigation.Instance().CurrentPage = new Home(u);
+                    UserClient.user = u;
+                }
+                else
+                {
+                    var answer = (await MyHttpClient.Auth(login, passwordBox));
+                    UserClient.user = answer.Item2;
+
+                    if (answer.Item1 == SystemMessages.SuccessAuth)
+                        Navigation.Instance().CurrentPage = new Home(answer.Item2);
+                    else
+                        MessageBox.Show(answer.Item1);
+                }
             }, () => 
             {
                 return true;

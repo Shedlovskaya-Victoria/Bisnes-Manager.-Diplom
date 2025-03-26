@@ -23,13 +23,9 @@ public partial class User
 
     public short IdRole { get; set; }
 
-    public byte[]? PhotoImage { get; set; }
-
-    public DateOnly StartWorkTime { get; set; }
-
     public DateOnly DateCreate { get; set; }
 
-    public DateOnly? EndWorkTime { get; set; }
+    public short? WorkTimeCount { get; set; }
 
     public virtual ICollection<BisnesTask> BisnesTasks { get; set; } = new List<BisnesTask>();
 

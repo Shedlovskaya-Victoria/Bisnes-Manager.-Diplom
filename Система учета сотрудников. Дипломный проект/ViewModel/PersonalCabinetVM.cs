@@ -3,75 +3,79 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using BisnesManager.Client.Tools;
 using BisnesManager.Client.View;
+using BisnesManager.Database.Models;
 using BisnesManager.ETL.DTO;
+using BisnesManager.ETL.update_DTO;
+using Система_учета_сотрудников._Дипломный_проект.Tools.API;
 
 namespace BisnesManager.Client.ViewModel
 {
-    class PersonalCabinetVM
+    class PersonalCabinetVM : Base
     {
+        private UpdateUserDto user;
+
+        public UpdateUserDto User
+        {
+            get => user;
+            set { 
+                user = value;
+                Signal();
+            }
+        }
 
         public Command Back { get; set; }
-        public Command ChangePhoto { get; set; }
-        public Command ChangeEmail { get; set; }
-        public Command ChangeLogin { get; set; }
-        public Command ChangePassword { get; set; }
         public Command SaveAll { get; set; }
         public Command DeleteAll { get; set; }
-        public PersonalCabinetVM() { }
-        public PersonalCabinetVM(UserDTO user)
+       
+        public PersonalCabinetVM()
         {
-            Back = new Command(
-            () =>
+            SetUser();
+            Back = new Command(() =>
             {
-                Navigation.Instance().CurrentPage = new Home(user);
+                Navigation.Instance().CurrentPage = new Home(UserClient.user);
             }, () =>
             {
                 return true;
             });
-            ChangePhoto = new Command(
-            () =>
+            SaveAll = new Command(() =>
             {
+                UpdateUser(User);
+                Navigation.Instance().CurrentPage = new Home(UserClient.user);
             }, () =>
             {
                 return true;
             });
-            ChangeEmail = new Command(
-            () =>
+            DeleteAll = new Command(() =>
             {
+                DeleteUser(UserClient.user.Id);
+                Navigation.Instance().CurrentPage = new Home(UserClient.user);
             }, () =>
             {
                 return true;
             });
-            ChangeLogin = new Command(
-            () =>
-            {
-            }, () =>
-            {
-                return true;
-            });
-            ChangePassword = new Command(
-            () =>
-            {
-            }, () =>
-            {
-                return true;
-            });
-            SaveAll = new Command(
-            () =>
-            {
-            }, () =>
-            {
-                return true;
-            });
-            DeleteAll = new Command(
-            () =>
-            {
-            }, () =>
-            {
-                return true;
-            });
+        }
+
+        private async Task DeleteUser(short id)
+        {
+            var answ = await UserClient.DeleteUser(id);
+            MessageBox.Show(answ);
+        }
+
+        private async Task UpdateUser(UpdateUserDto user)
+        {
+            var answ = await UserClient.UpdateUser(user);
+            MessageBox.Show(answ);
+        }
+
+        private async Task SetUser()
+        {
+            User = await UserClient.GetUserByIdToUpdate(UserClient.user.Id);
+            User.Password = "";
+            Signal(nameof(User));
+           
         }
     }
 }

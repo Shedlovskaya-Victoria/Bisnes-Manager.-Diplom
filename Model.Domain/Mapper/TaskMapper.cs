@@ -18,11 +18,11 @@ namespace BisnesManager.ETL.Mapper
                 Id = task.Id,
                 AssignmentsContent = task.AssignmentsContent,
                 Author = $"{task.IdUserNavigation.Name} {task.IdUserNavigation.Family} {task.IdUserNavigation.Patronymic}",
-                StartDate = task.StartDate,
+                StartDate = DateTime.Parse(task.StartDate.ToString()),
                 Content = task.Content, 
-                Status = task.IdStatusNavigation.Title,
+                IdStatus = task.IdStatus,
                 Indentation = task.Indentation,
-                EndDate = task.EndDate, 
+                EndDate = DateTime.Parse(task.EndDate.ToString()), 
             };
         }
         public static BisnesTask ToTaskFromCreateDTO(this TaskDtoRequest dtoRequest)

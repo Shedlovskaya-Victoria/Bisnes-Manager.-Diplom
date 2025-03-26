@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BisnesManager.ETL.DTO;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace BisnesManager.Client.Model
 {
     public class ForGragAndDrop
     {
-        public ObservableCollection<SampleToDelete> Children { get; private set; }
+        public ObservableCollection<BisnesTaskDTO> Children { get; private set; }
 
         public bool CanAcceptChildren { get; set; }
     }

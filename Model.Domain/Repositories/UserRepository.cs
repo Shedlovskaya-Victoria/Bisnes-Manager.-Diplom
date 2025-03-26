@@ -46,17 +46,18 @@ namespace BisnesManager.ETL.Repositories
             if(user == null) return null;
 
             user.Login = model.Login;
-            user.Password = model.Password;
+
+            if(!string.IsNullOrEmpty(model.Password))
+                user.Password = model.Password;
+
             user.Email = model.Email;
             user.CheckPhrase = model.CheckPhrase;
             user.IdRole = model.IdRole;
             user.DateCreate = DateOnly.FromDateTime(model.DateCreate);
-            user.EndWorkTime = DateOnly.FromDateTime(model.EndWorkTime);
             user.Family = model.Family;
             user.Name = model.Name;
             user.Patronymic = model.Patronymic;
-            user.PhotoImage = model.PhotoImage;
-            user.StartWorkTime = DateOnly.FromDateTime(model.StartWorkTime);
+            user.WorkTimeCount = model.WorkTimeCount;
 
             await _context.SaveChangesAsync();
 

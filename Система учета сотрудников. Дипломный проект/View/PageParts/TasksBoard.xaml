@@ -7,51 +7,112 @@
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              mc:Ignorable="d" 
              x:Name="me"
-           MinHeight="450" Width="800">
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-        <ListView ItemsSource="{Binding PlaneList}"
-                  dd:DragDrop.IsDragSource="True"
-                  dd:DragDrop.IsDropTarget="True"
-                  AllowDrop="True"
-                  MouseUp="MouseUPMethod">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel >
-                        <Label Content="{Binding TextList}"/>
-                        <Button/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <!---->
-        <ListView ItemsSource="{Binding WorkList}"
-                  dd:DragDrop.IsDragSource="True"
-                  dd:DragDrop.IsDropTarget="True" 
-                  AllowDrop="True"
-                   MouseUp="MouseUPMethod">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel  >
-                        <Label Content="{Binding TextList}"/>
-                        <Button/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <!---->
-        <ListView ItemsSource="{Binding EndList}"
-                  dd:DragDrop.IsDragSource="True"
-                  dd:DragDrop.IsDropTarget="True" 
-                   AllowDrop="True"
-                   MouseUp="MouseUPMethod">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel  >
-                        <Label Content="{Binding TextList}"/>
-                        <Button/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </StackPanel>
+             MinHeight="460" MinWidth="800">
+    
+        <ScrollViewer VerticalScrollBarVisibility="Visible" >
+
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="         В разработке                 "/>
+                <Label Content="                   В работе                    "/>
+                <Label Content="       Завершены  "/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                <ListView ItemsSource="{Binding PlaneList}"
+                dd:DragDrop.IsDragSource="True"
+                dd:DragDrop.IsDropTarget="True"
+                AllowDrop="True"
+                MouseUp="MouseUPMethod">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0" Background="Snow">
+                                <StackPanel Orientation="Horizontal" Margin="0"  >
+                                    <Label Content="Автор: " Margin="0" Padding="0"/>
+                                    <Label Content="{Binding Author}" Margin="0" Padding="0"/>
+                                </StackPanel>
+                                <StackPanel Margin="0" Orientation="Horizontal" >
+                                    <Label Content="Задача: " Foreground="RosyBrown" Margin="0" Padding="0"/>
+                                    <TextBlock Text="{Binding Content}" Margin="0" Padding="0" MaxWidth="180" TextWrapping="Wrap"/>
+                                </StackPanel>
+                                <StackPanel Margin="0" Orientation="Horizontal">
+                                    <Label Content="Доп.: " Foreground="RosyBrown" Margin="0" Padding="0"/>
+                                    <TextBlock Text="{Binding AssignmentsContent}" Margin="0" Padding="0" MaxWidth="180" TextWrapping="Wrap"/>
+                                </StackPanel>
+                                <StackPanel Margin="0" Orientation="Horizontal">
+                                    <Label Content="{Binding StartDate, StringFormat=dd.MM.YYYY}" Margin="0" Padding="0"/>
+                                    <Label Content=" - " Margin="0" Padding="0"/>
+                                    <Label Content="{Binding EndDate, StringFormat=dd.MM.YYYY}" Margin="0" Padding="0"/>
+                                </StackPanel>
+                                <Button Content="в Архив"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <!---->
+                <ListView ItemsSource="{Binding WorkList}"
+                dd:DragDrop.IsDragSource="True"
+                dd:DragDrop.IsDropTarget="True" 
+                AllowDrop="True"
+                MouseUp="MouseUPMethod">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel   Margin="0" Background="Azure" >
+                                <StackPanel Orientation="Horizontal"  Margin="0" >
+                                    <Label Content="Автор: " Margin="0" Padding="0"/>
+                                    <Label Content="{Binding Author}" Margin="0" Padding="0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"  Margin="0" >
+                                    <Label Content="Задача: " Foreground="RosyBrown" Margin="0" Padding="0"/>
+                                    <TextBlock Text="{Binding Content}" Margin="0" Padding="0" MaxWidth="180" TextWrapping="Wrap"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"  Margin="0" >
+                                    <Label Content="Доп.: " Foreground="RosyBrown" Margin="0" Padding="0"/>
+                                    <TextBlock Text="{Binding AssignmentsContent}" Margin="0" Padding="0" MaxWidth="180" TextWrapping="Wrap"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"  Margin="0" >
+                                    <Label Content="{Binding StartDate, StringFormat=dd.MM.YYYY}" Margin="0" Padding="0"/>
+                                    <Label Content=" - " Margin="0" Padding="0"/>
+                                    <Label Content="{Binding EndDate, StringFormat=dd.MM.YYYY}" Margin="0" Padding="0"/>
+                                </StackPanel>
+                                <Button Content="в Архив"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <!---->
+                <ListView ItemsSource="{Binding EndList}"
+                dd:DragDrop.IsDragSource="True"
+                dd:DragDrop.IsDropTarget="True" 
+                AllowDrop="True"
+                MouseUp="MouseUPMethod">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel   Margin="0" >
+                                <StackPanel Orientation="Horizontal"  Margin="0" >
+                                    <Label Content="Автор: " Margin="0" Padding="0"/>
+                                    <Label Content="{Binding Author}" Margin="0" Padding="0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"  Margin="0" >
+                                    <Label Content="Задача: " Foreground="RosyBrown" Margin="0" Padding="0"/>
+                                    <TextBlock Text="{Binding Content}" Margin="0" Padding="0" MaxWidth="180" TextWrapping="Wrap"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"  Margin="0" >
+                                    <Label Content="Доп.: " Foreground="RosyBrown" Margin="0" Padding="0"/>
+                                    <TextBlock Text="{Binding AssignmentsContent}" Margin="0" Padding="0" MaxWidth="180" TextWrapping="Wrap"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"  Margin="0" >
+                                    <Label Content="{Binding StartDate, StringFormat=DD.mm.YYYY}" Margin="0" Padding="0"/>
+                                    <Label Content=" - " Margin="0" Padding="0"/>
+                                    <Label Content="{Binding EndDate, StringFormat=DD.mm.YYYY}" Margin="0" Padding="0"/>
+                                </StackPanel>
+                                <Button Content="в Архив"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+
 </UserControl>

@@ -10,6 +10,7 @@ using BisnesManager.Client.View.PageParts;
 using BisnesManager.Client.View.Pages;
 using BisnesManager.Client.View.ProgramUserControl;
 using BisnesManager.ETL.DTO;
+using Система_учета_сотрудников._Дипломный_проект.Tools.API;
 
 namespace BisnesManager.Client.ViewModel
 {
@@ -33,7 +34,10 @@ namespace BisnesManager.Client.ViewModel
         public Command EditPosition {  get; set; }
 
 
-        public string UserName { get; set; }   
+        public string UserName { get; set; }
+
+       
+
         public HomeVM() { }
 
         public HomeVM(ContentControl control, UserDTO user)
@@ -48,16 +52,16 @@ namespace BisnesManager.Client.ViewModel
                 return true;
             });
             // go to
-            GoToPersonalCabinet = new Command(() =>
+            GoToPersonalCabinet = new Command(async () =>
             {
-                Navigation.Instance().CurrentPage = new PersonalCabinet(user);
+                Navigation.Instance().CurrentPage = new PersonalCabinet();
             }, () =>
             {
                 return true;
             });
             GoToHome = new Command(() =>
             {
-                control.Content = new TasksBoard();
+                control.Content = new TasksBoard(user.Id, user.IdRole, TaskClient.IsUsePlaneStatus, TaskClient.IsUseWorkStatus, TaskClient.IsUseEndStatus, TaskClient.IsUseArchiveStatus);
             }, () =>
             {
                 return true;
