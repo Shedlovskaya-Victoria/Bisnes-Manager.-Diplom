@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BisnesManager.ETL.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace BisnesManager.ETL.update_DTO
 {
     public class UpdateUserDto
     {
+
+        public short Id { get; set; }
         public string Name { get; set; } = null!;
 
         public string Family { get; set; } = null!;
@@ -27,6 +30,6 @@ namespace BisnesManager.ETL.update_DTO
         public short? WorkTimeCount { get; set; }
 
         public DateTime DateCreate { get; set; }
-
+        public string TitleRole { get; set; }
     }
 }

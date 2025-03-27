@@ -29,6 +29,7 @@ namespace BisnesManager.ETL.Mapper
         {
             return new UpdateUserDto
             {
+                Id = user.Id,
                 IdRole = user.IdRole,
                 CheckPhrase = user.CheckPhrase,
                 Password = user.Password,
@@ -38,7 +39,7 @@ namespace BisnesManager.ETL.Mapper
                 Login = user.Login,
                 Name = user.Name,
                 Patronymic = user.Patronymic,
-                
+                TitleRole = user.IdRoleNavigation.Title,
             };
         }
        

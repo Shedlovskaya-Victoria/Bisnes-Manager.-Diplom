@@ -23,7 +23,11 @@ namespace BisnesManager.ETL.Repositories
 
         public async Task<IList<BisnesTask>?> GetAllAsync(FilterDateAndPaginateQueryDto query)
         {
-            var list = _context.BisnesTasks.Include(s => s.IdUserNavigation).AsQueryable();
+            var list = _context.BisnesTasks
+                .Include(s => s.IdUserNavigation)
+                .ThenInclude(s=>s.IdRoleNavigation)
+                .Where(s=>s.IdUserNavigation.IdRoleNavigation.IsUse == true)
+                .AsQueryable();
 
             if (query.dateStart != DateTime.Parse("01.01.0001"))
             {
@@ -41,7 +45,14 @@ namespace BisnesManager.ETL.Repositories
             }
             return await list.ToListAsync();
         }
-
+        public async Task<IList<BisnesTask>?> GetListByIdAsync(short id)
+        {
+            return await _context.BisnesTasks
+                .Include(s => s.IdUserNavigation)
+                .ThenInclude(s => s.IdRoleNavigation)
+                .Where(s => s.IdUser == id & s.IdUserNavigation.IdRoleNavigation.IsUse == true)
+                .ToListAsync();
+        }
         public override async Task<BisnesTask?> UpdateAsync(int id, UpdateTaskDto model)
         {
             if (model == null) return null;

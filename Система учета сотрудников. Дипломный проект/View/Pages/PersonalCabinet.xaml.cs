@@ -1,4 +1,5 @@
-﻿using BisnesManager.ETL.DTO;
+﻿using BisnesManager.Client.ViewModel;
+using BisnesManager.ETL.DTO;
 using BisnesManager.ETL.update_DTO;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,10 @@ namespace BisnesManager.Client.View.Pages
     /// </summary>
     public partial class PersonalCabinet : Page
     {
-        public PersonalCabinet()
+        public PersonalCabinet(UpdateUserDto updateUserDto)
         {
             InitializeComponent();
+            DataContext = new PersonalCabinetVM(updateUserDto);
         }
     }
 }

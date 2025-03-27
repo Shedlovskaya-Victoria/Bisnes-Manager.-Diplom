@@ -10,6 +10,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Система_учета_сотрудников._Дипломный_проект.Tools.API
@@ -23,24 +24,31 @@ namespace Система_учета_сотрудников._Дипломный_�
         }
         public static async Task<(string, UserDTO)> Auth(string login, PasswordBox password)
         {
-            httpClient.BaseAddress = new Uri("https://localhost:7285/api/");
-
-            HttpResponseMessage message; AuthDtoRequest response;
-           
-            message = await httpClient.PostAsJsonAsync($"Auth/Authorizate", new AuthDataDto { Login = login, Password = password.Password });
-            var str = await message.Content.ReadAsStringAsync();
-            response = JsonSerializer.Deserialize<AuthDtoRequest>(str);
-           
-            if (message.IsSuccessStatusCode)
+            try
             {
-                SetToken(response.Token);
-                return (SystemMessages.SuccessAuth, response.User);
-            }
-            else
-            {
-                return ($"Status code: {message.StatusCode} /r/n content: {str}", null);
-            }
+                httpClient.BaseAddress = new Uri("https://localhost:7285/api/");
 
+                HttpResponseMessage message; AuthDtoRequest response;
+
+                message = await httpClient.PostAsJsonAsync($"Auth/Authorizate", new AuthDataDto { Login = login, Password = password.Password });
+                var str = await message.Content.ReadAsStringAsync();
+                response = JsonSerializer.Deserialize<AuthDtoRequest>(str);
+
+                if (message.IsSuccessStatusCode)
+                {
+                    SetToken(response.Token);
+                    return (SystemMessages.SuccessAuth, response.User);
+                }
+                else
+                {
+                    return ($"Status code: {message.StatusCode} /r/n content: {str}", null);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                return (SystemMessages.BadAuth, null);
+            }
             
         }
         static void SetToken(string token)

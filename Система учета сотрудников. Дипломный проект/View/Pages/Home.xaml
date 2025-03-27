@@ -58,12 +58,12 @@
                     <MenuItem Header="Должности" Command="{Binding EditPosition}"/>
                 </MenuItem>
             </Menu>
-            <Menu>
+        <!--    <Menu>
                 <MenuItem Header="Настройки">
                     <MenuItem Header="Системные" Command="{Binding GoToSystemSettings}"/>
                     <MenuItem Header="Загрузка списков" Command="{Binding GoToUploadLists}"/>
                 </MenuItem>
-            </Menu>
+            </Menu>-->
         </StackPanel>
         <!--нииже вставляются и меняются части страницы-->
         <ContentControl x:Name="contentControl" Grid.Row="3" Grid.ColumnSpan="2"/>

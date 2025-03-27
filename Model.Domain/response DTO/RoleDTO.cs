@@ -17,5 +17,7 @@ namespace BisnesManager.ETL.DTO
         public bool IsEditWorkTimeTable { get; set; }
 
         public string? Post { get; set; }
+
+        public bool? IsUse { get; set; }
     }
 }

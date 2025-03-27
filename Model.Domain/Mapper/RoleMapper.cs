@@ -20,6 +20,7 @@ namespace BisnesManager.ETL.Mapper
                 IsEditWorkersRoles = role.IsEditWorkersRoles,
                 IsEditWorkTimeTable = role.IsEditWorkTimeTable,
                 Post = role.Post,
+                IsUse = role.IsUse,
             };
         }
         public static UserRole ToRoleFromCreateDTO(this RoleDtoRequest dtoRequest)
@@ -31,6 +32,7 @@ namespace BisnesManager.ETL.Mapper
                 Post = dtoRequest.Post,
                 Title = dtoRequest.Title,
                 DateCreate = DateOnly.FromDateTime(DateTime.UtcNow),
+                IsUse = dtoRequest.IsUse,
             };
         }
     }

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BisnesManager.Client.View.ProgramUserControl;
 using BisnesManager.Client.ViewModel;
+using BisnesManager.Database.Models;
 using BisnesManager.ETL.DTO;
 using Система_учета_сотрудников._Дипломный_проект.Tools.API;
 
@@ -27,8 +28,7 @@ namespace BisnesManager.Client.View
         public Home(UserDTO userDTO)
         {
             InitializeComponent();
-
-            contentControl.Content = new TasksBoard(userDTO.Id, userDTO.IdRole, TaskClient.IsUsePlaneStatus, TaskClient.IsUseWorkStatus, TaskClient.IsUseEndStatus, TaskClient.IsUseArchiveStatus);
+            contentControl.Content = new TasksBoard(userDTO.IdRole, userDTO.Id);
             DataContext = new HomeVM(contentControl, userDTO);
         }
     }

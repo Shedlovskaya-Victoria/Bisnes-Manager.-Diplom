@@ -38,7 +38,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(short id)
         {
-            var data = await _context.BisnesTasks.Include(s => s.IdUserNavigation).Where(s=>s.IdUser == id).ToListAsync();
+            var data = await _taskRepo.GetListByIdAsync(id); 
 
             if (data == null)
             {

@@ -9,6 +9,8 @@ using BisnesManager.ETL;
 using BisnesManager.ETL.update_DTO;
 using BisnesManager.ETL.Mapper;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Builder;
 
 namespace BisnesManager.Database.Repositories
 {
@@ -34,10 +36,12 @@ namespace BisnesManager.Database.Repositories
             role.IsEditWorkersRoles = model.IsEditWorkersRoles;
             role.IsEditWorkTimeTable = model.IsEditWorkTimeTable;
             role.Post = model.Post;
+            role.IsUse = model.IsUse;
 
             await _context.SaveChangesAsync();
 
             return role;
         }
+       
     }
 }

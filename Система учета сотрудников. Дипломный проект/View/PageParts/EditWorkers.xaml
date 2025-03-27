@@ -21,51 +21,50 @@
         </Grid.ColumnDefinitions>
         
         <!--///-->
-        <ListView ItemsSource="{Binding WorkersList}" Grid.Column="3" Grid.Row="1">
+                <ListView x:Name="Users" ItemsSource="{Binding UsersList}" Grid.Column="3" Grid.Row="1" SelectedItem="{Binding SelectedUser}">
             <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Должность" DisplayMemberBinding="{Binding Dolzjnosts}"/>
+                        <GridView>
+                            <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding Family}"/>
+                    <GridViewColumn Header="Должность" DisplayMemberBinding="{Binding TitleRole}"/>
                 </GridView>
             </ListView.View>
         </ListView>
         
         <!--////-->
         <!--фотка-->
-        <StackPanel Grid.Row="1" Grid.Column="0">
-            <Image Source="{Binding Worker.Photo}" Width="130" MinHeight="130"/>
-            <Button Command="{Binding ChangePhoto}">
-                <Image Height="20" Source="Image\Pencil2.png" />
-            </Button>
-            <Label Content="ФИО" Margin="0" FontSize="10"/>
-            <TextBox Text="{Binding FIO}" Margin="3 0 3 3"/>
+        <StackPanel Grid.Row="1" Grid.Column="0" >
+            
+            <Label Content="Имя" Margin="0" FontSize="10"/>
+                    <TextBox Text="{Binding SelectedUser.Name}" Margin="3 0 3 3"/>
+            <Label Content="Фамилия" Margin="0" FontSize="10"/>
+                    <TextBox Text="{Binding SelectedUser.Family}" Margin="3 0 3 3"/>
+            <Label Content="Отчество" Margin="0" FontSize="10"/>
+                    <TextBox Text="{Binding SelectedUser.Patronymic}" Margin="3 0 3 3"/>
             <Label Content="Логин" Margin="0" FontSize="10"/>
-            <TextBox Text="{Binding Worker.Patronymic}" Margin="3 0 3 3"/>
-            <Label Content="Пароль" Margin="0" FontSize="10"/>
-            <TextBox Text="{Binding Worker.Patronymic}" Margin="3 0 3 3"/>
-           <Label Content="Роль" Margin="0" FontSize="10"/>
-            <ComboBox Text="{Binding Roles}" Margin="3 0 3 3"/>
+                    <TextBox Text="{Binding SelectedUser.Login}" Margin="3 0 3 3"/>
+           
+             
             <StackPanel Orientation="Horizontal">
                 <Button Content="Сохранить" Command="{Binding SaveCommand}"/>
                 <Button Content="Удалить" Command="{Binding DeleteCommand}"/>
             </StackPanel>
         </StackPanel>
         <!--Данные-->
-        <StackPanel  Grid.Row="1" Grid.Column="1">
-            <Label Content="Пол" Margin="0" FontSize="10"/>
-            <ComboBox Text="{Binding Worker.Gender}" Margin="3 0 3 3"/>
-            <Label Content="Телефон" Margin="0" FontSize="10"/>
-            <TextBox Text="{Binding Worker.Phone}" Margin="3 0 3 3"/>
+            <StackPanel  Grid.Row="1" Grid.Column="1" >
+            <Label Content="Пароль" Margin="0" FontSize="10"/>
+                    <TextBox Text="{Binding SelectedUser.Password}" Margin="3 0 3 3"/>
             <Label Content="Email" Margin="0" FontSize="10"/>
-                    <TextBox Text="{Binding Worker.Patronymic}" Margin="3 0 3 3"/>
-                    <Label Content="Начало рабочего времени" Margin="0" FontSize="10"/>
-            <TextBox Text="{Binding Worker.StartTimeWork}" Margin="3 0 3 3"/>
-            <Label Content="Конец рабочего времени" Margin="0" FontSize="10"/>
-                    <TextBox Text="{Binding Worker.EndTimeWork}" Margin="3 0 3 3"/>
-                    <Label Content="Должность" Margin="0" FontSize="10"/>
-            <TextBox Text="{Binding Dolzjnosts}" Margin="3 0 3 3"/>
-                </StackPanel>
+                    <TextBox Text="{Binding SelectedUser.Email}" Margin="3 0 3 3"/>
+                    
+            <Label Content="Количество рабочих часов" Margin="0" FontSize="10"/>
+                    <TextBox Text="{Binding SelectedUser.WorkTimeCount}" Margin="3 0 3 3"/>
+            <Label Content="Должность" Margin="0" FontSize="10"/>
+            <ComboBox  ItemsSource="{Binding  RolesList}" 
+                        SelectedItem="{Binding SelectedRole}"  DisplayMemberPath="Title"
+                Margin="3 0 3 3"/>
+            <Button Content="Назад" Command="{Binding BackCommand}"/>
+        </StackPanel>
 
         </Grid>
     </ScrollViewer>

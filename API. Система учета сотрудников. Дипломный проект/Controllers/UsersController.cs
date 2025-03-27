@@ -31,12 +31,21 @@ namespace API._Система_учета_сотрудников._Дипломн�
             _passwordHasher = passwordHasher;
         }
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet]
-        public  async Task<IActionResult> GetAll([FromQuery] SortQueryDto query)
+        [HttpPost("GetAll")]
+        public  async Task<IActionResult> GetAll([FromBody] SortQueryDto query)
         {
             var list = await _userRepo.GetAllAsync(query);
             if(list == null) return NotFound();
-            var listDto = list.Select(s=>s.ToUserDTO());
+            var listDto = list.Select(s=>s.ToUpdateDto());
+            return Ok(listDto);
+        }
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("GetListUsersToUpdate")]
+        public  async Task<IActionResult> GetListUsersToUpdate()
+        {
+            var list = await _userRepo.GetAllAsync(null);
+            if(list == null) return NotFound();
+            var listDto = list.Select(s=>s.ToUpdateDto()); //отличие от другого get all users в dto простом и для списка обновления
             return Ok(listDto);
         }
         [Authorize(AuthenticationSchemes = "Bearer")]
@@ -84,7 +93,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateUserDto updateDto)
+        public async Task<IActionResult> Update([FromBody] UpdateUserDto updateDto)
         {
             if (updateDto == null)
                 return NotFound();
@@ -95,7 +104,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
                 updateDto.Password = hasedPassword;
             }
             updateDto.DateCreate = DateTime.Now;
-            var user = await _userRepo.UpdateAsync(id, updateDto);           
+            var user = await _userRepo.UpdateAsync(updateDto.Id, updateDto);           
 
             if(user == null) return NotFound();
 

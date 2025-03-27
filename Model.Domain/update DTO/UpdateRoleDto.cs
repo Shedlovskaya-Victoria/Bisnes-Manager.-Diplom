@@ -17,5 +17,7 @@ namespace BisnesManager.ETL.update_DTO
         public string? Post { get; set; }
 
         public DateTime DateCreate { get; set; }
+
+        public bool? IsUse { get; set; }
     }
 }

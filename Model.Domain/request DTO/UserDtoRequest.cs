@@ -8,6 +8,7 @@ namespace BisnesManager.ETL.request_DTO
 {
     public class UserDtoRequest
     {
+        
         public string Name { get; set; } = null!;
 
         public string Family { get; set; } = null!;

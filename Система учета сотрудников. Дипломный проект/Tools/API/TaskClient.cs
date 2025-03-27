@@ -3,6 +3,7 @@ using BisnesManager.ETL.Helpers;
 using BisnesManager.ETL.request_DTO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
@@ -15,7 +16,6 @@ namespace Система_учета_сотрудников._Дипломный_�
     public class TaskClient
     {
         const int AdminPageSize = 100;
-        public static bool IsUsePlaneStatus = true, IsUseWorkStatus = true, IsUseEndStatus = true, IsUseArchiveStatus = true;
 
         public static async Task<IEnumerable<BisnesTaskDTO>> GetAllTasks()
         {
@@ -32,7 +32,7 @@ namespace Система_учета_сотрудников._Дипломный_�
 
         }
 
-        internal static async Task<IEnumerable<BisnesTaskDTO>> GetUsersTasks(int userId)
+        public static async Task<IEnumerable<BisnesTaskDTO>> GetUsersTasks(int userId)
         {
             try
             {
@@ -47,5 +47,6 @@ namespace Система_учета_сотрудников._Дипломный_�
             }
 
         }
+       
     }
 }

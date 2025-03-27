@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using BisnesManager.Client.Tools;
 using BisnesManager.Client.View;
 using BisnesManager.Client.View.PageParts;
 using BisnesManager.Client.View.Pages;
 using BisnesManager.Client.View.ProgramUserControl;
+using BisnesManager.Database.Models;
 using BisnesManager.ETL.DTO;
 using Система_учета_сотрудников._Дипломный_проект.Tools.API;
 
@@ -20,9 +22,9 @@ namespace BisnesManager.Client.ViewModel
 
         public Command GoToPersonalCabinet {  get; set; }
         public Command GoToHome {  get; set; }
-        public Command GoToSystemSettings {  get; set; }
+      //  public Command GoToSystemSettings {  get; set; }
         public Command GoToAdministrationOffice {  get; set; }
-        public Command GoToUploadLists {  get; set; }
+       // public Command GoToUploadLists {  get; set; }
 
         public Command ShowKPDWorkers {  get; set; }
         public Command ShowWorkersKPDGraphiks {  get; set; }
@@ -54,32 +56,41 @@ namespace BisnesManager.Client.ViewModel
             // go to
             GoToPersonalCabinet = new Command(async () =>
             {
-                Navigation.Instance().CurrentPage = new PersonalCabinet();
+                if (user.IdRole != 6)
+                {
+                   var userUpdate = await UserClient.GetUserByIdToUpdate(UserClient.user.Id);
+                   userUpdate.Password = "";
+                   Navigation.Instance().CurrentPage = new PersonalCabinet(userUpdate);
+                }
+                else 
+                    Navigation.Instance().CurrentPage = new PersonalCabinet(new ETL.update_DTO.UpdateUserDto());
             }, () =>
             {
                 return true;
             });
-            GoToHome = new Command(() =>
+            GoToHome = new Command(async () =>
             {
-                control.Content = new TasksBoard(user.Id, user.IdRole, TaskClient.IsUsePlaneStatus, TaskClient.IsUseWorkStatus, TaskClient.IsUseEndStatus, TaskClient.IsUseArchiveStatus);
+                
+                control.Content = new TasksBoard(user.IdRole, user.Id);
+               
             }, () =>
             {
                 return true;
             });
             // settings
-            GoToSystemSettings = new Command(() =>
-            {
-                control.Content = new Settings();
-            }, () =>
-            {
-                return true;
-            });
-            GoToUploadLists = new Command(() =>
-            {
-            }, () =>
-            {
-                return true;
-            });
+            //GoToSystemSettings = new Command(() =>
+            //{
+            //    control.Content = new Settings();
+            //}, () =>
+            //{
+            //    return true;
+            //});
+            //GoToUploadLists = new Command(() =>
+            //{
+            //}, () =>
+            //{
+            //    return true;
+            //});
             //    show
             ShowKPDWorkers = new Command(() =>
             {
@@ -117,16 +128,20 @@ namespace BisnesManager.Client.ViewModel
                 return true;
             });
             //     edit
-            EditWorkers = new Command(() =>
+            EditWorkers = new Command(async () =>
             {
-                control.Content = new AccountsWorkers();
+                var userUpdate = await UserClient.GetListUsersToUpdate();
+                var rolesUpdate = await RoleClient.GetRolesList();
+                control.Content = new EditWorkers(userUpdate, rolesUpdate);
             }, () =>
             {
                 return true;
             });
-            EditPosition = new Command(() =>
+            EditPosition = new Command(async () =>
             {
-                control.Content = new EditDolzjnost();
+                var rolesList = await RoleClient.GetRolesList();
+                
+                control.Content = new EditDolzjnost(rolesList);
             }, () =>
             {
                 return true;

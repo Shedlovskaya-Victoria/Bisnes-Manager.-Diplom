@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BisnesManager.Client.Model;
 using BisnesManager.Client.Tools;
+using BisnesManager.Database.Models;
 using BisnesManager.ETL.DTO;
 using Система_учета_сотрудников._Дипломный_проект.Tools.API;
 using static System.Net.Mime.MediaTypeNames;
@@ -35,7 +36,7 @@ namespace BisnesManager.Client.View.ProgramUserControl
         public ObservableCollection<BisnesTaskDTO> EndList { get; set; }
         public ObservableCollection<BisnesTaskDTO> ArchiveList { get; set; }
 
-        public TasksBoard(int UserId, short? IdRole, bool IsUsePlaneStatus, bool IsUseWorkStatus, bool IsUseEndStatus, bool IsUseArchiveStatus)
+        public TasksBoard(short? RoleId, short UserId)
         {
             PlaneList = new();
             WorkList = new();
@@ -44,86 +45,74 @@ namespace BisnesManager.Client.View.ProgramUserControl
 
             InitializeComponent();
 
-            if(IdRole == 6)
+            DataContext = this;
+
+            
+            if (RoleId == 6)
             {
                 SetDefoultTasks();
             }
-            if(IdRole == 1)
+            else if (RoleId == 1)
             {
-                SetAllTasks(IsUsePlaneStatus, IsUseWorkStatus, IsUseEndStatus, IsUseArchiveStatus);
+                SetAdminTasks();
             }
-            if(IdRole == 4)
+            else if (RoleId == 4)
             {
-                SetUserTasks(UserId, IsUsePlaneStatus, IsUseWorkStatus, IsUseEndStatus, IsUseArchiveStatus);
+                SetUserTask(UserId);
             }
 
             DataContext = this;
         
         }
 
-        private async void SetUserTasks(int userId, bool IsUsePlaneStatus, bool IsUseWorkStatus, bool IsUseEndStatus, bool IsUseArchiveStatus)
+        private async void SetUserTask(short UserId)
         {
-            var allList = await TaskClient.GetUsersTasks(userId);
+            var list = new ObservableCollection<BisnesTaskDTO>(await TaskClient.GetUsersTasks(UserId) );
+            SetTasks(list);
+        }
 
-            if (allList == null)
-                return;
+        private async void SetAdminTasks()
+        {
+            var list = new ObservableCollection<BisnesTaskDTO>(await TaskClient.GetAllTasks());
+            SetTasks(list);
+        }
 
-            foreach (var task in allList)
+        private async void SetTasks(ObservableCollection<BisnesTaskDTO> list)
+        {
+           
+            foreach (var task in list)
             {
-                CheckPlaneStatus(task, IsUsePlaneStatus);
-                CheckWorkStatus(task, IsUseWorkStatus);
-                CheckEndStatus(task, IsUseEndStatus);
-                CheckArchiveStatus(task, IsUseArchiveStatus);
+                CheckPlaneStatus(task);
+                CheckWorkStatus(task);
+                CheckEndStatus(task);
+                CheckArchiveStatus(task);
             }
         }
 
-        private async void SetAllTasks(bool IsUsePlaneStatus, bool IsUseWorkStatus, bool IsUseEndStatus, bool IsUseArchiveStatus)
-        {
-           var allList =  await TaskClient.GetAllTasks();
+      
 
-            foreach (var task in allList)
-            {
-                CheckPlaneStatus(task, IsUsePlaneStatus);
-                CheckWorkStatus(task, IsUseWorkStatus);
-                CheckEndStatus(task, IsUseEndStatus);
-                CheckArchiveStatus(task, IsUseArchiveStatus);
-            }
+        private void CheckArchiveStatus(BisnesTaskDTO task)
+        {
+            if (task.IdStatus == 7)
+                ArchiveList.Add(task);
         }
 
-        private void CheckArchiveStatus(BisnesTaskDTO task, bool IsUseArchiveStatus)
+        private void CheckEndStatus(BisnesTaskDTO task)
         {
-            if(IsUseArchiveStatus)
-            {
-                if (task.IdStatus == 7)
-                    ArchiveList.Add(task);
-            }
+            if (task.IdStatus == 6)
+                EndList.Add(task);
         }
 
-        private void CheckEndStatus(BisnesTaskDTO task, bool IsUseEndStatus)
+        private void CheckWorkStatus(BisnesTaskDTO task)
         {
-            if (IsUseEndStatus)
-            {
-                if (task.IdStatus == 6)
-                    EndList.Add(task);
-            }
+            if (task.IdStatus == 5)
+                WorkList.Add(task);
         }
 
-        private void CheckWorkStatus(BisnesTaskDTO task, bool IsUseWorkStatus)
+        private void CheckPlaneStatus(BisnesTaskDTO task)
         {
-            if (IsUseWorkStatus)
-            {
-                if (task.IdStatus == 5)
-                    WorkList.Add(task);
-            }
-        }
-
-        private void CheckPlaneStatus(BisnesTaskDTO task, bool IsUsePlaneStatus)
-        {
-            if (IsUsePlaneStatus)
-            {
-                if (task.IdStatus == 1)
-                    PlaneList.Add(task);
-            }
+            if (task.IdStatus == 1)
+                PlaneList.Add(task);
         }
 
         private void SetDefoultTasks()

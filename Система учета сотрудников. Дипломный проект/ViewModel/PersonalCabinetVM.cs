@@ -30,9 +30,10 @@ namespace BisnesManager.Client.ViewModel
         public Command SaveAll { get; set; }
         public Command DeleteAll { get; set; }
        
-        public PersonalCabinetVM()
+        public PersonalCabinetVM() { }
+        public PersonalCabinetVM(UpdateUserDto updateUserDto)
         {
-            SetUser();
+            User = updateUserDto;
             Back = new Command(() =>
             {
                 Navigation.Instance().CurrentPage = new Home(UserClient.user);
@@ -70,12 +71,5 @@ namespace BisnesManager.Client.ViewModel
             MessageBox.Show(answ);
         }
 
-        private async Task SetUser()
-        {
-            User = await UserClient.GetUserByIdToUpdate(UserClient.user.Id);
-            User.Password = "";
-            Signal(nameof(User));
-           
-        }
     }
 }
