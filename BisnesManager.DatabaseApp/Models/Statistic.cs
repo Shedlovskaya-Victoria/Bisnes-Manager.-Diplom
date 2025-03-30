@@ -13,8 +13,6 @@ public partial class Statistic
 
     public int LevelResponibility { get; set; }
 
-    public int EffectivCommunication { get; set; }
-
     public int HardSkils { get; set; }
 
     public int SoftSkils { get; set; }

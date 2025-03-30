@@ -31,8 +31,8 @@ namespace API._Система_учета_сотрудников._Дипломн�
             _passwordHasher = passwordHasher;
         }
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpPost("GetAll")]
-        public  async Task<IActionResult> GetAll([FromBody] SortQueryDto query)
+        [HttpPost("GetListUsersToUpdate")]
+        public  async Task<IActionResult> GetListUsersToUpdate([FromBody] SortQueryDto query)
         {
             var list = await _userRepo.GetAllAsync(query);
             if(list == null) return NotFound();
@@ -40,12 +40,12 @@ namespace API._Система_учета_сотрудников._Дипломн�
             return Ok(listDto);
         }
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet("GetListUsersToUpdate")]
-        public  async Task<IActionResult> GetListUsersToUpdate()
+        [HttpGet]
+        public  async Task<IActionResult> GetAll()
         {
-            var list = await _userRepo.GetAllAsync(null);
+            var list = await _userRepo.GetAllAsync();
             if(list == null) return NotFound();
-            var listDto = list.Select(s=>s.ToUpdateDto()); //отличие от другого get all users в dto простом и для списка обновления
+            var listDto = list.Select(s=>s.ToUserDTO()); //отличие от другого get all users в dto простом и для списка обновления
             return Ok(listDto);
         }
         [Authorize(AuthenticationSchemes = "Bearer")]

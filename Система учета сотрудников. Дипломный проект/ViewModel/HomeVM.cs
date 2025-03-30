@@ -15,6 +15,7 @@ using BisnesManager.ETL.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Система_учета_сотрудников._Дипломный_проект.Tools.API;
+using Система_учета_сотрудников._Дипломный_проект.View.PageParts;
 
 namespace BisnesManager.Client.ViewModel
 {
@@ -36,6 +37,7 @@ namespace BisnesManager.Client.ViewModel
 
         public Command EditWorkers {  get; set; }
         public Command EditPosition {  get; set; }
+        public Command EditStatistic {  get; set; }
 
 
         public string UserName { get; set; }
@@ -161,6 +163,16 @@ namespace BisnesManager.Client.ViewModel
                 var rolesList = await RoleClient.GetRolesList();
                 
                 control.Content = new EditDolzjnost(rolesList);
+            }, () =>
+            {
+                return true;
+            });
+            EditStatistic = new Command(async () =>
+            {
+
+                var listUsers = await UserClient.GetAll();
+                var listStatistic = await StatisticClient.GetAll();
+                control.Content = new EditStatistic(listUsers, listStatistic);
             }, () =>
             {
                 return true;

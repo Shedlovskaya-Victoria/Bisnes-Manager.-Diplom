@@ -1,6 +1,7 @@
 ﻿using BisnesManager.Database.Models;
 using BisnesManager.ETL.DTO;
 using BisnesManager.ETL.request_DTO;
+using BisnesManager.ETL.update_DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,19 @@ namespace BisnesManager.ETL.Mapper
                 DateCreate = statistic.DateCreate,
                 SoftSkils = statistic.SoftSkils,
                 HardSkils = statistic.HardSkils,    
-                EffectivCommunication = statistic.EffectivCommunication,
+                LevelResponibility = statistic.LevelResponibility,  
+                QualityWork = statistic.QualityWork,    
+            };
+        }
+        public static UpdateStatisticDto ToUpdateDTO(this Statistic statistic)
+        {
+            return new UpdateStatisticDto
+            {
+                Id = statistic.Id,
+                IdUser = statistic.IdUser,
+                DateCreate = DateTime.Parse(statistic.DateCreate.ToString()),
+                SoftSkils = statistic.SoftSkils,
+                HardSkils = statistic.HardSkils,    
                 LevelResponibility = statistic.LevelResponibility,  
                 QualityWork = statistic.QualityWork,    
             };
@@ -30,7 +43,6 @@ namespace BisnesManager.ETL.Mapper
             {
                 DateCreate = DateOnly.FromDateTime(DateTime.UtcNow),
                 QualityWork = dtoRequest.QualityWork,
-                EffectivCommunication= dtoRequest.EffectivCommunication,
                 HardSkils= dtoRequest.HardSkils,    
                 LevelResponibility= dtoRequest.LevelResponibility,
                 SoftSkils= dtoRequest.SoftSkils,

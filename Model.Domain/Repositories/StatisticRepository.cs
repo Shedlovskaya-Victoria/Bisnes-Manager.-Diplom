@@ -52,7 +52,6 @@ namespace BisnesManager.ETL.Repositories
 
             statistic.QualityWork = model.QualityWork;
             statistic.DateCreate = DateOnly.FromDateTime(model.DateCreate);
-            statistic.EffectivCommunication = model.EffectivCommunication;
             statistic.HardSkils = model.HardSkils;
             statistic.SoftSkils = model.SoftSkils;
             statistic.LevelResponibility = model.LevelResponibility;

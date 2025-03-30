@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="Система_учета_сотрудников._Дипломный_проект.View.PageParts.EditStatistic"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Система_учета_сотрудников._Дипломный_проект.View.PageParts"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel Orientation="Vertical" >
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <ComboBox ItemsSource="{Binding Users}"  MinWidth="400" DisplayMemberPath="Family" SelectedItem="{Binding SelectedUser}"/>
+
+            <Button  Content="Сохранить" Command="{Binding SaveCommand}" Background="YellowGreen"/>
+            <Button  Content="Удалить" Background="LightPink"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Right" Height="Auto" VerticalAlignment="Top" Orientation="Horizontal">
+            <StackPanel Orientation="Vertical">
+                <Label Content="Качество"/>
+                <ComboBox ItemsSource="{Binding QualityWorkList}" SelectedItem="{Binding SelectedQuality}" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <Label Content="Ответсв."/>
+                <ComboBox ItemsSource="{Binding LevelResponibilityList}" SelectedItem="{Binding SelectedRespons}" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <Label Content="Soft skil"/>
+                <ComboBox ItemsSource="{Binding SoftSkilsList}" SelectedItem="{Binding SelectedSoft}" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <Label Content="Hard skil"/>
+                <ComboBox ItemsSource="{Binding HardSkilsList}" SelectedItem="{Binding SelectedStatistic.HardSkils}" />
+            </StackPanel>
+
+        
+        </StackPanel>
+        <ListView ItemsSource="{Binding Statistics}" SelectedItem="{Binding SelectedStatistic}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Качество" DisplayMemberBinding="{Binding QualityWork}"/>
+                    <GridViewColumn Header="Ответсв." DisplayMemberBinding="{Binding LevelResponibility}"/>
+                    <GridViewColumn Header="Soft skil" DisplayMemberBinding="{Binding SoftSkils}"/>
+                    <GridViewColumn Header="Hard skil" DisplayMemberBinding="{Binding HardSkils}"/>
+                    <GridViewColumn Header="Дата создания" DisplayMemberBinding="{Binding DateCreate}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </StackPanel>
+</UserControl>

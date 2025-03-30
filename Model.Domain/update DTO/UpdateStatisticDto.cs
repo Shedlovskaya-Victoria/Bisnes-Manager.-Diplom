@@ -8,6 +8,7 @@ namespace BisnesManager.ETL.update_DTO
 {
     public class UpdateStatisticDto
     {
+        public int Id { get; set; }
         public short IdUser { get; set; }
 
         public int QualityWork { get; set; }

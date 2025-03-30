@@ -33,7 +33,7 @@ namespace Система_учета_сотрудников._Дипломный_�
         {
             try
             {
-                var message = await MyHttpClient.GetHttpClient().PostAsJsonAsync($"Users/GetAll", new SortQueryDto());
+                var message = await MyHttpClient.GetHttpClient().PostAsJsonAsync($"Users/GetListUsersToUpdate", new SortQueryDto());
                 var str = await message.Content.ReadAsStringAsync();
                var response = JsonSerializer.Deserialize<List<UpdateUserDto>>(str);
 
@@ -119,6 +119,20 @@ namespace Система_учета_сотрудников._Дипломный_�
             {
                 MessageBox.Show(ex.ToString());
                 return SystemMessages.FalseRequest;
+            }
+        }
+
+        internal static async Task<IEnumerable<UserDTO>> GetAll()
+        {
+            try
+            {
+               return await MyHttpClient.GetHttpClient().GetFromJsonAsync<IEnumerable<UserDTO>>($"Users");
+               
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                return null;
             }
         }
     }

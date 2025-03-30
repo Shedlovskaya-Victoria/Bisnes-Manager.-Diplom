@@ -44,11 +44,11 @@
             </Menu>
             <Menu>
                 <MenuItem Header="Учет">
-                    <MenuItem Header="Сотрудники" Command="{Binding ShowKPDWorkers}"/>
-                    <MenuItem Header="Достижения" Command="{Binding ShowWorkersKPDGraphiks}"/>
+                    <MenuItem Header="Индивидуальные показатели" Command="{Binding ShowKPDWorkers}"/>
+                    <MenuItem Header="График" Command="{Binding ShowWorkersKPDGraphiks}"/>
                     <MenuItem Header="Визуализация действующих проектов" Command="{Binding ShowVisualPartsAllProjects}"/>
-                    <MenuItem Header="Рабочий график" Command="{Binding ShowWorkersTimeTable}"/>
-                    <MenuItem Header="Задачи" Command="{Binding ShowDiagramGant}"/>
+                  <!-- <MenuItem Header="Рабочий график" Command="{Binding ShowWorkersTimeTable}"/> -->
+                    <MenuItem Header="Диаграмма Ганта - задачи" Command="{Binding ShowDiagramGant}"/>
                 </MenuItem>
             </Menu>
 
@@ -56,6 +56,7 @@
                 <MenuItem Header="Редактирование">
                     <MenuItem Header="Cотрудники" Command="{Binding EditWorkers}"/>
                     <MenuItem Header="Должности" Command="{Binding EditPosition}"/>
+                    <MenuItem Header="Статистика" Command="{Binding EditStatistic}"/>
                 </MenuItem>
             </Menu>
         <!--    <Menu>

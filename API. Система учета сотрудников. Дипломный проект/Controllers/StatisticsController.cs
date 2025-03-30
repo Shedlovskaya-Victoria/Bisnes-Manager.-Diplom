@@ -29,6 +29,15 @@ namespace API._Система_учета_сотрудников._Дипломн�
 
             return Ok(listDto);
         }
+        [HttpGet("getAll")]
+        public async Task<IActionResult> GetAll() 
+        {
+            var list = await _statisticRepo.GetAllAsync();
+            if (list == null) return NotFound();
+            var listDto = list.Select(s => s.ToUpdateDTO());   //разница в update dto и фильтре
+
+            return Ok(listDto);
+        }
         [HttpPost("GetAllByUserId")]
         public async Task<IActionResult> GetAllByUserId([FromBody] short UserId)
         {
