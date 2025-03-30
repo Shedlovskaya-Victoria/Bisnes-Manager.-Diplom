@@ -36,6 +36,7 @@ namespace BisnesManager.Client.ViewModel
         public Command EditPosition {  get; set; }
 
 
+        public Command ExitCommand {  get; set; }
         public string UserName { get; set; }
 
        
@@ -46,6 +47,14 @@ namespace BisnesManager.Client.ViewModel
         {
             UserName = $"{user.Role}: {user.FIO}";
 
+            ExitCommand = new Command(() =>
+            {
+
+                Navigation.Instance().CurrentPage = new Enter();
+            }, () =>
+            {
+                return true;
+            });
             Find = new Command(() =>
             {
                

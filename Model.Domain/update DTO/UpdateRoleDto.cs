@@ -8,6 +8,7 @@ namespace BisnesManager.ETL.update_DTO
 {
     public class UpdateRoleDto
     {
+        public short Id { get; set; }
         public string Title { get; set; } = null!;
 
         public bool IsEditWorkersRoles { get; set; }

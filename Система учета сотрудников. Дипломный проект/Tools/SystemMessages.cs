@@ -13,5 +13,7 @@ namespace Система_учета_сотрудников._Дипломный_�
         public const string UserNotFound = "Такой пользователь не найден!";
         public const string SuccessUpdate = "Данные успешно обновлены!";
         public const string SuccessDelete = "Данные успешно удалены!";
+        public const string SuccesSave = "Данные успешно сохранены!";
+        public const string FalseRequest = "Упс! Ошибка!";
     }
 }

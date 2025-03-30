@@ -11,7 +11,7 @@ public partial class User
 
     public string Family { get; set; } = null!;
 
-    public string Patronymic { get; set; } = null!;
+    public string? Patronymic { get; set; }
 
     public string Email { get; set; } = null!;
 

@@ -24,16 +24,15 @@
 
         <!--кнопки-->
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Добавить"/>
-            <Button Content="Сохранить"/>
-            <Button Content="Удалить"/>
+            <Button Content="Сохранить" Command="{Binding SaveCommand}" Background="YellowGreen"/>
+            <Button Content="Назад" Command="{Binding BackCommand}"/>
         </StackPanel>
         
         <!---->
         <StackPanel Grid.Row="1"  MinWidth="770" Orientation="Horizontal">
             <StackPanel>
                 <Label Content="Наименование роли"/>
-                <TextBox Text="{Binding SelectedRole.Title}" MinWidth="370"/>
+                <TextBox Text="{Binding SelectedRole.Title}" MinWidth="240"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" >
                 <Label Content="Редакт. сотр. и должност."/>
@@ -42,6 +41,10 @@
             <StackPanel Orientation="Vertical" >
                 <Label Content="Редакт. график работы"/>
                 <CheckBox  Content="{Binding SelectedRole.IsEditWorkTimeTable}" HorizontalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical" >
+                <Label Content="Используется?"/>
+                <CheckBox  Content="{Binding SelectedRole.IsUse}" HorizontalAlignment="Center" />
             </StackPanel>
         </StackPanel>
         <Label Content="Список ролей" Grid.Row="2"/>
@@ -57,6 +60,7 @@
                     <GridViewColumn Header="Наименование" DisplayMemberBinding="{Binding Title}"/>
                     <GridViewColumn Header="Редакт. сотрудников и должностей" DisplayMemberBinding="{Binding IsEditWorkersRoles}" />
                     <GridViewColumn Header="Редакт. график работы" DisplayMemberBinding="{Binding IsEditWorkTimeTable}"/>
+                    <GridViewColumn Header="Используется?" DisplayMemberBinding="{Binding IsUse}"/>
                 </GridView>
             </ListView.View>
         </ListView>

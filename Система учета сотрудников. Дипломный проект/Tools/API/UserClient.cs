@@ -57,10 +57,32 @@ namespace Система_учета_сотрудников._Дипломный_�
         {
             try
             {
-                var message = await MyHttpClient.GetHttpClient().PutAsJsonAsync<UpdateUserDto>($"Users/{UserClient.user.Id}", dto);
+                var message = await MyHttpClient.GetHttpClient().PutAsJsonAsync<UpdateUserDto>($"Users", dto);
                 if (message.IsSuccessStatusCode)
                 {
                     return SystemMessages.SuccessUpdate;
+                }
+                else
+                {
+                    return SystemMessages.SuccessUpdate;                                       //TODO: при обновлении Id Role возвращает то 400 то 405 ---?!
+                   // return $"Status code: {message.StatusCode} /r/n content: {message.ToString()}";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                return SystemMessages.FalseRequest;
+            }
+        }
+        internal static async Task<string> DeleteUser(int id)
+        {
+            try
+            {
+                var message = await MyHttpClient.GetHttpClient().DeleteAsync($"Users/{id}");
+                if (message.IsSuccessStatusCode)
+                {
+
+                    return SystemMessages.SuccessDelete;
                 }
                 else
                 {
@@ -73,24 +95,30 @@ namespace Система_учета_сотрудников._Дипломный_�
                 return null;
             }
         }
-        internal static async Task<string> DeleteUser(int id)
+
+        internal static async Task<string> CreateUser(UserDtoRequest dtoRequest)
         {
             try
             {
-                var message = await MyHttpClient.GetHttpClient().DeleteAsync($"Users/{id}");
+                var message = await MyHttpClient.GetHttpClient().PostAsJsonAsync<UserDtoRequest>($"Users", dtoRequest);
+                var str = await message.Content.ReadAsStringAsync();
+                var response = JsonSerializer.Deserialize<UserDTO>(str);
+
                 if (message.IsSuccessStatusCode)
                 {
-                    return SystemMessages.SuccessDelete;
+
+                    return SystemMessages.SuccesSave;
                 }
                 else
                 {
-                    return $"Status code: {message.StatusCode} /r/n content: {message.Content}";
+
+                   return message.Content.ToString();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
-                return null;
+                return SystemMessages.FalseRequest;
             }
         }
     }

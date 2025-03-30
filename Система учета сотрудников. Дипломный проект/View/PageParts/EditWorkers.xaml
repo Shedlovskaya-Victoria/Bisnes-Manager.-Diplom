@@ -11,29 +11,32 @@
     <ScrollViewer  CanContentScroll="True" Height="Auto" VerticalScrollBarVisibility="Visible">
       <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition />
+                    <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="230"/>
             <ColumnDefinition MinWidth="230"/>
             <ColumnDefinition MinWidth="300"/>
         </Grid.ColumnDefinitions>
-        
+
+                <StackPanel Grid.Row="1" >
+                </StackPanel>
+          
         <!--///-->
-                <ListView x:Name="Users" ItemsSource="{Binding UsersList}" Grid.Column="3" Grid.Row="1" SelectedItem="{Binding SelectedUser}">
+                <ListView x:Name="Users" ItemsSource="{Binding UsersList}" Grid.Column="3" Grid.RowSpan="2" SelectedItem="{Binding SelectedUser}">
             <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding Family}"/>
-                    <GridViewColumn Header="Должность" DisplayMemberBinding="{Binding TitleRole}"/>
+                    <GridViewColumn Header="Должность" DisplayMemberBinding="{Binding TitleRole, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
                 </GridView>
             </ListView.View>
         </ListView>
         
         <!--////-->
         <!--фотка-->
-        <StackPanel Grid.Row="1" Grid.Column="0" >
+        <StackPanel Grid.Row="0" Grid.Column="0">
             
             <Label Content="Имя" Margin="0" FontSize="10"/>
                     <TextBox Text="{Binding SelectedUser.Name}" Margin="3 0 3 3"/>
@@ -43,19 +46,22 @@
                     <TextBox Text="{Binding SelectedUser.Patronymic}" Margin="3 0 3 3"/>
             <Label Content="Логин" Margin="0" FontSize="10"/>
                     <TextBox Text="{Binding SelectedUser.Login}" Margin="3 0 3 3"/>
-           
-             
-            <StackPanel Orientation="Horizontal">
-                <Button Content="Сохранить" Command="{Binding SaveCommand}"/>
-                <Button Content="Удалить" Command="{Binding DeleteCommand}"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0 6 0 0" HorizontalAlignment="Center">
+                <Button Content="+ создать" Command="{Binding AddUserCommand}"  Background="Yellow"/>
+
+                <Button Content="Удалить" Command="{Binding DeleteCommand}" Background="LightPink" />
+
             </StackPanel>
+
         </StackPanel>
         <!--Данные-->
-            <StackPanel  Grid.Row="1" Grid.Column="1" >
+            <StackPanel  Grid.Row="0" Grid.Column="1" >
+
             <Label Content="Пароль" Margin="0" FontSize="10"/>
-                    <TextBox Text="{Binding SelectedUser.Password}" Margin="3 0 3 3"/>
+            <TextBox Text="{Binding SelectedUser.Password}" Margin="3 0 3 3"/>
             <Label Content="Email" Margin="0" FontSize="10"/>
-                    <TextBox Text="{Binding SelectedUser.Email}" Margin="3 0 3 3"/>
+            <TextBox Text="{Binding SelectedUser.Email}" Margin="3 0 3 3"/>
                     
             <Label Content="Количество рабочих часов" Margin="0" FontSize="10"/>
                     <TextBox Text="{Binding SelectedUser.WorkTimeCount}" Margin="3 0 3 3"/>
@@ -63,7 +69,10 @@
             <ComboBox  ItemsSource="{Binding  RolesList}" 
                         SelectedItem="{Binding SelectedRole}"  DisplayMemberPath="Title"
                 Margin="3 0 3 3"/>
-            <Button Content="Назад" Command="{Binding BackCommand}"/>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Сохранить" Command="{Binding SaveCommand}" Background="YellowGreen"/>
+                <Button Content="Назад" Command="{Binding BackCommand}"/>
+            </StackPanel>
         </StackPanel>
 
         </Grid>

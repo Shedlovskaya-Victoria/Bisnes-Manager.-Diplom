@@ -60,5 +60,21 @@ namespace BisnesManager.ETL.Mapper
                 
             };
         }
+        public static UserDtoRequest ToUserCreateFromUpdateDTO(this UpdateUserDto user)
+        {
+            return new UserDtoRequest
+            {
+                Email = user.Email,
+                CheckPhrase = user.CheckPhrase,
+                WorkTimeCount = user.WorkTimeCount,
+                Login = user.Login,
+                Password = user.Password,
+                Patronymic = user.Patronymic,
+                Family = user.Family,
+                IdRole = user.IdRole,
+                Name = user.Name,
+                
+            };
+        }
     }
 }

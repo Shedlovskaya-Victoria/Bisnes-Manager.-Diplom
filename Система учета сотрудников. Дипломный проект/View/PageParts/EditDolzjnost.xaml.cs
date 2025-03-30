@@ -1,5 +1,6 @@
 ﻿using BisnesManager.Client.Tools;
 using BisnesManager.ETL.DTO;
+using BisnesManager.ETL.update_DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Система_учета_сотрудников._Дипломный_проект.Tools;
 using Система_учета_сотрудников._Дипломный_проект.Tools.API;
 
 namespace BisnesManager.Client.View.PageParts
@@ -25,26 +27,70 @@ namespace BisnesManager.Client.View.PageParts
     /// </summary>
     public partial class EditDolzjnost : UserControl, INotifyPropertyChanged
     {
-        private RoleDTO selectedRole;
+        private UpdateRoleDto selectedRole;
 
-        public RoleDTO SelectedRole { get => selectedRole;
+        public UpdateRoleDto SelectedRole { get => selectedRole;
             set
             {
                 selectedRole = value;
                 Signal();
             }
         }
-        public IEnumerable<RoleDTO> RolesList { get; set; }
-        public EditDolzjnost(IEnumerable<RoleDTO> rolesList)
+        public IEnumerable<UpdateRoleDto> RolesList { get; set; }
+        public Command SaveCommand { get; set; }
+        public Command BackCommand { get; set; }
+        public EditDolzjnost(IEnumerable<UpdateRoleDto> rolesList)
         {
 
             RolesList = rolesList;
+            SelectedRole = RolesList.First();
             InitializeComponent();
             DataContext = this;
+
+           
+           
+            SaveCommand = new Command(async () =>
+            {
+               
+                var answ = await RoleClient.UpdateRole(SelectedRole);
+                CheckResultAndGo(answ, SystemMessages.SuccesSave);
+                
+
+            }, () =>
+            {
+                if (string.IsNullOrEmpty(SelectedRole.Title))
+                    return false;
+                if (SelectedRole.Id == 0)
+                    return false;
+                else
+                    return true;
+            });
+            BackCommand = new Command(() =>
+            {
+                Navigation.Instance().CurrentPage = new Home(UserClient.user);
+
+            }, () =>
+            {
+                return true;
+            });
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public void Signal([CallerMemberName] string prop = null)
            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+
+        private static void CheckResultAndGo(string requestAnsw, string systemMessage)
+        {
+            if (requestAnsw == systemMessage)
+            {
+                MessageBox.Show(requestAnsw);
+                Navigation.Instance().CurrentPage = new Home(UserClient.user);
+            }
+            else
+            {
+                MessageBox.Show(requestAnsw);
+                return;
+            }
+        }
     }
 }

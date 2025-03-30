@@ -26,7 +26,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
         {
             var roles = await roleRepo.GetAllAsync();
             if (roles == null) return NotFound();
-            var roleDto = roles.Select(s=>s.ToRoleDTO());
+            var roleDto = roles.Select(s=>s.ToRoleUpdate());
 
             return Ok(roleDto);
         }
@@ -54,13 +54,12 @@ namespace API._Система_учета_сотрудников._Дипломн�
         }
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPut]
-        [Route("{id}")]
-        public async  Task<IActionResult> Update([FromRoute] short id, [FromBody] UpdateRoleDto updateDto)
+        public async  Task<IActionResult> Update([FromBody] UpdateRoleDto updateDto)
         {
             if(updateDto == null)
                 return NotFound();
 
-           var role = await roleRepo.UpdateAsync(id, updateDto);
+           var role = await roleRepo.UpdateAsync(updateDto.Id, updateDto);
 
             if (role == null)
                 return NotFound();

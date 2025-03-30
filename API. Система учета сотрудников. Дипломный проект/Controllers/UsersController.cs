@@ -92,7 +92,6 @@ namespace API._Система_учета_сотрудников._Дипломн�
         }
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPut]
-        [Route("{id}")]
         public async Task<IActionResult> Update([FromBody] UpdateUserDto updateDto)
         {
             if (updateDto == null)

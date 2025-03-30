@@ -1,6 +1,7 @@
 ﻿using BisnesManager.Database.Models;
 using BisnesManager.ETL.DTO;
 using BisnesManager.ETL.request_DTO;
+using BisnesManager.ETL.update_DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,29 @@ namespace BisnesManager.ETL.Mapper
                 Post = dtoRequest.Post,
                 Title = dtoRequest.Title,
                 DateCreate = DateOnly.FromDateTime(DateTime.UtcNow),
+                IsUse = dtoRequest.IsUse,
+            };
+        }
+        public static RoleDtoRequest ToRoleCreateFromUpdateDTO(this UpdateRoleDto dtoRequest)
+        {
+            return new RoleDtoRequest
+            {
+                IsEditWorkersRoles = dtoRequest.IsEditWorkersRoles,
+                IsEditWorkTimeTable = dtoRequest.IsEditWorkTimeTable,
+                Post = dtoRequest.Post,
+                Title = dtoRequest.Title,
+                IsUse = dtoRequest.IsUse,
+            };
+        }
+        public static UpdateRoleDto ToRoleUpdate(this UserRole dtoRequest)
+        {
+            return new UpdateRoleDto
+            {
+                Id = dtoRequest.Id,
+                IsEditWorkersRoles = dtoRequest.IsEditWorkersRoles,
+                IsEditWorkTimeTable = dtoRequest.IsEditWorkTimeTable,
+                Post = dtoRequest.Post,
+                Title = dtoRequest.Title,
                 IsUse = dtoRequest.IsUse,
             };
         }
