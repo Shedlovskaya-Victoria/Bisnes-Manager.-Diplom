@@ -36,15 +36,15 @@
             </StackPanel>
             <StackPanel Orientation="Vertical" >
                 <Label Content="Редакт. сотр. и должност."/>
-                <CheckBox  Content="{Binding SelectedRole.IsEditWorkersRoles}" HorizontalAlignment="Center" />
+                <CheckBox  IsChecked="{Binding Path=SelectedRole.IsEditWorkersRoles, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
             </StackPanel>
             <StackPanel Orientation="Vertical" >
                 <Label Content="Редакт. график работы"/>
-                <CheckBox  Content="{Binding SelectedRole.IsEditWorkTimeTable}" HorizontalAlignment="Center" />
+                <CheckBox IsChecked="{Binding Path=SelectedRole.IsEditWorkTimeTable,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
             </StackPanel>
             <StackPanel Orientation="Vertical" >
                 <Label Content="Используется?"/>
-                <CheckBox  Content="{Binding SelectedRole.IsUse}" HorizontalAlignment="Center" />
+                <CheckBox IsChecked="{Binding Path=SelectedRole.IsUse,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
             </StackPanel>
         </StackPanel>
         <Label Content="Список ролей" Grid.Row="2"/>
@@ -58,9 +58,9 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Наименование" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Header="Редакт. сотрудников и должностей" DisplayMemberBinding="{Binding IsEditWorkersRoles}" />
-                    <GridViewColumn Header="Редакт. график работы" DisplayMemberBinding="{Binding IsEditWorkTimeTable}"/>
-                    <GridViewColumn Header="Используется?" DisplayMemberBinding="{Binding IsUse}"/>
+                    <GridViewColumn Header="Редакт. сотрудников и должностей" DisplayMemberBinding="{Binding IsEditWorkersRoles, UpdateSourceTrigger=PropertyChanged}" />
+                    <GridViewColumn Header="Редакт. график работы" DisplayMemberBinding="{Binding IsEditWorkTimeTable, UpdateSourceTrigger=PropertyChanged}"/>
+                    <GridViewColumn Header="Используется?" DisplayMemberBinding="{Binding IsUse, UpdateSourceTrigger=PropertyChanged}"/>
                 </GridView>
             </ListView.View>
         </ListView>
