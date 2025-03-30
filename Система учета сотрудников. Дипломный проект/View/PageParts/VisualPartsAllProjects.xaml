@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
         xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
              d:DesignHeight="450" d:DesignWidth="800">
+   
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -14,10 +15,11 @@
         </Grid.RowDefinitions>
 
         <StackPanel Margin="15" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label  Content="Период с:" VerticalAlignment="Center"/>
-            <DatePicker  SelectedDate="{Binding StartDate}" />
-            <Label Content="      Включительно по:" VerticalAlignment="Center"/>
-            <DatePicker  SelectedDate="{Binding FinalDate}"/>
+            <Label  Content="Период с:" VerticalAlignment="Center" Padding="0"/>
+            <DatePicker  SelectedDate="{Binding StartDate}" Padding="0" Margin="0"/>
+            <Label Content="      Включительно по:" VerticalAlignment="Center" Padding="0"/>
+            <DatePicker  SelectedDate="{Binding FinalDate}" Padding="0" Margin="0"/>
+            <Button Content="Искать" Command="{Binding SearchCommand}" Padding="0" />
         </StackPanel>
         <ScottPlot:WpfPlot Grid.Row="1" x:Name="WpfPlot1" Margin="15" ToolTip="Диаграмму можно двигать, приближать, уменьшать"/>
     </Grid>

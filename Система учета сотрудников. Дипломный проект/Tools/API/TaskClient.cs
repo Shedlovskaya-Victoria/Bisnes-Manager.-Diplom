@@ -1,6 +1,7 @@
 ﻿using BisnesManager.ETL.DTO;
 using BisnesManager.ETL.Helpers;
 using BisnesManager.ETL.request_DTO;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,19 +18,30 @@ namespace Система_учета_сотрудников._Дипломный_�
     {
         const int AdminPageSize = 100;
 
-        public static async Task<IEnumerable<BisnesTaskDTO>> GetAllTasks()
+        public static async Task<IEnumerable<BisnesTaskDTO>> GetAllTasks(DateTime dateStart, DateTime dateEnd)
         {
-           var answ = await MyHttpClient.GetHttpClient().GetFromJsonAsync<IEnumerable<BisnesTaskDTO>>($"Tasks?PageSize={AdminPageSize}" );
-         
-            if (answ != null)
+            IEnumerable<BisnesTaskDTO> answ;
+           
+            if(dateStart != new DateTime() && dateEnd == new DateTime())
             {
-                return answ;
+                 answ = await MyHttpClient.GetHttpClient().GetFromJsonAsync<IEnumerable<BisnesTaskDTO>>($"Tasks?PageSize={AdminPageSize}&dateStart={dateStart}");
+            }  
+            else if(dateStart == new DateTime() && dateEnd != new DateTime())
+            {
+                 answ = await MyHttpClient.GetHttpClient().GetFromJsonAsync<IEnumerable<BisnesTaskDTO>>($"Tasks?PageSize={AdminPageSize}&dateEnd={dateEnd}");
+            }
+            else if(dateStart != new DateTime() && dateEnd != new DateTime())
+            {
+                 answ = await MyHttpClient.GetHttpClient().GetFromJsonAsync<IEnumerable<BisnesTaskDTO>>($"Tasks?PageSize={AdminPageSize}&dateStart={dateStart}&dateEnd={dateEnd}");
             }
             else
             {
-                return null;
+                answ = await MyHttpClient.GetHttpClient().GetFromJsonAsync<IEnumerable<BisnesTaskDTO>>($"Tasks?PageSize={AdminPageSize}");
             }
-
+           
+         
+              return answ;
+          
         }
 
         public static async Task<IEnumerable<BisnesTaskDTO>> GetUsersTasks(int userId)

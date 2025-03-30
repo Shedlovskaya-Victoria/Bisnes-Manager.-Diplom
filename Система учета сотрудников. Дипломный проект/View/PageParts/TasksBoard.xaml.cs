@@ -73,7 +73,7 @@ namespace BisnesManager.Client.View.ProgramUserControl
 
         private async void SetAdminTasks()
         {
-            var list = new ObservableCollection<BisnesTaskDTO>(await TaskClient.GetAllTasks());
+            var list = new ObservableCollection<BisnesTaskDTO>(await TaskClient.GetAllTasks(new DateTime(), new DateTime()));
             SetTasks(list);
         }
 

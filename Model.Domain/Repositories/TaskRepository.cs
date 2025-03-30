@@ -31,11 +31,11 @@ namespace BisnesManager.ETL.Repositories
 
             if (query.dateStart != DateTime.Parse("01.01.0001"))
             {
-                list = list.Where(s => s.DateCreate >= DateOnly.FromDateTime(query.dateStart.Date));
+                list = list.Where(s => s.StartDate >= DateOnly.FromDateTime(query.dateStart));
             }
             if (query.dateEnd != DateTime.Parse("01.01.0001"))
             {
-                list = list.Where(s => s.DateCreate <= DateOnly.FromDateTime(query.dateEnd));
+                list = list.Where(s => s.EndDate >= DateOnly.FromDateTime(query.dateEnd));
             }
 
             if (query.PageSize > 2)

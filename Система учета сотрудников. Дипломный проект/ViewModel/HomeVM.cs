@@ -12,6 +12,7 @@ using BisnesManager.Client.View.Pages;
 using BisnesManager.Client.View.ProgramUserControl;
 using BisnesManager.Database.Models;
 using BisnesManager.ETL.DTO;
+using Microsoft.Extensions.Logging;
 using Система_учета_сотрудников._Дипломный_проект.Tools.API;
 
 namespace BisnesManager.Client.ViewModel
@@ -36,7 +37,6 @@ namespace BisnesManager.Client.ViewModel
         public Command EditPosition {  get; set; }
 
 
-        public Command ExitCommand {  get; set; }
         public string UserName { get; set; }
 
        
@@ -47,14 +47,7 @@ namespace BisnesManager.Client.ViewModel
         {
             UserName = $"{user.Role}: {user.FIO}";
 
-            ExitCommand = new Command(() =>
-            {
-
-                Navigation.Instance().CurrentPage = new Enter();
-            }, () =>
-            {
-                return true;
-            });
+           
             Find = new Command(() =>
             {
                
@@ -122,9 +115,12 @@ namespace BisnesManager.Client.ViewModel
             {
                 return true;
             });
-            ShowVisualPartsAllProjects = new Command(() =>
+            ShowVisualPartsAllProjects = new Command(async () =>
             {
-                control.Content = new VisualPartsAllProjects();
+              
+
+
+                control.Content = new VisualPartsAllProjects(user.Id, user.IdRole);
             }, () =>
             {
                 return true;

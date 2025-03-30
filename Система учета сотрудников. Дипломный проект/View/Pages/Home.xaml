@@ -29,19 +29,13 @@
         </Button>
         <!---поиск-->
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
-            
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Label Content="{Binding UserName}"   />
-                <Button Content="Выход" Command="{Binding ExitCommand}" HorizontalAlignment="Right"/>
-            </StackPanel>
-            
+           <Label Content="{Binding UserName}"  HorizontalAlignment="Right" />
             <StackPanel  Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBox Width="300"  x:Name="Search" Margin="3 3 0 3"/>
                 <Button Width="50" Margin="0 3 3 3" Command="{Binding Find}" CommandParameter="{Binding Text, ElementName=Search}">
                     <Image Width="30" Source="Image\Searhc.png"/>
                 </Button>
             </StackPanel>
-            
         </StackPanel>
         <!---верхний ряд иконок-->
         <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
