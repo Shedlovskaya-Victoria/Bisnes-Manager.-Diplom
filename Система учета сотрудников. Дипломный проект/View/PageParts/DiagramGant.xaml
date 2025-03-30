@@ -10,17 +10,18 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <DataTemplate x:Key="ScaleHeaderContentTemplate">
-            <ContentControl Content="{Binding}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="2" IsTabStop="False"/>
+            <ContentControl Content="{Binding}"  HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="2" IsTabStop="False" />
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
         <DockPanel>
 
-            <pdgcc:GanttChartDataGrid x:Name="GanttChartDataGrid" 
+            <pdgcc:GanttChartDataGrid x:Name="GanttChartDataGrid"  
                                WorkingWeekStart="Monday"   WorkingWeekFinish="Friday"
-                               VisibleWeekStart="Sunday"   VisibleWeekFinish="Saturday"
+                               VisibleWeekStart="Monday"   VisibleWeekFinish="Saturday"
                                VisibleDayStart ="09:00:00" VisibleDayFinish ="17:00:00"
-                            />
+                          Padding="0" Margin="0"/>
+
             <!--Для настройки масштабов, отображаемых элементом управления, используйте коллекцию Scales -->
 
         </DockPanel>

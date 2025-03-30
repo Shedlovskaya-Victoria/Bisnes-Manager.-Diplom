@@ -12,6 +12,7 @@ using BisnesManager.Client.View.Pages;
 using BisnesManager.Client.View.ProgramUserControl;
 using BisnesManager.Database.Models;
 using BisnesManager.ETL.DTO;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Система_учета_сотрудников._Дипломный_проект.Tools.API;
 
@@ -125,9 +126,22 @@ namespace BisnesManager.Client.ViewModel
             {
                 return true;
             });
-            ShowDiagramGant = new Command(() =>
+            ShowDiagramGant = new Command(async () =>
             {
-                control.Content = new DiagramGant();
+                IEnumerable<BisnesTaskDTO> tasks;
+                if(user.IdRole == 1)
+                {
+                    tasks = await TaskClient.GetAllTasks(new DateTime(), new DateTime());
+                }
+                else if(user.IdRole == 4)
+                {
+                    tasks = await TaskClient.GetUsersTasks(user.Id);
+                }
+                else
+                {
+                    tasks = null;
+                }
+                control.Content = new DiagramGant(tasks);
             }, () =>
             {
                 return true;
