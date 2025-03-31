@@ -16,7 +16,7 @@ namespace BisnesManager.ETL.Mapper
         {
             return new StatisticDTO
             {
-                Id = statistic.Id,
+                UserId = statistic.IdUser,
                 DateCreate = statistic.DateCreate,
                 SoftSkils = statistic.SoftSkils,
                 HardSkils = statistic.HardSkils,    

@@ -1,4 +1,5 @@
 ﻿using BisnesManager.ETL.DTO;
+using BisnesManager.ETL.Helpers;
 using BisnesManager.ETL.request_DTO;
 using BisnesManager.ETL.update_DTO;
 using System;
@@ -17,6 +18,10 @@ namespace Система_учета_сотрудников._Дипломный_�
         internal static async Task<IEnumerable<UpdateStatisticDto>> GetAll()
         {
             return await MyHttpClient.GetHttpClient().GetFromJsonAsync<IEnumerable<UpdateStatisticDto>>("Statistics/getAll");
+        }
+        internal static async Task<IEnumerable<StatisticDTO>> GetAllFilterDateAndPaginateQueryDto(int pageSize, int pageNumber, DateTime dateStart, DateTime dateEnd)
+        {
+            return await MyHttpClient.GetHttpClient().GetFromJsonAsync<IEnumerable<StatisticDTO>>($"Statistics?PageSize={pageSize}&PageNumber={pageNumber}&dateStart={dateStart.Date}&dateEnd={dateEnd.Date}");
         }
         internal static async Task<string> Create(StatisticDtoRequest statistic)
         {

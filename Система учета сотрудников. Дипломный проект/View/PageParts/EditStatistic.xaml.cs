@@ -174,7 +174,8 @@ namespace Система_учета_сотрудников._Дипломный_�
 
             SaveCommand = new Command(async () =>
             {
-                if(SelectedStatistic.Id==0)
+                
+                if (SelectedStatistic.Id == 0)
                 {
                     SelectedStatistic.IdUser = SelectedUser.Id;
                     var asnw = await StatisticClient.Create(SelectedStatistic.ToDtoCreateFromUpdateDTO());
@@ -185,9 +186,17 @@ namespace Система_учета_сотрудников._Дипломный_�
                     var answ = await StatisticClient.Update(SelectedStatistic);
                     CheckResultAndGo(answ, SystemMessages.SuccessUpdate);
                 }
+               
+               
             }, () =>
             {
-                return true;
+                if (SelectedStatistic == null)
+                {
+                   // MessageBox.Show("Нажмите на кнопку добавить!");
+                    return false;
+                }
+                else
+                    return true;
             });
             AddCommand = new Command(() =>
             {

@@ -97,9 +97,11 @@ namespace BisnesManager.Client.ViewModel
             //    return true;
             //});
             //    show
-            ShowKPDWorkers = new Command(() =>
+            ShowKPDWorkers = new Command(async () =>
             {
-                control.Content = new KPDWorkers();
+                var listUsers = await UserClient.GetAll();
+                var listStatistics = await StatisticClient.GetAllFilterDateAndPaginateQueryDto(100, 1,new DateTime(), new DateTime());
+                control.Content = new KPDWorkers(listUsers, listStatistics);
             }, () =>
             {
                 return true;

@@ -16,21 +16,35 @@
         <!---->
         <StackPanel  Margin="15" Grid.Row="0" Orientation="Horizontal"  >
             <Label  Content="Выбрать сотрудника" />
-            <ComboBox SelectedItem="{Binding ChooseWorker}"  HorizontalAlignment="Stretch"/>
-            <Label  Content="   Минимальное кол-во карточек" />
-            <ComboBox SelectedItem="{Binding MinCountCards}" 
-                      ItemsSource="{Binding CountToViewCards}" HorizontalAlignment="Stretch"/>
+            <ComboBox MinWidth="300" SelectedItem="{Binding SelectedUser}" DisplayMemberPath="FIO" ItemsSource="{Binding UsersList}" HorizontalAlignment="Stretch"/>
+            <Label  Content="Кол-во карточек" />
+            <ComboBox SelectedItem="{Binding SelectedCountCards}" 
+                      ItemsSource="{Binding ListCountCards}" HorizontalAlignment="Stretch"/>
         </StackPanel>
         <!---->
         <ScrollViewer Grid.Row="1">
             <StackPanel Orientation="Vertical">
 
-                <ScottPlot:WpfPlot  x:Name="WpfPlot1" Margin="15" MinHeight="300"/>
-                <Grid x:Name="MainGrid">
-                </Grid>
+              <!--  <ScottPlot:WpfPlot  x:Name="WpfPlot1" Margin="15" MinHeight="300"/>-->
+                <Grid x:Name="MainGrid"/>
+                <Grid x:Name="MainGrid2"/>
+                <Grid x:Name="MainGrid3"/>
+                <Grid x:Name="MainGrid4"/>
+                <Grid x:Name="MainGrid5"/>
+                <Grid x:Name="MainGrid6"/>
+                <Grid x:Name="MainGrid7"/>
+                <Grid x:Name="MainGrid8"/>
+                <Grid x:Name="MainGrid9"/>
+                <Grid x:Name="MainGrid10"/>
             </StackPanel>
         </ScrollViewer>
 
-        <Button Content="Следующий" Grid.Row="2" Command="{Binding NextCard}"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" >
+            <Button Content="{Binding StartCount}" Command="{Binding SetFirstCommand}"/>
+            <Button Content="{Binding SecondCount}" Command="{Binding SetSecondCountCommand}" Visibility="{Binding VisibleSecondCount}"/>
+            <Button MinWidth="300" Content="Следующий" Command="{Binding NextCardCommand}"/>
+            <Button Content="{Binding PrevousFinalCount}" Command="{Binding SetPrevousFinalCountCommand}" Visibility="{Binding VisiblePrevousFinalCount}"/>
+            <Button Content="{Binding FinalCount}" Command="{Binding SetLastCommand}"/>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -8,12 +8,11 @@ namespace BisnesManager.ETL.DTO
 {
     public class StatisticDTO
     { 
-        public int Id { get; set; }
+        public int UserId { get; set; }
         public int QualityWork { get; set; }
 
         public int LevelResponibility { get; set; }
 
-        public int EffectivCommunication { get; set; }
 
         public int HardSkils { get; set; }
 
