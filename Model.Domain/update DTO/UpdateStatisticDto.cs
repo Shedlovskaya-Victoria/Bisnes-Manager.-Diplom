@@ -15,7 +15,6 @@ namespace BisnesManager.ETL.update_DTO
 
         public int LevelResponibility { get; set; }
 
-        public int EffectivCommunication { get; set; }
 
         public int HardSkils { get; set; }
 

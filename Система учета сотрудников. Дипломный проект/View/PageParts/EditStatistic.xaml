@@ -9,27 +9,27 @@
     <StackPanel Orientation="Vertical" >
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <ComboBox ItemsSource="{Binding Users}"  MinWidth="400" DisplayMemberPath="Family" SelectedItem="{Binding SelectedUser}"/>
-
+            <ComboBox ItemsSource="{Binding Users}"  MinWidth="400" DisplayMemberPath="FIO" SelectedItem="{Binding SelectedUser}"/>
+            <Button Content="+ добавить" Command="{Binding AddCommand}" Background="Yellow"/>
             <Button  Content="Сохранить" Command="{Binding SaveCommand}" Background="YellowGreen"/>
-            <Button  Content="Удалить" Background="LightPink"/>
+            <Button  Content="Удалить" Command="{Binding DeleteCommand}" Background="LightPink"/>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Right" Height="Auto" VerticalAlignment="Top" Orientation="Horizontal">
-            <StackPanel Orientation="Vertical">
-                <Label Content="Качество"/>
-                <ComboBox ItemsSource="{Binding QualityWorkList}" SelectedItem="{Binding SelectedQuality}" />
+        <StackPanel HorizontalAlignment="Center" Height="Auto" VerticalAlignment="Top" Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" >
+                <Label Content="Качество" Width="Auto" HorizontalAlignment="Center"/>
+                <ComboBox Width="10" ItemsSource="{Binding QualityWorkList}" SelectedItem="{Binding SelectedQuality}" />
             </StackPanel>
-            <StackPanel Orientation="Vertical">
-                <Label Content="Ответсв."/>
-                <ComboBox ItemsSource="{Binding LevelResponibilityList}" SelectedItem="{Binding SelectedRespons}" />
+            <StackPanel Orientation="Vertical" Width="Auto" >
+                <Label Content="Ответственность" HorizontalAlignment="Center"/>
+                <ComboBox Width="10" ItemsSource="{Binding LevelResponibilityList}" SelectedItem="{Binding SelectedRespons}" />
             </StackPanel>
-            <StackPanel Orientation="Vertical">
-                <Label Content="Soft skil"/>
-                <ComboBox ItemsSource="{Binding SoftSkilsList}" SelectedItem="{Binding SelectedSoft}" />
+            <StackPanel Orientation="Vertical" Width="Auto">
+                <Label Content="Soft skil" HorizontalAlignment="Center"/>
+                <ComboBox Width="10" ItemsSource="{Binding SoftSkilsList}" SelectedItem="{Binding SelectedSoft}" />
             </StackPanel>
-            <StackPanel Orientation="Vertical">
-                <Label Content="Hard skil"/>
-                <ComboBox ItemsSource="{Binding HardSkilsList}" SelectedItem="{Binding SelectedStatistic.HardSkils}" />
+            <StackPanel Orientation="Vertical" Width="Auto">
+                <Label Content="Hard skil" HorizontalAlignment="Center"/>
+                <ComboBox Width="10" ItemsSource="{Binding HardSkilsList}" SelectedItem="{Binding SelectedHard}" />
             </StackPanel>
 
         
@@ -37,11 +37,11 @@
         <ListView ItemsSource="{Binding Statistics}" SelectedItem="{Binding SelectedStatistic}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Качество" DisplayMemberBinding="{Binding QualityWork}"/>
-                    <GridViewColumn Header="Ответсв." DisplayMemberBinding="{Binding LevelResponibility}"/>
-                    <GridViewColumn Header="Soft skil" DisplayMemberBinding="{Binding SoftSkils}"/>
-                    <GridViewColumn Header="Hard skil" DisplayMemberBinding="{Binding HardSkils}"/>
-                    <GridViewColumn Header="Дата создания" DisplayMemberBinding="{Binding DateCreate}"/>
+                    <GridViewColumn Header="Качество" DisplayMemberBinding="{Binding QualityWork, UpdateSourceTrigger=PropertyChanged}"/>
+                    <GridViewColumn Header="Ответсв." DisplayMemberBinding="{Binding LevelResponibility, UpdateSourceTrigger=PropertyChanged}"/>
+                    <GridViewColumn Header="Soft skil" DisplayMemberBinding="{Binding SoftSkils, UpdateSourceTrigger=PropertyChanged}"/>
+                    <GridViewColumn Header="Hard skil" DisplayMemberBinding="{Binding HardSkils, UpdateSourceTrigger=PropertyChanged}"/>
+                    <GridViewColumn Header="Дата создания" DisplayMemberBinding="{Binding DateCreate, StringFormat=dd.MM.yyyy}"/>
                 </GridView>
             </ListView.View>
         </ListView>

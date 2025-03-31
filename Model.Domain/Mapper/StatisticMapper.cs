@@ -50,5 +50,18 @@ namespace BisnesManager.ETL.Mapper
                 
             };
         }
+        public static StatisticDtoRequest ToDtoCreateFromUpdateDTO(this UpdateStatisticDto dtoRequest)
+        {
+            return new StatisticDtoRequest
+            {
+                
+                QualityWork = dtoRequest.QualityWork,
+                HardSkils= dtoRequest.HardSkils,    
+                LevelResponibility= dtoRequest.LevelResponibility,
+                SoftSkils= dtoRequest.SoftSkils,
+                IdUser= dtoRequest.IdUser,
+                
+            };
+        }
     }
 }

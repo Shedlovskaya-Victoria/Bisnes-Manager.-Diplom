@@ -126,7 +126,7 @@ namespace Система_учета_сотрудников._Дипломный_�
         {
             try
             {
-               return await MyHttpClient.GetHttpClient().GetFromJsonAsync<IEnumerable<UserDTO>>($"Users");
+               return await MyHttpClient.GetHttpClient().GetFromJsonAsync<IEnumerable<UserDTO>>($"Users/getAll");
                
             }
             catch (Exception ex)

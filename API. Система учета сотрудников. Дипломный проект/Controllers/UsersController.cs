@@ -40,10 +40,10 @@ namespace API._Система_учета_сотрудников._Дипломн�
             return Ok(listDto);
         }
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet]
+        [HttpGet("getAll")]
         public  async Task<IActionResult> GetAll()
         {
-            var list = await _userRepo.GetAllAsync();
+            var list = await _userRepo.GetAllAsync(new SortQueryDto() );
             if(list == null) return NotFound();
             var listDto = list.Select(s=>s.ToUserDTO()); //отличие от другого get all users в dto простом и для списка обновления
             return Ok(listDto);
