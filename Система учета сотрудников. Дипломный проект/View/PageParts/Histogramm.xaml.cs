@@ -69,7 +69,7 @@ namespace BisnesManager.Client.View.ProgramUserControl
                 }
                
                 var curve = WpfPlot1.Plot.Add.ScatterLine(xs, heights);
-                curve.LineWidth = 7;
+                curve.LineWidth = 7; 
                 curve.LineColor = ScottPlot.Colors.Category20.ElementAtOrDefault(user.Id);
                 curve.LinePattern = LinePattern.DenselyDashed;
                 curve.LegendText = user.FIO;
