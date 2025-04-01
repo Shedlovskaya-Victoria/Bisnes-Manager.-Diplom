@@ -27,7 +27,7 @@ namespace BisnesManager.Client.View.ProgramUserControl
     public partial class Histogramm : UserControl
     {
 
-
+         
         public IEnumerable<UserDTO> UsersList { get; set; }
         public IEnumerable<StatisticDTO> StatisticDTOs { get; set; }
         public Histogramm(IEnumerable<UserDTO> users, IEnumerable<StatisticDTO> statisticDTOs)
