@@ -106,9 +106,11 @@ namespace BisnesManager.Client.ViewModel
             {
                 return true;
             });
-            ShowWorkersKPDGraphiks = new Command(() =>
+            ShowWorkersKPDGraphiks = new Command(async () =>
             {
-                control.Content = new Workers();
+                var listUsers = await UserClient.GetAll();
+                var listStatistics =  await StatisticClient.GetAllFilterDateAndPaginateQueryDto(100, 1, new DateTime(), new DateTime()) ;
+                control.Content = new Histogramm(listUsers, listStatistics);
             }, () =>
             {
                 return true;

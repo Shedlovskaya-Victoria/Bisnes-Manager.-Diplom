@@ -108,7 +108,6 @@ namespace BisnesManager.Client.View.PageParts
         public Command SetLastCommand { get; set; } 
 
 
-        public List<WpfPlot> WpfPlots { get; set; }
         public IEnumerable<StatisticDTO> StatisticDTOs { get; set; }
         public KPDWorkers(IEnumerable<UserDTO> users, IEnumerable<StatisticDTO> statisticDTOs)
         {
@@ -212,13 +211,12 @@ namespace BisnesManager.Client.View.PageParts
             {
                 ScottPlot.Plot newPLot2; //= new Plot();
                 ScottPlot.WPF.WpfPlot wpfPLot2; //= new();
-                WpfPlots = new();
+               // WpfPlots = new();
                 /////////////////////////////////////////////////////////////////////////////////////////////////
                 // WpfPlot1.Refresh();
                 newPLot2 = new Plot();
                 wpfPLot2 = new();
                 newPLot2 = FillCard(ref wpfPLot2, 9);
-                WpfPlots.Add(wpfPLot);
 
                 MainGrid.Children.Add(wpfPLot2);
 
