@@ -43,6 +43,11 @@ namespace BisnesManager.ETL.Repositories
                 var skipNumber = (query.PageNumber - 1) * query.PageSize;
                 return await list.Skip(skipNumber).Take(query.PageSize).ToListAsync();
             }
+
+            if(query.StatusId != 0)
+            {
+                list = list.Where(s=>s.IdStatus ==  query.StatusId);
+            }
             return await list.ToListAsync();
         }
         public async Task<IList<BisnesTask>?> GetListByIdAsync(short id)

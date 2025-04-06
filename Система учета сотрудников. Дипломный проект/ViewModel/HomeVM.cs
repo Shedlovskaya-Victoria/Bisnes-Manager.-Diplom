@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using BisnesManager.Client.Tools;
@@ -14,6 +15,7 @@ using BisnesManager.Database.Models;
 using BisnesManager.ETL.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Система_учета_сотрудников._Дипломный_проект.Tools;
 using Система_учета_сотрудников._Дипломный_проект.Tools.API;
 using Система_учета_сотрудников._Дипломный_проект.View.PageParts;
 
@@ -65,6 +67,12 @@ namespace BisnesManager.Client.ViewModel
                 {
                    var userUpdate = await UserClient.GetUserByIdToUpdate(UserClient.user.Id);
                    userUpdate.Password = "";
+
+                    if(userUpdate==null)
+                    {
+                        MessageBox.Show(SystemMessages.UserIsNull);
+                        return;
+                    }
                    Navigation.Instance().CurrentPage = new PersonalCabinet(userUpdate);
                 }
                 else 
@@ -101,7 +109,21 @@ namespace BisnesManager.Client.ViewModel
             {
                 var listUsers = await UserClient.GetAll();
                 var listStatistics = await StatisticClient.GetAllFilterDateAndPaginateQueryDto(100, 1,new DateTime(), new DateTime());
-                control.Content = new KPDWorkers(listUsers, listStatistics);
+                var result = new List<StatisticDTO> ();
+
+                foreach (UserDTO user in listUsers)
+                {
+                    var s = listStatistics.Where(s => s.UserId == user.Id).ToList();
+
+                    result.Add(s.FirstOrDefault(f => f.DateCreate == s.Max(s => s.DateCreate)));
+                }
+                if(result.Count == 0)
+                {
+                    MessageBox.Show(SystemMessages.SatisticIsNull);
+                    return;
+                }
+
+                control.Content = new KPDWorkers(listUsers, result);
             }, () =>
             {
                 return true;
@@ -110,6 +132,13 @@ namespace BisnesManager.Client.ViewModel
             {
                 var listUsers = await UserClient.GetAll();
                 var listStatistics =  await StatisticClient.GetAllFilterDateAndPaginateQueryDto(100, 1, new DateTime(), new DateTime()) ;
+
+                if(listStatistics.Count() == 0)
+                {
+                    MessageBox.Show(SystemMessages.SatisticIsNull);
+                    return;
+                }
+
                 control.Content = new Histogramm(listUsers, listStatistics);
             }, () =>
             {
@@ -124,8 +153,6 @@ namespace BisnesManager.Client.ViewModel
             });
             ShowVisualPartsAllProjects = new Command(async () =>
             {
-              
-
 
                 control.Content = new VisualPartsAllProjects(user.Id, user.IdRole);
             }, () =>
@@ -157,6 +184,7 @@ namespace BisnesManager.Client.ViewModel
             {
                 var userUpdate = await UserClient.GetListUsersToUpdate();
                 var rolesUpdate = await RoleClient.GetRolesList();
+
                 control.Content = new EditWorkers(userUpdate, rolesUpdate);
             }, () =>
             {
@@ -165,7 +193,7 @@ namespace BisnesManager.Client.ViewModel
             EditPosition = new Command(async () =>
             {
                 var rolesList = await RoleClient.GetRolesList();
-                
+
                 control.Content = new EditDolzjnost(rolesList);
             }, () =>
             {
@@ -176,6 +204,7 @@ namespace BisnesManager.Client.ViewModel
 
                 var listUsers = await UserClient.GetAll();
                 var listStatistic = await StatisticClient.GetAll();
+
                 control.Content = new EditStatistic(listUsers, listStatistic);
             }, () =>
             {

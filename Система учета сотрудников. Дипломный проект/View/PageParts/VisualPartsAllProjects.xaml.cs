@@ -163,6 +163,7 @@ namespace BisnesManager.Client.View.ProgramUserControl
         }
         private async Task<IEnumerable<BisnesTaskDTO>> GetAll()
         {
+          
             return await TaskClient.GetAllTasks(StartDate, FinalDate);
 
         }

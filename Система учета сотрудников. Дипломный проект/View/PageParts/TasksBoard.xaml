@@ -7,23 +7,61 @@
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              mc:Ignorable="d" 
              x:Name="me"
-             MinHeight="460" MinWidth="800">
-    
-        <ScrollViewer VerticalScrollBarVisibility="Visible" >
+             MinHeight="460" MinWidth="900">
 
-        <StackPanel>
+    <ScrollViewer  VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" Background="LemonChiffon">
+
+
+      <StackPanel>
+          
+          
+          
+        <!---последние задачи-->
+        <StackPanel HorizontalAlignment="Center" Visibility="{Binding LastTasksVisible}" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="         В разработке                 "/>
                 <Label Content="                   В работе                    "/>
                 <Label Content="       Завершены  "/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+               
+                
+                <ToolBarTray Orientation="Vertical" Background="Transparent">
+                    <ToolBar Background="Transparent" >
+                        <Button Content="Cм Архив" Background="DarkKhaki" MinWidth="80" Command="{Binding ShowArchiveCommand}"/>
+                        <Separator/>
+                        <Button Content="+ добавить" Background="Yellow" MinWidth="80" Command="{Binding AddTaskCommand}"/>
+                        <Separator/>
+                            <Button Content="Редактир." Background="SandyBrown" MinWidth="80" 
+                                    Command="{Binding EditTaskCommand}" 
+                                    CommandParameter="{Binding SelectedTask}"/>
+                        <Separator/>
+                        <Button Content="Удалить" Background="LightPink" MinWidth="80" 
+                                Command="{Binding DeleteTaskCommand}"
+                                CommandParameter="{Binding SelectedTask}"/>
+                        <Separator/>
+                        <Button Content="Сохранить" Background="YellowGreen" MinWidth="80" Command="{Binding SaveCommand}"
+                                ToolTip="В том числе новые статусы задач!"/>
+                    </ToolBar>
+                </ToolBarTray>
 
-                <ListView ItemsSource="{Binding PlaneList}"
-                dd:DragDrop.IsDragSource="True"
+
+                    <ListView ItemsSource="{Binding PlaneList}" SelectedItem="{Binding SelectedTask}"
+                dd:DragDrop.IsDragSource="True" 
                 dd:DragDrop.IsDropTarget="True"
                 AllowDrop="True"
                 MouseUp="MouseUPMethod">
+                    <ListView.ContextMenu >
+                        <ContextMenu >
+                            <MenuItem Header="Редактировать" Background="SandyBrown" 
+                                      Command="{Binding EditTaskCommand}"
+                                      CommandParameter="{Binding SelectedTask}"/>
+                            <MenuItem Header="Удалить" Background="LightPink" 
+                                      Command="{Binding DeleteTaskCommand}"
+                                      CommandParameter="{Binding SelectedTask}"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                  
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0" Background="Snow">
@@ -32,29 +70,40 @@
                                     <Label Content="{Binding Author}" Margin="0" Padding="0"/>
                                 </StackPanel>
                                 <StackPanel Margin="0" Orientation="Horizontal" >
-                                    <Label Content="Задача: " Foreground="RosyBrown" Margin="0" Padding="0"/>
+                                    <Label Content="Задача: " Foreground="Brown" Margin="0" Padding="0"/>
                                     <TextBlock Text="{Binding Content}" Margin="0" Padding="0" MaxWidth="180" TextWrapping="Wrap"/>
                                 </StackPanel>
                                 <StackPanel Margin="0" Orientation="Horizontal">
-                                    <Label Content="Доп.: " Foreground="RosyBrown" Margin="0" Padding="0"/>
+                                    <Label Content="Доп.: " Foreground="SaddleBrown" Margin="0" Padding="0"/>
                                     <TextBlock Text="{Binding AssignmentsContent}" Margin="0" Padding="0" MaxWidth="180" TextWrapping="Wrap"/>
                                 </StackPanel>
                                 <StackPanel Margin="0" Orientation="Horizontal">
-                                    <Label Content="{Binding StartDate, StringFormat=dd.MM.YYYY}" Margin="0" Padding="0"/>
+                                    <Label Content="{Binding StartDate, StringFormat=dd.MM.yyyy}" Margin="0" Padding="0"/>
                                     <Label Content=" - " Margin="0" Padding="0"/>
-                                    <Label Content="{Binding EndDate, StringFormat=dd.MM.YYYY}" Margin="0" Padding="0"/>
+                                    <Label Content="{Binding EndDate, StringFormat=dd.MM.yyyy}" Margin="0" Padding="0"/>
                                 </StackPanel>
-                                <Button Content="в Архив"/>
+                                    <Button Content="в Архив" Command="{Binding AddToArchiveCommand}" CommandParameter="{Binding SelectedTask}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
                 <!---->
-                <ListView ItemsSource="{Binding WorkList}"
+                    <ListView ItemsSource="{Binding WorkList}" SelectedItem="{Binding SelectedTask}"
                 dd:DragDrop.IsDragSource="True"
                 dd:DragDrop.IsDropTarget="True" 
                 AllowDrop="True"
                 MouseUp="MouseUPMethod">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Редактировать" Background="SandyBrown" 
+                                      Command="{Binding EditTaskCommand}"
+                                      CommandParameter="{Binding SelectedTask}"/>
+                            <MenuItem Header="Удалить" Background="LightPink" 
+                                      Command="{Binding DeleteTaskCommand}"
+                                      CommandParameter="{Binding SelectedTask}"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel   Margin="0" Background="Azure" >
@@ -63,11 +112,11 @@
                                     <Label Content="{Binding Author}" Margin="0" Padding="0"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal"  Margin="0" >
-                                    <Label Content="Задача: " Foreground="RosyBrown" Margin="0" Padding="0"/>
+                                    <Label Content="Задача: " Foreground="Brown" Margin="0" Padding="0"/>
                                     <TextBlock Text="{Binding Content}" Margin="0" Padding="0" MaxWidth="180" TextWrapping="Wrap"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal"  Margin="0" >
-                                    <Label Content="Доп.: " Foreground="RosyBrown" Margin="0" Padding="0"/>
+                                    <Label Content="Доп.: " Foreground="SaddleBrown" Margin="0" Padding="0"/>
                                     <TextBlock Text="{Binding AssignmentsContent}" Margin="0" Padding="0" MaxWidth="180" TextWrapping="Wrap"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal"  Margin="0" >
@@ -75,17 +124,28 @@
                                     <Label Content=" - " Margin="0" Padding="0"/>
                                     <Label Content="{Binding EndDate, StringFormat=dd.MM.YYYY}" Margin="0" Padding="0"/>
                                 </StackPanel>
-                                <Button Content="в Архив"/>
+                                    <Button Content="в Архив"  Command="{Binding AddToArchiveCommand}" CommandParameter="{Binding SelectedTask}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
                 <!---->
-                <ListView ItemsSource="{Binding EndList}"
+                    <ListView ItemsSource="{Binding EndList}" SelectedItem="{Binding SelectedTask}"
                 dd:DragDrop.IsDragSource="True"
                 dd:DragDrop.IsDropTarget="True" 
                 AllowDrop="True"
                 MouseUp="MouseUPMethod">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Редактировать" Background="SandyBrown" 
+                                      Command="{Binding EditTaskCommand}"
+                                      CommandParameter="{Binding SelectedTask}"/>
+                            <MenuItem Header="Удалить" Background="LightPink" 
+                                      Command="{Binding DeleteTaskCommand}"
+                                      CommandParameter="{Binding SelectedTask}"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel   Margin="0" >
@@ -94,11 +154,11 @@
                                     <Label Content="{Binding Author}" Margin="0" Padding="0"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal"  Margin="0" >
-                                    <Label Content="Задача: " Foreground="RosyBrown" Margin="0" Padding="0"/>
+                                    <Label Content="Задача: " Foreground="Brown" Margin="0" Padding="0"/>
                                     <TextBlock Text="{Binding Content}" Margin="0" Padding="0" MaxWidth="180" TextWrapping="Wrap"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal"  Margin="0" >
-                                    <Label Content="Доп.: " Foreground="RosyBrown" Margin="0" Padding="0"/>
+                                    <Label Content="Доп.: " Foreground="SaddleBrown" Margin="0" Padding="0"/>
                                     <TextBlock Text="{Binding AssignmentsContent}" Margin="0" Padding="0" MaxWidth="180" TextWrapping="Wrap"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal"  Margin="0" >
@@ -106,13 +166,74 @@
                                     <Label Content=" - " Margin="0" Padding="0"/>
                                     <Label Content="{Binding EndDate, StringFormat=DD.mm.YYYY}" Margin="0" Padding="0"/>
                                 </StackPanel>
-                                <Button Content="в Архив"/>
+                                    <Button Content="в Архив" Command="{Binding AddToArchiveCommand}" CommandParameter="{Binding SelectedTask}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </StackPanel>
         </StackPanel>
+          
+          
+          
+        <!---архивные задачи-->
+        <StackPanel HorizontalAlignment="Center" Orientation="Vertical" Visibility="{Binding ArchiveTaskVisible}">
+            <Label HorizontalAlignment="Center" Content="Архивные задaчи"/>
+            
+            <StackPanel Orientation="Horizontal">
+                <ToolBarTray Orientation="Vertical" Background="Transparent">
+                    <ToolBar Background="Transparent" >
+                        <Button Content="Скрыть архив" Background="BurlyWood" MinWidth="124" Command="{Binding ShowLastTasksCommand}"/>
+                        <Separator/>
+                        <Button Content="Разархивировать" Background="LightBlue" MinWidth="120" Command="{Binding ChangeArchStatusCommand}" 
+                                CommandParameter="{Binding SelectedTask}"/>
+                        <Separator/>
+                        <Button Content="Удалить" Background="LightPink" MinWidth="124" Command="{Binding DeleteTaskCommand}" 
+                                CommandParameter="{Binding SelectedTask}"/>
+                    </ToolBar>
+                </ToolBarTray>
+
+                    <ListView ItemsSource="{Binding ArchiveList}" SelectedItem="{Binding SelectedTask}" >
+                        <ListView.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Удалить" Background="LightPink" 
+                                          Command="{Binding DeleteTaskCommand}"
+                                          CommandParameter="{Binding SelectedTask}"/>
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel   Margin="0" MinWidth="300">
+                                    <StackPanel Orientation="Horizontal"  Margin="0" >
+                                        <Label Content="Автор: " Margin="0" Padding="0"/>
+                                        <Label Content="{Binding Author}" Margin="0" Padding="0"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal"  Margin="0" >
+                                        <Label Content="Задача: " Foreground="Brown" Margin="0" Padding="0"/>
+                                        <TextBlock Text="{Binding Content}" Margin="0" Padding="0" MinWidth="300" TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal"  Margin="0" >
+                                        <Label Content="Доп.: " Foreground="SaddleBrown" Margin="0" Padding="0"/>
+                                        <TextBlock Text="{Binding AssignmentsContent}" Margin="0" Padding="0" MinWidth="300" TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal"  Margin="0" >
+                                        <Label Content="{Binding StartDate, StringFormat=DD.mm.YYYY}" Margin="0" Padding="0"/>
+                                        <Label Content=" - " Margin="0" Padding="0"/>
+                                        <Label Content="{Binding EndDate, StringFormat=DD.mm.YYYY}" Margin="0" Padding="0"/>
+                                    </StackPanel>
+                                    <Button Content="Разархивировать" Command="{Binding ChangeArchStatusCommand}" CommandParameter="{Binding SelectedTask}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </StackPanel>
+          
+          
+          
+          
+      </StackPanel>
     </ScrollViewer>
 
 </UserControl>

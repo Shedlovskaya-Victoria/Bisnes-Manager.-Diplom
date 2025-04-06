@@ -3,7 +3,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,12 +31,34 @@ namespace BisnesManager.Client.View.ProgramUserControl
     /// Логика взаимодействия для Tasks.xaml
     /// </summary>
     public delegate void Deleg();
-    public partial class TasksBoard : UserControl
+    public partial class TasksBoard : UserControl, INotifyPropertyChanged
     {
+        private BisnesTaskDTO selectedTask;
+
         public ObservableCollection<BisnesTaskDTO> PlaneList { get; set; }
         public ObservableCollection<BisnesTaskDTO> WorkList { get; set; }
         public ObservableCollection<BisnesTaskDTO> EndList { get; set; }
         public ObservableCollection<BisnesTaskDTO> ArchiveList { get; set; }
+
+        public BisnesTaskDTO SelectedTask { get => selectedTask;
+            set
+            {
+                selectedTask = value;
+                Signal();
+            }
+        }
+
+        public Visibility LastTasksVisible { get; set; } = Visibility.Visible;
+        public Visibility ArchiveTaskVisible { get; set; } = Visibility.Collapsed;
+
+        public Command ShowArchiveCommand { get; set; }
+        public Command ShowLastTasksCommand { get; set; }
+        public Command AddTaskCommand {  get; set; }
+        public CommandWithParametr<BisnesTaskDTO> EditTaskCommand { get; set; }
+        public CommandWithParametr<BisnesTaskDTO> DeleteTaskCommand { get; set; }
+        public Command SaveCommand {  get; set; }
+        public CommandWithParametr<BisnesTaskDTO> AddToArchiveCommand {  get; set; }
+        public CommandWithParametr<BisnesTaskDTO> ChangeArchStatusCommand {  get; set; }
 
         public TasksBoard(short? RoleId, short UserId)
         {
@@ -62,9 +86,134 @@ namespace BisnesManager.Client.View.ProgramUserControl
             }
 
             DataContext = this;
-        
+
+            ShowArchiveCommand = new Command(() =>
+            {
+                PlaneList = new();
+                WorkList = new();
+                EndList = new();
+                ArchiveList = new();
+
+                LastTasksVisible = Visibility.Collapsed;
+                ArchiveTaskVisible = Visibility.Visible;
+                Signal(nameof(LastTasksVisible));
+                Signal(nameof(ArchiveTaskVisible));
+
+                if (RoleId == 1)
+                {
+                    SetArchAdminTasks();
+                }
+                else if (RoleId == 4)
+                {
+                    SetArchUserTask(UserId);
+                }
+                else if (RoleId == 6)
+                {
+                    SetDefoultTasks();
+                }
+
+                Signal(nameof(PlaneList));
+                Signal(nameof(WorkList));
+                Signal(nameof(EndList));
+                Signal(nameof(ArchiveList));
+
+            }, () =>
+            {
+                return true;
+            });
+
+            ShowLastTasksCommand = new Command(() =>
+            {  
+                PlaneList = new();
+                WorkList = new();
+                EndList = new();
+                ArchiveList = new();
+
+                ArchiveTaskVisible = Visibility.Collapsed;
+                LastTasksVisible = Visibility.Visible;
+                Signal(nameof(LastTasksVisible));
+                Signal(nameof(ArchiveTaskVisible));
+
+                if (RoleId == 6)
+                {
+                    SetDefoultTasks();
+                }
+                else if (RoleId == 1)
+                {
+                    SetAdminTasks();
+                }
+                else if (RoleId == 4)
+                {
+                    SetUserTask(UserId);
+                }
+
+                Signal(nameof(PlaneList));
+                Signal(nameof(WorkList));
+                Signal(nameof(EndList));
+                Signal(nameof(ArchiveList));
+
+            }, () =>
+            {
+                return true;
+            });
+
+            AddTaskCommand = new Command(() => 
+            { 
+            }, () => 
+            { 
+                return true; 
+            });
+            EditTaskCommand = new CommandWithParametr<BisnesTaskDTO>((parametr) => 
+            { 
+            }, () => 
+            {
+                return SelectedTask == null ? false : true;
+               
+            });
+            DeleteTaskCommand = new CommandWithParametr<BisnesTaskDTO>((parametr) => 
+            { 
+            }, () => 
+            {
+                return SelectedTask == null ? false : true;
+            });
+            SaveCommand = new Command(() => 
+            { 
+            }, () => 
+            {
+                return true;
+            });
+            AddToArchiveCommand = new CommandWithParametr<BisnesTaskDTO>((parametr) => 
+            { 
+            }, () => 
+            {
+                return SelectedTask == null ? false : true;
+            });
+            ChangeArchStatusCommand = new CommandWithParametr<BisnesTaskDTO>((parametr) => 
+            { 
+            }, () => 
+            {
+                return SelectedTask == null ? false : true;
+            });
         }
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void Signal([CallerMemberName] string prop = null)
+          => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+     
+
+        private async void SetArchUserTask(short UserId)
+        {
+            var list = new ObservableCollection<BisnesTaskDTO>(await TaskClient.GetArchUsersTasks(UserId) );
+            SetTasks(list);
+        }
+
+        private async void SetArchAdminTasks()
+        {
+            var list = new ObservableCollection<BisnesTaskDTO>(await TaskClient.GetArchAllTasks(new DateTime(), new DateTime()));
+            SetTasks(list);
+        }
+
+        //standart
         private async void SetUserTask(short UserId)
         {
             var list = new ObservableCollection<BisnesTaskDTO>(await TaskClient.GetUsersTasks(UserId) );
@@ -77,9 +226,12 @@ namespace BisnesManager.Client.View.ProgramUserControl
             SetTasks(list);
         }
 
+
+        //заполнение задач
         private async void SetTasks(ObservableCollection<BisnesTaskDTO> list)
         {
            
+
             foreach (var task in list)
             {
                 CheckPlaneStatus(task);
