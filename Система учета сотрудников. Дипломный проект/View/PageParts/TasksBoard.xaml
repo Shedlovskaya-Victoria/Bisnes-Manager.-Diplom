@@ -11,11 +11,8 @@
 
     <ScrollViewer  VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" Background="LemonChiffon">
 
-
       <StackPanel>
-          
-          
-          
+         
         <!---последние задачи-->
         <StackPanel HorizontalAlignment="Center" Visibility="{Binding LastTasksVisible}" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -178,7 +175,7 @@
           
         <!---архивные задачи-->
         <StackPanel HorizontalAlignment="Center" Orientation="Vertical" Visibility="{Binding ArchiveTaskVisible}">
-            <Label HorizontalAlignment="Center" Content="Архивные задaчи"/>
+            <Label HorizontalAlignment="Center" Content="В архиве"/>
             
             <StackPanel Orientation="Horizontal">
                 <ToolBarTray Orientation="Vertical" Background="Transparent">
