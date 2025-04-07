@@ -92,7 +92,7 @@ namespace Система_учета_сотрудников._Дипломный_�
                 }
                 else
                 {
-                    var answ = await TaskClient.UpdateTask(Task.ToUpdateDTO(), id);
+                    var answ = await TaskClient.UpdateTask(Task);
                     var flag = CheckResultAndGo(answ, SystemMessages.SuccessUpdate);
                     if(flag)
                      Close();

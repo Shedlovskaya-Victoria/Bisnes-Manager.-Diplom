@@ -1,5 +1,6 @@
 ﻿
 using BisnesManager.Database.Models;
+using BisnesManager.ETL.DTO;
 using BisnesManager.ETL.Helpers;
 using BisnesManager.ETL.Mapper;
 using BisnesManager.ETL.Repositories;
@@ -68,12 +69,11 @@ namespace API._Система_учета_сотрудников._Дипломн�
         }
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPut]
-        [Route("{id}")]
-        public async Task<IActionResult> Update([FromRoute] int id,  [FromBody] UpdateTaskDto updateDto)
+        public async Task<IActionResult> Update([FromBody] BisnesTaskDTO updateDto)
         {
             if(updateDto == null)
                 return NotFound();
-            var task = await _taskRepo.UpdateAsync(id, updateDto);         
+            var task = await _taskRepo.UpdateAsync(updateDto.Id, updateDto.ToUpdateDTO());         
             if(task == null) return NotFound();
             return Ok(task.ToTaskDTO());
         }

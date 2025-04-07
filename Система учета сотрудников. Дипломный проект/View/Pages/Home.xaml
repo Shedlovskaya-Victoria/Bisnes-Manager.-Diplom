@@ -7,7 +7,7 @@
       xmlns:viewModel="clr-namespace:BisnesManager.Client.ViewModel"
       mc:Ignorable="d" 
       DataContext="{DynamicResource VM}"
-      d:DesignHeight="450" d:DesignWidth="900"
+      d:DesignHeight="450" d:DesignWidth="1000"
       Title="Home">
     <Page.Resources>
         <viewModel:HomeVM x:Key="VM"/>

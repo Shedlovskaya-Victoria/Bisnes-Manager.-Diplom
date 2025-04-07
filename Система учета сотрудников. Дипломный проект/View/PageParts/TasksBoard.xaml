@@ -7,7 +7,7 @@
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              mc:Ignorable="d" 
              x:Name="me"
-             MinHeight="460" MinWidth="900">
+             MinHeight="400" MinWidth="1000">
 
     <ScrollViewer  VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" Background="LemonChiffon">
 
@@ -50,38 +50,42 @@
                 MouseUp="MouseUPMethod">
                     <ListView.ContextMenu >
                         <ContextMenu >
-                            <MenuItem Header="Редактировать" Background="SandyBrown" 
+                     <!--       <MenuItem Header="Редактировать" Background="SandyBrown" 
                                       Command="{Binding EditTaskCommand}"
                                       CommandParameter="{Binding SelectedTask}"/>
                             <MenuItem Header="Удалить" Background="LightPink" 
                                       Command="{Binding DeleteTaskCommand}"
-                                      CommandParameter="{Binding SelectedTask}"/>
-                        </ContextMenu>
+                                      CommandParameter="{Binding SelectedTask}"/>-->
+                            <MenuItem Header="В архив"
+                                        Command="{Binding AddToArchiveCommand}" 
+                                        CommandParameter="{Binding SelectedTask}"/>
+                            </ContextMenu>
                     </ListView.ContextMenu>
                   
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0" Background="Snow">
-                                <StackPanel Orientation="Horizontal" Margin="0"  >
-                                    <Label Content="Автор: " Margin="0" Padding="0"/>
-                                    <Label Content="{Binding Author}" Margin="0" Padding="0"/>
-                                </StackPanel>
-                                <StackPanel Margin="0" Orientation="Horizontal" >
-                                    <Label Content="Задача: " Foreground="Brown" Margin="0" Padding="0"/>
-                                    <TextBlock Text="{Binding Content}" Margin="0" Padding="0" MaxWidth="180" TextWrapping="Wrap"/>
-                                </StackPanel>
-                                <StackPanel Margin="0" Orientation="Horizontal">
-                                    <Label Content="Доп.: " Foreground="SaddleBrown" Margin="0" Padding="0"/>
-                                    <TextBlock Text="{Binding AssignmentsContent}" Margin="0" Padding="0" MaxWidth="180" TextWrapping="Wrap"/>
-                                </StackPanel>
-                                <StackPanel Margin="0" Orientation="Horizontal">
-                                    <Label Content="{Binding StartDate, StringFormat=dd.MM.yyyy}" Margin="0" Padding="0"/>
-                                    <Label Content=" - " Margin="0" Padding="0"/>
-                                    <Label Content="{Binding EndDate, StringFormat=dd.MM.yyyy}" Margin="0" Padding="0"/>
-                                </StackPanel>
-                                    <Button Content="в Архив" Command="{Binding AddToArchiveCommand}" CommandParameter="{Binding SelectedTask}"/>
-                            </StackPanel>
-                        </DataTemplate>
+                                <Border Style="{StaticResource TaskBorder}">
+                                    <StackPanel Margin="0" Background="Snow">
+                                        <StackPanel Orientation="Horizontal" Margin="0"  >
+                                            <Label Content="Автор: " Margin="0" Padding="0"/>
+                                            <Label Content="{Binding Author}" Margin="0" Padding="0"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="0" Orientation="Horizontal" >
+                                            <Label Content="Задача: " Foreground="Brown" Margin="0" Padding="0"/>
+                                            <TextBlock Text="{Binding Content}" Style="{StaticResource TaskText}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="0" Orientation="Horizontal">
+                                            <Label Content="Доп.: " Foreground="SaddleBrown" Margin="0" Padding="0"/>
+                                            <TextBlock Text="{Binding AssignmentsContent}" Style="{StaticResource TaskText}" />
+                                        </StackPanel>
+                                        <StackPanel Margin="0" Orientation="Horizontal">
+                                            <Label Content="{Binding StartDate, StringFormat=dd.MM.yyyy}" Margin="0" Padding="0"/>
+                                            <Label Content=" - " Margin="0" Padding="0"/>
+                                            <Label Content="{Binding EndDate, StringFormat=dd.MM.yyyy}" Margin="0" Padding="0"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
                 <!---->
@@ -92,38 +96,42 @@
                 MouseUp="MouseUPMethod">
                     <ListView.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Редактировать" Background="SandyBrown" 
+                          <!--  <MenuItem Header="Редактировать" Background="SandyBrown" 
                                       Command="{Binding EditTaskCommand}"
                                       CommandParameter="{Binding SelectedTask}"/>
                             <MenuItem Header="Удалить" Background="LightPink" 
                                       Command="{Binding DeleteTaskCommand}"
-                                      CommandParameter="{Binding SelectedTask}"/>
-                        </ContextMenu>
+                                      CommandParameter="{Binding SelectedTask}"/>-->
+                                <MenuItem Header="В архив"
+                                        Command="{Binding AddToArchiveCommand}" 
+                                        CommandParameter="{Binding SelectedTask}"/>
+                            </ContextMenu>
                     </ListView.ContextMenu>
 
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel   Margin="0" Background="Azure" >
-                                <StackPanel Orientation="Horizontal"  Margin="0" >
-                                    <Label Content="Автор: " Margin="0" Padding="0"/>
-                                    <Label Content="{Binding Author}" Margin="0" Padding="0"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal"  Margin="0" >
-                                    <Label Content="Задача: " Foreground="Brown" Margin="0" Padding="0"/>
-                                    <TextBlock Text="{Binding Content}" Margin="0" Padding="0" MaxWidth="180" TextWrapping="Wrap"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal"  Margin="0" >
-                                    <Label Content="Доп.: " Foreground="SaddleBrown" Margin="0" Padding="0"/>
-                                    <TextBlock Text="{Binding AssignmentsContent}" Margin="0" Padding="0" MaxWidth="180" TextWrapping="Wrap"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal"  Margin="0" >
-                                    <Label Content="{Binding StartDate, StringFormat=dd.MM.YYYY}" Margin="0" Padding="0"/>
-                                    <Label Content=" - " Margin="0" Padding="0"/>
-                                    <Label Content="{Binding EndDate, StringFormat=dd.MM.YYYY}" Margin="0" Padding="0"/>
-                                </StackPanel>
-                                    <Button Content="в Архив"  Command="{Binding AddToArchiveCommand}" CommandParameter="{Binding SelectedTask}"/>
-                            </StackPanel>
-                        </DataTemplate>
+                                <Border  Style="{StaticResource TaskBorder}">
+                                    <StackPanel   Margin="0" Background="Azure" >
+                                        <StackPanel Orientation="Horizontal"  Margin="0" >
+                                            <Label Content="Автор: " Margin="0" Padding="0"/>
+                                            <Label Content="{Binding Author}" Margin="0" Padding="0"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"  Margin="0" >
+                                            <Label Content="Задача: " Foreground="Brown" Margin="0" Padding="0"/>
+                                            <TextBlock Text="{Binding Content}" Style="{StaticResource TaskText}" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"  Margin="0" >
+                                            <Label Content="Доп.: " Foreground="SaddleBrown" Margin="0" Padding="0"/>
+                                            <TextBlock Text="{Binding AssignmentsContent}" Style="{StaticResource TaskText}" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"  Margin="0" >
+                                            <Label Content="{Binding StartDate, StringFormat=dd.MM.YYYY}" Margin="0" Padding="0"/>
+                                            <Label Content=" - " Margin="0" Padding="0"/>
+                                            <Label Content="{Binding EndDate, StringFormat=dd.MM.YYYY}" Margin="0" Padding="0"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
                 <!---->
@@ -134,38 +142,42 @@
                 MouseUp="MouseUPMethod">
                     <ListView.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Редактировать" Background="SandyBrown" 
+                         <!--   <MenuItem Header="Редактировать" Background="SandyBrown" 
                                       Command="{Binding EditTaskCommand}"
                                       CommandParameter="{Binding SelectedTask}"/>
                             <MenuItem Header="Удалить" Background="LightPink" 
                                       Command="{Binding DeleteTaskCommand}"
-                                      CommandParameter="{Binding SelectedTask}"/>
-                        </ContextMenu>
+                                      CommandParameter="{Binding SelectedTask}"/>-->
+                                <MenuItem Header="В архив"
+                                        Command="{Binding AddToArchiveCommand}" 
+                                        CommandParameter="{Binding SelectedTask}"/>
+                            </ContextMenu>
                     </ListView.ContextMenu>
 
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel   Margin="0" >
+                                <Border  Style="{StaticResource TaskBorder}">
+                            <StackPanel Margin="0">
                                 <StackPanel Orientation="Horizontal"  Margin="0" >
                                     <Label Content="Автор: " Margin="0" Padding="0"/>
                                     <Label Content="{Binding Author}" Margin="0" Padding="0"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal"  Margin="0" >
                                     <Label Content="Задача: " Foreground="Brown" Margin="0" Padding="0"/>
-                                    <TextBlock Text="{Binding Content}" Margin="0" Padding="0" MaxWidth="180" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding Content}" Style="{StaticResource TaskText}" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal"  Margin="0" >
                                     <Label Content="Доп.: " Foreground="SaddleBrown" Margin="0" Padding="0"/>
-                                    <TextBlock Text="{Binding AssignmentsContent}" Margin="0" Padding="0" MaxWidth="180" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding AssignmentsContent}" Style="{StaticResource TaskText}" />
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal"  Margin="0" >
-                                    <Label Content="{Binding StartDate, StringFormat=DD.mm.YYYY}" Margin="0" Padding="0"/>
-                                    <Label Content=" - " Margin="0" Padding="0"/>
-                                    <Label Content="{Binding EndDate, StringFormat=DD.mm.YYYY}" Margin="0" Padding="0"/>
+                                    <StackPanel Orientation="Horizontal"  Margin="0" >
+                                        <Label Content="{Binding StartDate, StringFormat=DD.mm.YYYY}" Margin="0" Padding="0"/>
+                                        <Label Content=" - " Margin="0" Padding="0"/>
+                                        <Label Content="{Binding EndDate, StringFormat=DD.mm.YYYY}" Margin="0" Padding="0"/>
+                                    </StackPanel>
                                 </StackPanel>
-                                    <Button Content="в Архив" Command="{Binding AddToArchiveCommand}" CommandParameter="{Binding SelectedTask}"/>
-                            </StackPanel>
-                        </DataTemplate>
+                            </Border>
+                          </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </StackPanel>
@@ -182,8 +194,8 @@
                     <ToolBar Background="Transparent" >
                         <Button Content="Скрыть архив" Background="BurlyWood" MinWidth="124" Command="{Binding ShowLastTasksCommand}"/>
                         <Separator/>
-                        <Button Content="Разархивировать" Background="LightBlue" MinWidth="120" Command="{Binding ChangeArchStatusCommand}" 
-                                CommandParameter="{Binding SelectedTask}"/>
+                      <!--  <Button Content="Разархивировать" Background="LightBlue" MinWidth="120" Command="{Binding ChangeArchStatusCommand}" 
+                                CommandParameter="{Binding SelectedTask}"/>-->
                         <Separator/>
                         <Button Content="Удалить" Background="LightPink" MinWidth="124" Command="{Binding DeleteTaskCommand}" 
                                 CommandParameter="{Binding SelectedTask}"/>
@@ -193,34 +205,38 @@
                     <ListView ItemsSource="{Binding ArchiveList}" SelectedItem="{Binding SelectedTask}" >
                         <ListView.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Удалить" Background="LightPink" 
+                             <!--   <MenuItem Header="Удалить" Background="LightPink" 
                                           Command="{Binding DeleteTaskCommand}"
+                                          CommandParameter="{Binding SelectedTask}"/>-->
+                                <MenuItem Header="Разархивировать"  
+                                          Command="{Binding ChangeArchStatusCommand}"
                                           CommandParameter="{Binding SelectedTask}"/>
                             </ContextMenu>
                         </ListView.ContextMenu>
 
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel   Margin="0" MinWidth="300">
-                                    <StackPanel Orientation="Horizontal"  Margin="0" >
-                                        <Label Content="Автор: " Margin="0" Padding="0"/>
-                                        <Label Content="{Binding Author}" Margin="0" Padding="0"/>
+                                <Border  Style="{StaticResource TaskBorder}">
+                                    <StackPanel   Margin="0">
+                                        <StackPanel Orientation="Horizontal"  Margin="0" >
+                                            <Label Content="Автор: " Margin="0" Padding="0"/>
+                                            <Label Content="{Binding Author}" Margin="0" Padding="0"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"  Margin="0" >
+                                            <Label Content="Задача: " Foreground="Brown" Margin="0" Padding="0"/>
+                                            <TextBlock Text="{Binding Content}" Style="{StaticResource TaskText}" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"  Margin="0" >
+                                            <Label Content="Доп.: " Foreground="SaddleBrown" Margin="0" Padding="0"/>
+                                            <TextBlock Text="{Binding AssignmentsContent}" Style="{StaticResource TaskText}" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"  Margin="0" >
+                                            <Label Content="{Binding StartDate, StringFormat=DD.mm.YYYY}" Margin="0" Padding="0"/>
+                                            <Label Content=" - " Margin="0" Padding="0"/>
+                                            <Label Content="{Binding EndDate, StringFormat=DD.mm.YYYY}" Margin="0" Padding="0"/>
+                                        </StackPanel>
                                     </StackPanel>
-                                    <StackPanel Orientation="Horizontal"  Margin="0" >
-                                        <Label Content="Задача: " Foreground="Brown" Margin="0" Padding="0"/>
-                                        <TextBlock Text="{Binding Content}" Margin="0" Padding="0" MinWidth="300" TextWrapping="Wrap"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal"  Margin="0" >
-                                        <Label Content="Доп.: " Foreground="SaddleBrown" Margin="0" Padding="0"/>
-                                        <TextBlock Text="{Binding AssignmentsContent}" Margin="0" Padding="0" MinWidth="300" TextWrapping="Wrap"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal"  Margin="0" >
-                                        <Label Content="{Binding StartDate, StringFormat=DD.mm.YYYY}" Margin="0" Padding="0"/>
-                                        <Label Content=" - " Margin="0" Padding="0"/>
-                                        <Label Content="{Binding EndDate, StringFormat=DD.mm.YYYY}" Margin="0" Padding="0"/>
-                                    </StackPanel>
-                                    <Button Content="Разархивировать" Command="{Binding ChangeArchStatusCommand}" CommandParameter="{Binding SelectedTask}"/>
-                                </StackPanel>
+                                </Border>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                 </ListView>

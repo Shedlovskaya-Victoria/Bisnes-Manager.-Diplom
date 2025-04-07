@@ -70,5 +70,17 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="TextElement.Foreground" Value="DarkCyan"/>
         </Style>
+        <Style x:Key="TaskBorder">
+            <Setter Property="ItemsControl.Width" Value="260"/>
+            <Setter Property="ItemsControl.BorderBrush" Value="Black"/>
+            <Setter Property="ItemsControl.BorderThickness" Value="0.5"/>
+            <Setter Property="ItemsControl.Padding" Value="3"/>
+        </Style>
+        <Style x:Key="TaskText" TargetType="TextBlock">
+            <Setter Property="MaxWidth" Value="255"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
     </Application.Resources>
 </Application>

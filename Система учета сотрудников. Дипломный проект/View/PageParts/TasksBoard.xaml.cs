@@ -173,7 +173,7 @@ namespace BisnesManager.Client.View.ProgramUserControl
             EditTaskCommand = new CommandWithParametr<BisnesTaskDTO>(async (parametr) => 
             {
                 var statuses = await StatusClient.GetAll();
-                EditTask edit = new EditTask(SelectedTask, UserId, statuses);
+                EditTask edit = new EditTask(SelectedTask, SelectedTask.UserId, statuses);
                 edit.ShowDialog();
             }, () => 
             {
@@ -199,7 +199,7 @@ namespace BisnesManager.Client.View.ProgramUserControl
             AddToArchiveCommand = new CommandWithParametr<BisnesTaskDTO>(async (parametr) => 
             {
                 SelectedTask.IdStatus = 7;
-                var answ = await TaskClient.UpdateTask(SelectedTask.ToUpdateDTO(), SelectedTask.Id);
+                var answ = await TaskClient.UpdateTask(SelectedTask);
                 CheckResultAndGo(answ, SystemMessages.SuccessUpdate);
             }, () => 
             {
@@ -208,7 +208,7 @@ namespace BisnesManager.Client.View.ProgramUserControl
             ChangeArchStatusCommand = new CommandWithParametr<BisnesTaskDTO>(async (parametr) => 
             {
                 SelectedTask.IdStatus = 6;
-                var answ = await TaskClient.UpdateTask(SelectedTask.ToUpdateDTO(), SelectedTask.Id);
+                var answ = await TaskClient.UpdateTask(SelectedTask);
                 CheckResultAndGo(answ, SystemMessages.SuccessUpdate);
             }, () => 
             {

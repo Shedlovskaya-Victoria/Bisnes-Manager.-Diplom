@@ -31,7 +31,7 @@ namespace BisnesManager.ETL.Mapper
         {
             return new BisnesTask
             {
-            
+           
                 IdUser = (short)dtoRequest.IdUser,
                 Content = dtoRequest.Content,
                 DateCreate = DateOnly.FromDateTime(DateTime.UtcNow),
@@ -46,6 +46,7 @@ namespace BisnesManager.ETL.Mapper
         {
             return new TaskDtoRequest
             {
+               
                 Content = dtoRequest.Content,
                 IdUser = dtoRequest.UserId,
                 IdStatus = (short)dtoRequest.IdStatus,
@@ -60,6 +61,7 @@ namespace BisnesManager.ETL.Mapper
             return new UpdateTaskDto
             {
                 Content = dtoRequest.Content, 
+                
                 IdUser = dtoRequest.UserId,
                 DateCreate = DateTime.UtcNow,
                 IdStatus = (short)dtoRequest.IdStatus,

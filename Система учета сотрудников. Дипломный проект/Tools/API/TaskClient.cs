@@ -133,11 +133,11 @@ namespace Система_учета_сотрудников._Дипломный_�
             }
         }
 
-        internal static async Task<string> UpdateTask(UpdateTaskDto updateTaskDto, int id)
+        internal static async Task<string> UpdateTask(BisnesTaskDTO updateTaskDto)
         {
             try
             {
-                var message = await MyHttpClient.GetHttpClient().PutAsJsonAsync<UpdateTaskDto>($"Tasks/{id}", updateTaskDto);
+                var message = await MyHttpClient.GetHttpClient().PutAsJsonAsync<BisnesTaskDTO>($"Tasks", updateTaskDto);
                 if (message.IsSuccessStatusCode)
                 {
                     return SystemMessages.SuccessUpdate;
