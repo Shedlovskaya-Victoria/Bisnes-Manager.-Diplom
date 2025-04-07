@@ -11,7 +11,7 @@ namespace BisnesManager.ETL.Interfaces
     public interface ITaskRepository
     {
         Task<IList<BisnesTask>?> GetAllAsync(FilterDateAndPaginateQueryDto query);
-         Task<IList<BisnesTask>?> GetListByIdAsync(short id);
+         Task<IList<BisnesTask>?> GetListByIdAsync(short id, int? statusId);
 
     }
 }

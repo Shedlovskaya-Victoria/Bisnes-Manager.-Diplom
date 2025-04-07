@@ -36,9 +36,9 @@ namespace API._Система_учета_сотрудников._Дипломн�
         }
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(short id)
+        public async Task<IActionResult> GetById(short id, [FromQuery] int? statusId)
         {
-            var data = await _taskRepo.GetListByIdAsync(id); 
+            var data = await _taskRepo.GetListByIdAsync(id, statusId); 
 
             if (data == null)
             {

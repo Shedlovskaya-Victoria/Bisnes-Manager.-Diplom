@@ -6,6 +6,7 @@ using BisnesManager.ETL.update_DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,13 +51,25 @@ namespace BisnesManager.ETL.Repositories
             }
             return await list.ToListAsync();
         }
-        public async Task<IList<BisnesTask>?> GetListByIdAsync(short id)
+        public async Task<IList<BisnesTask>?> GetListByIdAsync(short id, int? statusId)
         {
-            return await _context.BisnesTasks
-                .Include(s => s.IdUserNavigation)
-                .ThenInclude(s => s.IdRoleNavigation)
-                .Where(s => s.IdUser == id & s.IdUserNavigation.IdRoleNavigation.IsUse == true)
-                .ToListAsync();
+            if(statusId == 0)
+            {
+                return await _context.BisnesTasks
+              .Include(s => s.IdUserNavigation)
+              .ThenInclude(s => s.IdRoleNavigation)
+              .Where(s => s.IdUser == id & s.IdUserNavigation.IdRoleNavigation.IsUse == true)
+              .ToListAsync();
+            }
+            else
+            {
+                return await _context.BisnesTasks
+             .Include(s => s.IdUserNavigation)
+             .ThenInclude(s => s.IdRoleNavigation)
+             .Where(s => s.IdUser == id & s.IdUserNavigation.IdRoleNavigation.IsUse == true & s.IdStatus == statusId)
+             .ToListAsync();
+            }
+          
         }
         public override async Task<BisnesTask?> UpdateAsync(int id, UpdateTaskDto model)
         {

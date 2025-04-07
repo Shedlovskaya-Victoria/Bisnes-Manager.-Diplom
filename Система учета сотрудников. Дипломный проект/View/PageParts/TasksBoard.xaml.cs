@@ -21,7 +21,10 @@ using BisnesManager.Client.Model;
 using BisnesManager.Client.Tools;
 using BisnesManager.Database.Models;
 using BisnesManager.ETL.DTO;
+using BisnesManager.ETL.Mapper;
+using Система_учета_сотрудников._Дипломный_проект.Tools;
 using Система_учета_сотрудников._Дипломный_проект.Tools.API;
+using Система_учета_сотрудников._Дипломный_проект.View.Windows;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.DragDrop;
 
@@ -47,7 +50,6 @@ namespace BisnesManager.Client.View.ProgramUserControl
                 Signal();
             }
         }
-
         public Visibility LastTasksVisible { get; set; } = Visibility.Visible;
         public Visibility ArchiveTaskVisible { get; set; } = Visibility.Collapsed;
 
@@ -157,39 +159,57 @@ namespace BisnesManager.Client.View.ProgramUserControl
                 return true;
             });
 
-            AddTaskCommand = new Command(() => 
-            { 
+            AddTaskCommand = new Command(async () => 
+            {
+                var statuses = await StatusClient.GetAll();
+                EditTask edit = new EditTask(new BisnesTaskDTO(), 0, statuses);
+                edit.ShowDialog();
+
             }, () => 
-            { 
+            {
+                
                 return true; 
             });
-            EditTaskCommand = new CommandWithParametr<BisnesTaskDTO>((parametr) => 
-            { 
+            EditTaskCommand = new CommandWithParametr<BisnesTaskDTO>(async (parametr) => 
+            {
+                var statuses = await StatusClient.GetAll();
+                EditTask edit = new EditTask(SelectedTask, UserId, statuses);
+                edit.ShowDialog();
             }, () => 
             {
                 return SelectedTask == null ? false : true;
                
             });
-            DeleteTaskCommand = new CommandWithParametr<BisnesTaskDTO>((parametr) => 
+            DeleteTaskCommand = new CommandWithParametr<BisnesTaskDTO>(async (parametr) => 
             { 
+                var answ = await TaskClient.Delete(SelectedTask.Id);
+                CheckResultAndGo(answ, SystemMessages.SuccessDelete);
             }, () => 
             {
+                
                 return SelectedTask == null ? false : true;
             });
             SaveCommand = new Command(() => 
-            { 
+            {
+
             }, () => 
             {
                 return true;
             });
-            AddToArchiveCommand = new CommandWithParametr<BisnesTaskDTO>((parametr) => 
-            { 
+            AddToArchiveCommand = new CommandWithParametr<BisnesTaskDTO>(async (parametr) => 
+            {
+                SelectedTask.IdStatus = 7;
+                var answ = await TaskClient.UpdateTask(SelectedTask.ToUpdateDTO(), SelectedTask.Id);
+                CheckResultAndGo(answ, SystemMessages.SuccessUpdate);
             }, () => 
             {
                 return SelectedTask == null ? false : true;
             });
-            ChangeArchStatusCommand = new CommandWithParametr<BisnesTaskDTO>((parametr) => 
-            { 
+            ChangeArchStatusCommand = new CommandWithParametr<BisnesTaskDTO>(async (parametr) => 
+            {
+                SelectedTask.IdStatus = 6;
+                var answ = await TaskClient.UpdateTask(SelectedTask.ToUpdateDTO(), SelectedTask.Id);
+                CheckResultAndGo(answ, SystemMessages.SuccessUpdate);
             }, () => 
             {
                 return SelectedTask == null ? false : true;
@@ -198,18 +218,30 @@ namespace BisnesManager.Client.View.ProgramUserControl
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public void Signal([CallerMemberName] string prop = null)
-          => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-     
+           => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        private static void CheckResultAndGo(string requestAnsw, string systemMessage)
+        {
+            if (requestAnsw == systemMessage)
+            {
+                MessageBox.Show(requestAnsw);
+                Navigation.Instance().CurrentPage = new Home(UserClient.user);
+            }
+            else
+            {
+                MessageBox.Show(requestAnsw);
+                return;
+            }
+        }
 
         private async void SetArchUserTask(short UserId)
         {
-            var list = new ObservableCollection<BisnesTaskDTO>(await TaskClient.GetArchUsersTasks(UserId) );
+            var list = new ObservableCollection<BisnesTaskDTO>(await TaskClient.Get_FilterStatus_UsersTasks(UserId, 7) );
             SetTasks(list);
         }
 
         private async void SetArchAdminTasks()
         {
-            var list = new ObservableCollection<BisnesTaskDTO>(await TaskClient.GetArchAllTasks(new DateTime(), new DateTime()));
+            var list = new ObservableCollection<BisnesTaskDTO>(await TaskClient.Get_FilterStatus_AllTasks(new DateTime(), new DateTime(), 7));
             SetTasks(list);
         }
 
