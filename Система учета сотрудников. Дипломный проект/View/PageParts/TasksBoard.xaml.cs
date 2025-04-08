@@ -189,9 +189,46 @@ namespace BisnesManager.Client.View.ProgramUserControl
                 
                 return SelectedTask == null ? false : true;
             });
-            SaveCommand = new Command(() => 
+            SaveCommand = new Command(async () => 
             {
+                string answ;
+                foreach(var task in PlaneList)
+                {
+                    task.IdStatus = 1;
+                    answ = await TaskClient.UpdateTask(task);
 
+                    if(answ != SystemMessages.SuccessUpdate)
+                    {
+                        MessageBox.Show($"Что-то пошло не так на {task.Author}: {task.Content}!");
+                        return;
+                    }
+                }
+                foreach(var task in WorkList)
+                {
+                    task.IdStatus = 5;
+                    answ = await TaskClient.UpdateTask(task);
+
+                    if(answ != SystemMessages.SuccessUpdate)
+                    {
+                        MessageBox.Show($"Что-то пошло не так на {task.Author}: {task.Content}!");
+                        return;
+                    }
+                }
+                foreach(var task in EndList)
+                {
+                    task.IdStatus = 6;
+                    answ = await TaskClient.UpdateTask(task);
+
+                    if(answ != SystemMessages.SuccessUpdate)
+                    {
+                        MessageBox.Show($"Что-то пошло не так на {task.Author}: {task.Content}!");
+                        return;
+                    }
+                }
+                MessageBox.Show("Все успешно сохранено!");
+                Navigation.Instance().CurrentPage = new Home(UserClient.user);
+                //  answ = await TaskClient.UpdateTask(SelectedTask);
+                // CheckResultAndGo(answ, SystemMessages.SuccessUpdate);
             }, () => 
             {
                 return true;
