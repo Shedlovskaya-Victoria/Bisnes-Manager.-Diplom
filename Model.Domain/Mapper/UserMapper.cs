@@ -22,6 +22,8 @@ namespace BisnesManager.ETL.Mapper
             dto.Role = user.IdRoleNavigation.Title;
             dto.IdRole = user.IdRole;
             dto.WorkTimeCount = user.WorkTimeCount;
+            dto.IsEditWorkersRoles = user.IdRoleNavigation.IsEditWorkersRoles;
+            dto.IsShowDiagramStatistic = user.IdRoleNavigation.IsShowDiagramStatistic;
             
             return dto;
         }

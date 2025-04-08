@@ -28,7 +28,7 @@ namespace BisnesManager.Client.View
         public Home(UserDTO userDTO)
         {
             InitializeComponent();
-            contentControl.Content = new TasksBoard(userDTO.IdRole, userDTO.Id);
+            contentControl.Content = new TasksBoard(userDTO.IdRole, userDTO.Id, string.Empty);
             DataContext = new HomeVM(contentControl, userDTO);
         }
     }

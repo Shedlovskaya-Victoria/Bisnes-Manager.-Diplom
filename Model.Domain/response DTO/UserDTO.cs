@@ -13,6 +13,9 @@ namespace BisnesManager.ETL.DTO
 
         public short? IdRole { get; set; }
         public string? Role { get; set; }
+        public bool IsEditWorkersRoles { get; set; }
+
+        public bool IsShowDiagramStatistic { get; set; }
 
         public short? WorkTimeCount { get; set; }
 

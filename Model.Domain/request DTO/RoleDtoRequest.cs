@@ -12,7 +12,7 @@ namespace BisnesManager.ETL.request_DTO
 
         public bool IsEditWorkersRoles { get; set; }
 
-        public bool IsEditWorkTimeTable { get; set; }
+        public bool IsShowDiagramStatistic { get; set; }
 
         public string? Post { get; set; }
 

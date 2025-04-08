@@ -31,7 +31,7 @@
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Right">
            <Label Content="{Binding UserName}"  HorizontalAlignment="Right" />
             <StackPanel  Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBox Width="300"  x:Name="Search" Margin="3 3 0 3"/>
+                <TextBox Width="300" x:Name="Search"  Margin="3 3 0 3"/>
                 <Button Width="50" Margin="0 3 3 3" Command="{Binding Find}" CommandParameter="{Binding Text, ElementName=Search}">
                     <Image Width="30" Source="Image\Searhc.png"/>
                 </Button>
@@ -43,7 +43,7 @@
                 <MenuItem Header="Личный кабинет" Command="{Binding GoToPersonalCabinet}"/>
             </Menu>
             <Menu>
-                <MenuItem Header="Учет">
+                <MenuItem Header="Учет" Visibility="{Binding DiagramsStatisticVisibility}">
                     <MenuItem Header="Индивидуальные показатели" Command="{Binding ShowKPDWorkers}"/>
                     <MenuItem Header="График" Command="{Binding ShowWorkersKPDGraphiks}"/>
                     <MenuItem Header="Визуализация действующих проектов" Command="{Binding ShowVisualPartsAllProjects}"/>
@@ -52,7 +52,7 @@
                 </MenuItem>
             </Menu>
 
-            <Menu>
+            <Menu Visibility="{Binding EditMenuVisibility}">
                 <MenuItem Header="Редактирование">
                     <MenuItem Header="Cотрудники" Command="{Binding EditWorkers}"/>
                     <MenuItem Header="Должности" Command="{Binding EditPosition}"/>

@@ -19,7 +19,7 @@ namespace Система_учета_сотрудников._Дипломный_�
     public class TaskClient
     {
         const int AdminPageSize = 100;
-
+        public static IEnumerable<BisnesTaskDTO> bisnesTasks = new List<BisnesTaskDTO>();
         public static async Task<IEnumerable<BisnesTaskDTO>> GetAllTasks(DateTime dateStart, DateTime dateEnd)
         {
             IEnumerable<BisnesTaskDTO> answ;
@@ -40,8 +40,8 @@ namespace Система_учета_сотрудников._Дипломный_�
             {
                 answ = await MyHttpClient.GetHttpClient().GetFromJsonAsync<IEnumerable<BisnesTaskDTO>>($"Tasks?PageSize={AdminPageSize}");
             }
-           
-         
+
+            bisnesTasks = answ.ToList();
               return answ;
           
         }
@@ -50,8 +50,8 @@ namespace Система_учета_сотрудников._Дипломный_�
         {
             try
             {
-                return await MyHttpClient.GetHttpClient().GetFromJsonAsync<IEnumerable<BisnesTaskDTO>>($"Tasks/{userId}?statusId=0");
-
+                bisnesTasks = await MyHttpClient.GetHttpClient().GetFromJsonAsync<IEnumerable<BisnesTaskDTO>>($"Tasks/{userId}?statusId=0");
+                return bisnesTasks;
             }
             catch (Exception ex)
             {

@@ -62,7 +62,7 @@ namespace BisnesManager.Client.View.ProgramUserControl
         public CommandWithParametr<BisnesTaskDTO> AddToArchiveCommand {  get; set; }
         public CommandWithParametr<BisnesTaskDTO> ChangeArchStatusCommand {  get; set; }
 
-        public TasksBoard(short? RoleId, short UserId)
+        public TasksBoard(short? RoleId, short UserId, string searchTextBox)
         {
             PlaneList = new();
             WorkList = new();
@@ -80,11 +80,11 @@ namespace BisnesManager.Client.View.ProgramUserControl
             }
             else if (RoleId == 1)
             {
-                SetAdminTasks();
+                SetAdminTasks(searchTextBox);
             }
-            else if (RoleId == 4)
+            else 
             {
-                SetUserTask(UserId);
+                SetUserTask(UserId, searchTextBox);
             }
 
             DataContext = this;
@@ -105,13 +105,13 @@ namespace BisnesManager.Client.View.ProgramUserControl
                 {
                     SetArchAdminTasks();
                 }
-                else if (RoleId == 4)
-                {
-                    SetArchUserTask(UserId);
-                }
                 else if (RoleId == 6)
                 {
                     SetDefoultTasks();
+                }
+                else 
+                {
+                    SetArchUserTask(UserId);
                 }
 
                 Signal(nameof(PlaneList));
@@ -142,11 +142,11 @@ namespace BisnesManager.Client.View.ProgramUserControl
                 }
                 else if (RoleId == 1)
                 {
-                    SetAdminTasks();
+                    SetAdminTasks(searchTextBox);
                 }
-                else if (RoleId == 4)
+                else 
                 {
-                    SetUserTask(UserId);
+                    SetUserTask(UserId, searchTextBox);
                 }
 
                 Signal(nameof(PlaneList));
@@ -283,15 +283,31 @@ namespace BisnesManager.Client.View.ProgramUserControl
         }
 
         //standart
-        private async void SetUserTask(short UserId)
+        private async void SetUserTask(short UserId, string searchTextBox)
         {
             var list = new ObservableCollection<BisnesTaskDTO>(await TaskClient.GetUsersTasks(UserId) );
+
+
+            if (!string.IsNullOrEmpty(searchTextBox))
+            {
+                list = new ObservableCollection<BisnesTaskDTO>( list.Where(s => s.Author.ToLower().Contains(searchTextBox.ToLower()) | 
+                                                                            s.Content.ToLower().Contains(searchTextBox.ToLower()) |
+                                                                            s.AssignmentsContent.ToLower().Contains(searchTextBox.ToLower())) );
+            }
             SetTasks(list);
         }
 
-        private async void SetAdminTasks()
+        private async void SetAdminTasks(string searchTextBox)
         {
             var list = new ObservableCollection<BisnesTaskDTO>(await TaskClient.GetAllTasks(new DateTime(), new DateTime()));
+
+            if (!string.IsNullOrEmpty(searchTextBox))
+            {
+                list = new ObservableCollection<BisnesTaskDTO>( list.Where(s => s.Author.ToLower().Contains(searchTextBox) |
+                                                                            s.Content.ToLower().Contains(searchTextBox) |
+                                                                            s.AssignmentsContent.ToLower().Contains(searchTextBox)) );
+            }
+
             SetTasks(list);
         }
 

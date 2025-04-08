@@ -23,7 +23,7 @@
            <Button Content="Войти" Command="{Binding Autentification}" CommandParameter="{Binding ElementName=login, Path=Text}"
                        ToolTip="Да, это адресовано именно вам, моя госпожа"/>
             
-           <Button Content="Восстановить доступ" Command="{Binding  Recover}"/>
+          <!-- <Button Content="Восстановить доступ" Command="{Binding  Recover}"/> -->
         </StackPanel>
     </StackPanel>
 </Page>

@@ -21,9 +21,10 @@ using Система_учета_сотрудников._Дипломный_пр�
 
 namespace BisnesManager.Client.ViewModel
 {
-    public class HomeVM
+    public class HomeVM : Base
     {
-        public Command Find {  get; set; }
+
+        public CommandWithParametr<string> Find {  get; set; }
 
         public Command GoToPersonalCabinet {  get; set; }
         public Command GoToHome {  get; set; }
@@ -44,18 +45,29 @@ namespace BisnesManager.Client.ViewModel
 
         public string UserName { get; set; }
 
-       
+        
 
+        public Visibility DiagramsStatisticVisibility {  get; set; } = Visibility.Collapsed;
+        public Visibility EditMenuVisibility {  get; set; } = Visibility.Collapsed;
         public HomeVM() { }
 
         public HomeVM(ContentControl control, UserDTO user)
         {
             UserName = $"{user.Role}: {user.FIO}";
 
-           
-            Find = new Command(() =>
+            if (user.IsEditWorkersRoles)
             {
-               
+                EditMenuVisibility = Visibility.Visible;
+                Signal(nameof(EditMenuVisibility));
+            }
+            if (user.IsShowDiagramStatistic)
+            {
+                DiagramsStatisticVisibility = Visibility.Visible;
+                Signal(nameof(DiagramsStatisticVisibility));
+            }
+            Find = new CommandWithParametr<string>((parametr) =>
+            {
+                control.Content = new TasksBoard(user.IdRole, user.Id, parametr);
             }, () =>
             {
                 return true;
@@ -84,7 +96,7 @@ namespace BisnesManager.Client.ViewModel
             GoToHome = new Command(async () =>
             {
                 
-                control.Content = new TasksBoard(user.IdRole, user.Id);
+                control.Content = new TasksBoard(user.IdRole, user.Id, string.Empty);
                
             }, () =>
             {
@@ -166,13 +178,13 @@ namespace BisnesManager.Client.ViewModel
                 {
                     tasks = await TaskClient.GetAllTasks(new DateTime(), new DateTime());
                 }
-                else if(user.IdRole == 4)
+                else if(user.IdRole == 6)
                 {
-                    tasks = await TaskClient.GetUsersTasks(user.Id);
+                    tasks = null;
                 }
                 else
                 {
-                    tasks = null;
+                    tasks = await TaskClient.GetUsersTasks(user.Id);
                 }
                 control.Content = new DiagramGant(tasks);
             }, () =>
@@ -183,7 +195,7 @@ namespace BisnesManager.Client.ViewModel
             EditWorkers = new Command(async () =>
             {
                 var userUpdate = await UserClient.GetListUsersToUpdate();
-                var rolesUpdate = await RoleClient.GetRolesList();
+                var rolesUpdate = await RoleClient.GetAllFilterIsUse();
 
                 control.Content = new EditWorkers(userUpdate, rolesUpdate);
             }, () =>

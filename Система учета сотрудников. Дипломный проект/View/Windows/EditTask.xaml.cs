@@ -80,7 +80,10 @@ namespace Система_учета_сотрудников._Дипломный_�
 
             SaveCommand = new Command(async () =>
             {
-
+                if (string.IsNullOrEmpty(task.AssignmentsContent))
+                {
+                    task.AssignmentsContent = "";
+                }
                 if (id == 0)
                 {
                     var task = Task.ToCreateDto();

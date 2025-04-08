@@ -11,6 +11,7 @@ using BisnesManager.ETL.Mapper;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace BisnesManager.Database.Repositories
 {
@@ -21,7 +22,10 @@ namespace BisnesManager.Database.Repositories
         {
             _context = context;
         }
-
+        public async Task<IEnumerable<UserRole>> GetAllFilterIsUseAsync()
+        {
+            return await _context.UserRoles.Where(s=>s.IsUse==true).ToListAsync();
+        }
         public async override Task<UserRole?> UpdateAsync(int id, UpdateRoleDto model)
         {
             if (model == null) return null;
@@ -34,7 +38,7 @@ namespace BisnesManager.Database.Repositories
             role.Title = model.Title;
             role.DateCreate = DateOnly.FromDateTime(model.DateCreate);
             role.IsEditWorkersRoles = model.IsEditWorkersRoles;
-            role.IsEditWorkTimeTable = model.IsEditWorkTimeTable;
+            role.IsShowDiagramStatistic = model.IsShowDiagramStatistic;
             role.Post = model.Post;
             role.IsUse = model.IsUse;
 

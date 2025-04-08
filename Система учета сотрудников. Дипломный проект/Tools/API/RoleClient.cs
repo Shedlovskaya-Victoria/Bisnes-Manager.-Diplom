@@ -16,6 +16,10 @@ namespace Система_учета_сотрудников._Дипломный_�
         {
             return await MyHttpClient.GetHttpClient().GetFromJsonAsync<List<UpdateRoleDto>>("Roles");
         }
+        public static async Task<List<UpdateRoleDto>> GetAllFilterIsUse()
+        {
+            return await MyHttpClient.GetHttpClient().GetFromJsonAsync<List<UpdateRoleDto>>("Roles/GetAllFilterIsUse");
+        }
 
         internal static async Task<string> UpdateRole(UpdateRoleDto selectedRole)
         {

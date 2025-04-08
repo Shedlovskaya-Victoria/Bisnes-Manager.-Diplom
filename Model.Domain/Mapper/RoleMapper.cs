@@ -19,7 +19,7 @@ namespace BisnesManager.ETL.Mapper
                 Id = role.Id,
                 Title = role.Title,
                 IsEditWorkersRoles = role.IsEditWorkersRoles,
-                IsEditWorkTimeTable = role.IsEditWorkTimeTable,
+                IsShowDiagramStatistic = role.IsShowDiagramStatistic,
                 Post = role.Post,
                 IsUse = role.IsUse,
             };
@@ -29,7 +29,7 @@ namespace BisnesManager.ETL.Mapper
             return new UserRole
             {
                 IsEditWorkersRoles = dtoRequest.IsEditWorkersRoles,
-                IsEditWorkTimeTable = dtoRequest.IsEditWorkTimeTable,
+                IsShowDiagramStatistic = dtoRequest.IsShowDiagramStatistic,
                 Post = dtoRequest.Post,
                 Title = dtoRequest.Title,
                 DateCreate = DateOnly.FromDateTime(DateTime.UtcNow),
@@ -41,7 +41,7 @@ namespace BisnesManager.ETL.Mapper
             return new RoleDtoRequest
             {
                 IsEditWorkersRoles = dtoRequest.IsEditWorkersRoles,
-                IsEditWorkTimeTable = dtoRequest.IsEditWorkTimeTable,
+                IsShowDiagramStatistic = dtoRequest.IsShowDiagramStatistic,
                 Post = dtoRequest.Post,
                 Title = dtoRequest.Title,
                 IsUse = dtoRequest.IsUse,
@@ -53,7 +53,7 @@ namespace BisnesManager.ETL.Mapper
             {
                 Id = dtoRequest.Id,
                 IsEditWorkersRoles = dtoRequest.IsEditWorkersRoles,
-                IsEditWorkTimeTable = dtoRequest.IsEditWorkTimeTable,
+                IsShowDiagramStatistic = dtoRequest.IsShowDiagramStatistic,
                 Post = dtoRequest.Post,
                 Title = dtoRequest.Title,
                 IsUse = dtoRequest.IsUse,
