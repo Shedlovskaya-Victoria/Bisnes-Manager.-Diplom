@@ -60,7 +60,7 @@ namespace BisnesManager.Client.View.PageParts
             {
                 if (string.IsNullOrEmpty(SelectedRole.Title))
                     return false;
-                if (SelectedRole.Id == 0)
+                else if (SelectedRole.Id == UserClient.ghostUser.IdRole)
                     return false;
                 else
                     return true;

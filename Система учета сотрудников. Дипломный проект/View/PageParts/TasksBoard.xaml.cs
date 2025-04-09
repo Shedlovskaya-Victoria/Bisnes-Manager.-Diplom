@@ -74,7 +74,7 @@ namespace BisnesManager.Client.View.ProgramUserControl
             DataContext = this;
 
             
-            if (RoleId == 6)
+            if (RoleId == UserClient.ghostUser.IdRole)
             {
                 SetDefoultTasks();
             }
@@ -105,7 +105,7 @@ namespace BisnesManager.Client.View.ProgramUserControl
                 {
                     SetArchAdminTasks();
                 }
-                else if (RoleId == 6)
+                else if (RoleId == UserClient.ghostUser.IdRole)
                 {
                     SetDefoultTasks();
                 }
@@ -136,7 +136,7 @@ namespace BisnesManager.Client.View.ProgramUserControl
                 Signal(nameof(LastTasksVisible));
                 Signal(nameof(ArchiveTaskVisible));
 
-                if (RoleId == 6)
+                if (RoleId == UserClient.ghostUser.IdRole)
                 {
                     SetDefoultTasks();
                 }
@@ -167,8 +167,10 @@ namespace BisnesManager.Client.View.ProgramUserControl
 
             }, () => 
             {
-                
-                return true; 
+               if (RoleId == UserClient.ghostUser.IdRole)
+                    return false;
+                else
+                    return true; 
             });
             EditTaskCommand = new CommandWithParametr<BisnesTaskDTO>(async (parametr) => 
             {
@@ -177,8 +179,13 @@ namespace BisnesManager.Client.View.ProgramUserControl
                 edit.ShowDialog();
             }, () => 
             {
-                return SelectedTask == null ? false : true;
-               
+                if (SelectedTask == null)
+                    return false;
+                else if (RoleId == UserClient.ghostUser.IdRole)
+                    return false;
+                else
+                    return true;
+
             });
             DeleteTaskCommand = new CommandWithParametr<BisnesTaskDTO>(async (parametr) => 
             { 
@@ -186,8 +193,12 @@ namespace BisnesManager.Client.View.ProgramUserControl
                 CheckResultAndGo(answ, SystemMessages.SuccessDelete);
             }, () => 
             {
-                
-                return SelectedTask == null ? false : true;
+                if (SelectedTask == null)
+                    return false;
+                else if (RoleId == UserClient.ghostUser.IdRole)
+                    return false;
+                else
+                    return true;
             });
             SaveCommand = new Command(async () => 
             {
@@ -231,7 +242,10 @@ namespace BisnesManager.Client.View.ProgramUserControl
                 // CheckResultAndGo(answ, SystemMessages.SuccessUpdate);
             }, () => 
             {
-                return true;
+                if (RoleId == UserClient.ghostUser.IdRole)
+                    return false;
+                else
+                    return true;
             });
             AddToArchiveCommand = new CommandWithParametr<BisnesTaskDTO>(async (parametr) => 
             {
@@ -240,7 +254,12 @@ namespace BisnesManager.Client.View.ProgramUserControl
                 CheckResultAndGo(answ, SystemMessages.SuccessUpdate);
             }, () => 
             {
-                return SelectedTask == null ? false : true;
+                if (SelectedTask == null)
+                    return false;
+                else if (RoleId == UserClient.ghostUser.IdRole)
+                    return false;
+                else
+                    return true;
             });
             ChangeArchStatusCommand = new CommandWithParametr<BisnesTaskDTO>(async (parametr) => 
             {
@@ -249,7 +268,12 @@ namespace BisnesManager.Client.View.ProgramUserControl
                 CheckResultAndGo(answ, SystemMessages.SuccessUpdate);
             }, () => 
             {
-                return SelectedTask == null ? false : true;
+                if (SelectedTask == null)
+                    return false;
+                else if (RoleId == UserClient.ghostUser.IdRole)
+                    return false;
+                else
+                    return true;
             });
         }
 

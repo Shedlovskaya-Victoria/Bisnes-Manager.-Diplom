@@ -16,6 +16,15 @@ namespace Система_учета_сотрудников._Дипломный_�
     public class UserClient
     {
         public static UserDTO user;
+        public static UserDTO ghostUser = new() { 
+            Id = 0, 
+            FIO = "Иван Иванович", 
+            IdRole = 0, 
+            Role = "гость", 
+            IsEditWorkersRoles = true, 
+            IsShowDiagramStatistic = true, 
+            WorkTimeCount = 8 
+        };
         internal static async Task<UpdateUserDto> GetUserByIdToUpdate(int id)
         {
             try

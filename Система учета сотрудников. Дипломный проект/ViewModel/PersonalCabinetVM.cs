@@ -9,6 +9,7 @@ using BisnesManager.Client.View;
 using BisnesManager.Database.Models;
 using BisnesManager.ETL.DTO;
 using BisnesManager.ETL.update_DTO;
+using Система_учета_сотрудников._Дипломный_проект.Tools;
 using Система_учета_сотрудников._Дипломный_проект.Tools.API;
 
 namespace BisnesManager.Client.ViewModel
@@ -41,35 +42,44 @@ namespace BisnesManager.Client.ViewModel
             {
                 return true;
             });
-            SaveAll = new Command(() =>
+            SaveAll = new Command(async () =>
             {
-                UpdateUser(User);
-                Navigation.Instance().CurrentPage = new Home(UserClient.user);
+                string answ;
+                if(UserClient.ghostUser.IdRole != updateUserDto.IdRole)
+                {
+                   answ = await UserClient.UpdateUser(User);
+                }
+                else
+                {
+                    UserClient.ghostUser.FIO = $"{User.Name} {User.Family} {User.Patronymic}";
+                    UserClient.user = UserClient.ghostUser;
+                    answ = SystemMessages.SuccessUpdate;
+                }
+
+                CheckResultAndGo(answ, SystemMessages.SuccessUpdate);
             }, () =>
             {
                 return true;
             });
-            DeleteAll = new Command(() =>
+            DeleteAll = new Command(async () =>
             {
-                DeleteUser(UserClient.user.Id);
-                Navigation.Instance().CurrentPage = new Home(UserClient.user);
+                string answ;
+                if(UserClient.ghostUser.IdRole != User.IdRole)
+                {
+                   answ = await UserClient.DeleteUser(User.Id);
+                }
+                else
+                {
+                    answ = SystemMessages.SuccessDelete;
+                }
+                CheckResultAndGo(answ, SystemMessages.SuccessDelete);
             }, () =>
             {
                 return true;
             });
         }
 
-        private async Task DeleteUser(short id)
-        {
-            var answ = await UserClient.DeleteUser(id);
-            MessageBox.Show(answ);
-        }
-
-        private async Task UpdateUser(UpdateUserDto user)
-        {
-            var answ = await UserClient.UpdateUser(user);
-            MessageBox.Show(answ);
-        }
+            
 
     }
 }

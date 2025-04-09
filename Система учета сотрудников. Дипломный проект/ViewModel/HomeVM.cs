@@ -13,6 +13,7 @@ using BisnesManager.Client.View.Pages;
 using BisnesManager.Client.View.ProgramUserControl;
 using BisnesManager.Database.Models;
 using BisnesManager.ETL.DTO;
+using BisnesManager.ETL.update_DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Система_учета_сотрудников._Дипломный_проект.Tools;
@@ -75,7 +76,7 @@ namespace BisnesManager.Client.ViewModel
             // go to
             GoToPersonalCabinet = new Command(async () =>
             {
-                if (user.IdRole != 6)
+                if (user.IdRole != UserClient.ghostUser.IdRole)
                 {
                    var userUpdate = await UserClient.GetUserByIdToUpdate(UserClient.user.Id);
                    userUpdate.Password = "";
@@ -88,7 +89,7 @@ namespace BisnesManager.Client.ViewModel
                    Navigation.Instance().CurrentPage = new PersonalCabinet(userUpdate);
                 }
                 else 
-                    Navigation.Instance().CurrentPage = new PersonalCabinet(new ETL.update_DTO.UpdateUserDto());
+                    Navigation.Instance().CurrentPage = new PersonalCabinet(new ETL.update_DTO.UpdateUserDto() {Name = "Иван", Family="Иванович" });
             }, () =>
             {
                 return true;
@@ -119,21 +120,37 @@ namespace BisnesManager.Client.ViewModel
             //    show
             ShowKPDWorkers = new Command(async () =>
             {
-                var listUsers = await UserClient.GetAll();
-                var listStatistics = await StatisticClient.GetAllFilterDateAndPaginateQueryDto(100, 1,new DateTime(), new DateTime());
-                var result = new List<StatisticDTO> ();
-
-                foreach (UserDTO user in listUsers)
+                IEnumerable<UserDTO> listUsers;
+                List<StatisticDTO> result = new List<StatisticDTO>();
+                if (user.IdRole!=UserClient.ghostUser.IdRole)
                 {
-                    var s = listStatistics.Where(s => s.UserId == user.Id).ToList();
+                    listUsers = await UserClient.GetAll();
+                    var listStatistics = await StatisticClient.GetAllFilterDateAndPaginateQueryDto(100, 1, new DateTime(), new DateTime());
+                    
+                    foreach (UserDTO user in listUsers)
+                    {
+                        var s = listStatistics.Where(s => s.UserId == user.Id).ToList();
 
-                    result.Add(s.FirstOrDefault(f => f.DateCreate == s.Max(s => s.DateCreate)));
+                        result.Add(s.FirstOrDefault(f => f.DateCreate == s.Max(s => s.DateCreate)));
+                    }
+                    if (result.Count == 0)
+                    {
+                        MessageBox.Show(SystemMessages.SatisticIsNull);
+                        return;
+                    }
                 }
-                if(result.Count == 0)
+                else
                 {
-                    MessageBox.Show(SystemMessages.SatisticIsNull);
-                    return;
+                    listUsers = new List<UserDTO>() { UserClient.ghostUser };
+                    result.Add(new StatisticDTO { 
+                        HardSkils = 5,
+                        LevelResponibility = 6,
+                        QualityWork = 7, 
+                        SoftSkils = 8,
+                        UserId =(int)UserClient.ghostUser.IdRole 
+                    });
                 }
+               
 
                 control.Content = new KPDWorkers(listUsers, result);
             }, () =>
@@ -142,13 +159,32 @@ namespace BisnesManager.Client.ViewModel
             });
             ShowWorkersKPDGraphiks = new Command(async () =>
             {
-                var listUsers = await UserClient.GetAll();
-                var listStatistics =  await StatisticClient.GetAllFilterDateAndPaginateQueryDto(100, 1, new DateTime(), new DateTime()) ;
-
-                if(listStatistics.Count() == 0)
+                IEnumerable<UserDTO> listUsers;
+                IEnumerable<StatisticDTO> listStatistics;
+                if (user.IdRole != UserClient.ghostUser.IdRole)
                 {
-                    MessageBox.Show(SystemMessages.SatisticIsNull);
-                    return;
+                    listUsers = await UserClient.GetAll();
+                    listStatistics = await StatisticClient.GetAllFilterDateAndPaginateQueryDto(100, 1, new DateTime(), new DateTime());
+
+                    if (listStatistics.Count() == 0)
+                    {
+                        MessageBox.Show(SystemMessages.SatisticIsNull);
+                        return;
+                    }
+                }
+                else
+                {
+                    listUsers = new List<UserDTO>() { UserClient.ghostUser };
+                    listStatistics = new List<StatisticDTO>() { 
+                        new StatisticDTO() { 
+                            DateCreate = DateOnly.FromDateTime(DateTime.Now.Date), 
+                            HardSkils = 6, 
+                            QualityWork=3, 
+                            SoftSkils=9, 
+                            LevelResponibility=4 ,
+                            UserId = UserClient.ghostUser.Id,
+                        }
+                    };
                 }
 
                 control.Content = new Histogramm(listUsers, listStatistics);
@@ -178,7 +214,7 @@ namespace BisnesManager.Client.ViewModel
                 {
                     tasks = await TaskClient.GetAllTasks(new DateTime(), new DateTime());
                 }
-                else if(user.IdRole == 6)
+                else if(user.IdRole == UserClient.ghostUser.IdRole)
                 {
                     tasks = null;
                 }
@@ -194,9 +230,30 @@ namespace BisnesManager.Client.ViewModel
             //     edit
             EditWorkers = new Command(async () =>
             {
-                var userUpdate = await UserClient.GetListUsersToUpdate();
-                var rolesUpdate = await RoleClient.GetAllFilterIsUse();
-
+                List<UpdateUserDto> userUpdate;
+                List<UpdateRoleDto> rolesUpdate;
+                if (user.IdRole!=UserClient.ghostUser.IdRole)
+                {
+                     userUpdate = await UserClient.GetListUsersToUpdate();
+                     rolesUpdate = await RoleClient.GetAllFilterIsUse();
+                }
+                else
+                {
+                    userUpdate = new() {
+                        new UpdateUserDto { Id = UserClient.ghostUser.Id, Family = "Иванов", Name="Иван", IdRole = (short)UserClient.ghostUser.IdRole }
+                    };
+                    rolesUpdate = new()
+                    {
+                        new UpdateRoleDto{ 
+                            Id = (short)UserClient.ghostUser.IdRole, 
+                            Title = "гость", 
+                            IsEditWorkersRoles = UserClient.ghostUser.IsEditWorkersRoles,
+                            IsShowDiagramStatistic = UserClient.ghostUser.IsShowDiagramStatistic,
+                            IsUse = true,
+                            DateCreate = DateTime.Now,
+                            },
+                    } ;
+                }
                 control.Content = new EditWorkers(userUpdate, rolesUpdate);
             }, () =>
             {
@@ -204,7 +261,25 @@ namespace BisnesManager.Client.ViewModel
             });
             EditPosition = new Command(async () =>
             {
-                var rolesList = await RoleClient.GetRolesList();
+                List<UpdateRoleDto> rolesList;
+                if (user.IdRole != UserClient.ghostUser.IdRole)
+                {
+
+                     rolesList = await RoleClient.GetRolesList();
+                }
+                else
+                {
+                    rolesList = new() {  
+                        new UpdateRoleDto{
+                            Id = (short)UserClient.ghostUser.IdRole,
+                            Title = "гость",
+                            IsEditWorkersRoles = UserClient.ghostUser.IsEditWorkersRoles,
+                            IsShowDiagramStatistic = UserClient.ghostUser.IsShowDiagramStatistic,
+                            IsUse = true,
+                            DateCreate = DateTime.Now,
+                            },
+                    };
+                }
 
                 control.Content = new EditDolzjnost(rolesList);
             }, () =>
@@ -213,9 +288,27 @@ namespace BisnesManager.Client.ViewModel
             });
             EditStatistic = new Command(async () =>
             {
+                IEnumerable<UserDTO> listUsers;
+                IEnumerable<UpdateStatisticDto> listStatistic;
+                if (user.IdRole != UserClient.ghostUser.IdRole)
+                {
+                     listUsers = await UserClient.GetAll();
+                     listStatistic = await StatisticClient.GetAll();
 
-                var listUsers = await UserClient.GetAll();
-                var listStatistic = await StatisticClient.GetAll();
+                }
+                else
+                {
+                    listUsers = new List<UserDTO>() { UserClient.ghostUser };
+                    listStatistic = new List<UpdateStatisticDto>() {
+                        new UpdateStatisticDto() {
+                            DateCreate = DateTime.Now.Date,
+                            HardSkils = 6,
+                            QualityWork=3,
+                            SoftSkils=9,
+                            LevelResponibility=4 
+                        }
+                    };
+                }
 
                 control.Content = new EditStatistic(listUsers, listStatistic);
             }, () =>

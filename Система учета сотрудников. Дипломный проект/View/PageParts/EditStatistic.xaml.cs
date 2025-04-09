@@ -195,6 +195,8 @@ namespace Система_учета_сотрудников._Дипломный_�
                    // MessageBox.Show("Нажмите на кнопку добавить!");
                     return false;
                 }
+                if (SelectedUser.IdRole == UserClient.ghostUser.IdRole)
+                    return false;
                 else
                     return true;
             });
@@ -209,7 +211,17 @@ namespace Система_учета_сотрудников._Дипломный_�
 
             }, () =>
             {
-                return true;
+                if (SelectedUser == null)
+                {
+                    return false;
+                }
+                else if (SelectedUser.IdRole == UserClient.ghostUser.IdRole)
+                {
+                    return false;
+                }
+                else
+                    return true;
+                
             });
             DeleteCommand = new Command(async () =>
             {
@@ -222,7 +234,14 @@ namespace Система_учета_сотрудников._Дипломный_�
                 }
             }, () =>
             {
-                return true;
+                if (SelectedStatistic == null)
+                {
+                    return false;
+                }
+                else  if (SelectedUser.IdRole == UserClient.ghostUser.IdRole)
+                    return false;
+                else
+                    return true;
             });
         }
 

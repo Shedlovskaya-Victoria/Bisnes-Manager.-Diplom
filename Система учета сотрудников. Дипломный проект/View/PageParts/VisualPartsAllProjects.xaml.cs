@@ -77,7 +77,25 @@ namespace BisnesManager.Client.View.ProgramUserControl
                     IEnumerable<BisnesTaskDTO> list = await GetAll();
                     FillPieSlices(list);
                 }
-                else if (IdRole == 4)
+                else if (IdRole == UserClient.ghostUser.IdRole)
+                {
+                    PieSlice slice1 = new() { Value = 5, FillColor = Colors.Red, Label = "Проект 1" };
+                    PieSlice slice2 = new() { Value = 2, FillColor = Colors.Orange, Label = "Задача beta" };
+                    PieSlice slice3 = new() { Value = 8, FillColor = Colors.Gold, Label = "Заказ gamma" };
+                    PieSlice slice4 = new() { Value = 4, FillColor = Colors.Green, Label = "Проект delta" };
+                    PieSlice slice5 = new()
+                    {
+                        Value = 8,
+                        FillColor = Colors.Blue,
+                        Label = "Диплом epsilon",
+                        LabelFontSize = 22,
+                        LabelBold = true,
+                        LabelItalic = true,
+                    };
+
+                    slices.AddRange([slice1, slice2, slice3, slice4, slice5]);
+                }
+                else 
                 {
                     IEnumerable<BisnesTaskDTO> list = await GetUsersTasks(IdUser);
                     FillPieSlices(list);
@@ -98,34 +116,6 @@ namespace BisnesManager.Client.View.ProgramUserControl
 
             myPlot.Axes.Title.Label.Text = "Доли всех проектов в компании за время";
 
-            if (IdRole == 1)
-            {
-                //IEnumerable<BisnesTaskDTO> list = GetAll().Result;
-                // FillPieSlices(list);
-            }
-            else if (IdRole == 4)
-            {
-                //  IEnumerable<BisnesTaskDTO> list = GetUsersTasks(IdUser).Result;
-                //  FillPieSlices(list);
-            }
-            else
-            {
-                PieSlice slice1 = new() { Value = 5, FillColor = Colors.Red, Label = "Проект 1" };
-                PieSlice slice2 = new() { Value = 2, FillColor = Colors.Orange, Label = "Задача beta" };
-                PieSlice slice3 = new() { Value = 8, FillColor = Colors.Gold, Label = "Заказ gamma" };
-                PieSlice slice4 = new() { Value = 4, FillColor = Colors.Green, Label = "Проект delta" };
-                PieSlice slice5 = new()
-                {
-                    Value = 8,
-                    FillColor = Colors.Blue,
-                    Label = "Диплом epsilon",
-                    LabelFontSize = 22,
-                    LabelBold = true,
-                    LabelItalic = true,
-                };
-
-                slices.AddRange([slice1, slice2, slice3, slice4, slice5]);
-            }
 
             // setup the pie to display slice labels
             var pie = myPlot.Add.Pie(slices);

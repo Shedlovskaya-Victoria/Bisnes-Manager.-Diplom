@@ -42,10 +42,9 @@ namespace BisnesManager.Client.ViewModel
                     MessageBox.Show(SystemMessages.BadAuth);
 
                 if (login == "0" & passwordBox.Password == "0")
-                {
-                    var u = new ETL.DTO.UserDTO { FIO = "Имя Фамилия Отчество", IdRole = 6, Role = "гость", WorkTimeCount = 8 };
-                    UserClient.user = u;
-                    Navigation.Instance().CurrentPage = new Home(u);
+                {;
+                    UserClient.user = UserClient.ghostUser;
+                    Navigation.Instance().CurrentPage = new Home(UserClient.ghostUser);
                     
                 }
                 else
