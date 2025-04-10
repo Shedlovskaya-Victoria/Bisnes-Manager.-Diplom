@@ -31,6 +31,16 @@ namespace API._Система_учета_сотрудников._Дипломн�
             return Ok(roleDto);
         }
         [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("GetRolesFilterManager")]
+        public async Task<IActionResult> GetRolesFilterManager()
+        {
+            var roles = await roleRepo.GetRolesFilterManagerAsync();
+            if (roles == null) return NotFound();
+            var roleDto = roles.Select(s=>s.ToRoleUpdate());
+
+            return Ok(roleDto);
+        }
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("GetAllFilterIsUse")]
         public async Task<IActionResult> GetAllFilterIsUse()
         {

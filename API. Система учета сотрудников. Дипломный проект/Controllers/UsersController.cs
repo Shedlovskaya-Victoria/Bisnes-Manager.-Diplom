@@ -45,7 +45,16 @@ namespace API._Система_учета_сотрудников._Дипломн�
         {
             var list = await _userRepo.GetAllAsync(new SortQueryDto() );
             if(list == null) return NotFound();
-            var listDto = list.Select(s=>s.ToUserDTO()); //отличие от другого get all users в dto простом и для списка обновления
+            var listDto = list.Select(s=>s.ToUserDTO()); //отличие от другого - список для обновления
+            return Ok(listDto);
+        }
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpPost("GetUsersFilterManagerToUpdate")]
+        public  async Task<IActionResult> GetUsersFilterManagerToUpdate([FromBody] SortQueryDto query)
+        {
+            var list = await _userRepo.GetUsersFilterManagerAsync(query );
+            if(list == null) return NotFound();
+            var listDto = list.Select(s=>s.ToUpdateDto()); //отличие от другого - фильтрация для менеджеров
             return Ok(listDto);
         }
         [Authorize(AuthenticationSchemes = "Bearer")]

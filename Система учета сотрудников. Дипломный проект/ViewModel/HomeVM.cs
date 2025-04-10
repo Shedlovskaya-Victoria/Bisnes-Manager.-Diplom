@@ -234,8 +234,16 @@ namespace BisnesManager.Client.ViewModel
                 List<UpdateRoleDto> rolesUpdate;
                 if (user.IdRole!=UserClient.ghostUser.IdRole)
                 {
-                     userUpdate = await UserClient.GetListUsersToUpdate();
-                     rolesUpdate = await RoleClient.GetAllFilterIsUse();
+                    if (user.IdRole == 1)
+                    {
+                        userUpdate = await UserClient.GetListUsersToUpdate();
+                        rolesUpdate = await RoleClient.GetAllFilterIsUse();
+                    }
+                    else
+                    {
+                        userUpdate = await UserClient.GetUsersFilterManagerToUpdate();
+                        rolesUpdate = await RoleClient.GetRolesFilterManager();
+                    }
                 }
                 else
                 {
@@ -264,8 +272,14 @@ namespace BisnesManager.Client.ViewModel
                 List<UpdateRoleDto> rolesList;
                 if (user.IdRole != UserClient.ghostUser.IdRole)
                 {
-
-                     rolesList = await RoleClient.GetRolesList();
+                    if(user.IdRole == 1)
+                    {
+                        rolesList = await RoleClient.GetRolesList();
+                    }
+                    else
+                    {
+                        rolesList = await RoleClient.GetRolesFilterManager();
+                    }
                 }
                 else
                 {

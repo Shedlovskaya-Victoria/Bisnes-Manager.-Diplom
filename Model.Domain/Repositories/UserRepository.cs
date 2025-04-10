@@ -36,6 +36,21 @@ namespace BisnesManager.ETL.Repositories
 
             return await list.ToListAsync();
         }
+        
+        public async Task<IList<User>?> GetUsersFilterManagerAsync(SortQueryDto query)
+        {
+            var list = _context.Users.Include(s => s.IdRoleNavigation).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(query.SortBy))
+            {
+                if (query.SortBy.ToUpper().Equals("FAMILY", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    list = query.IsDecsending ? list.OrderByDescending(s => s.Family) : list.OrderBy(s => s.Family);
+                }
+            }
+            list = list.Where(s => s.IdRole != 1);
+            return await list.ToListAsync();
+        }
 
         public override async Task<User?> UpdateAsync(int id, UpdateUserDto model)
         {

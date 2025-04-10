@@ -62,6 +62,30 @@ namespace Система_учета_сотрудников._Дипломный_�
                 return null;
             }
         }
+        internal static async Task<List<UpdateUserDto>> GetUsersFilterManagerToUpdate()
+        {
+            try
+            {
+                var message = await MyHttpClient.GetHttpClient().PostAsJsonAsync($"Users/GetUsersFilterManagerToUpdate", new SortQueryDto());
+                var str = await message.Content.ReadAsStringAsync();
+               var response = JsonSerializer.Deserialize<List<UpdateUserDto>>(str);
+
+                if (message.IsSuccessStatusCode)
+                {
+
+                    return response;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                return null;
+            }
+        }
         internal static async Task<string> UpdateUser(UpdateUserDto dto)
         {
             try
@@ -144,5 +168,6 @@ namespace Система_учета_сотрудников._Дипломный_�
                 return null;
             }
         }
+       
     }
 }

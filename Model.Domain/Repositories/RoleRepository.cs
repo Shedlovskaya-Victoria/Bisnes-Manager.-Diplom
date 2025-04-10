@@ -26,6 +26,11 @@ namespace BisnesManager.Database.Repositories
         {
             return await _context.UserRoles.Where(s=>s.IsUse==true).ToListAsync();
         }
+        public async Task<IEnumerable<UserRole>> GetRolesFilterManagerAsync()
+        {
+
+            return await _context.UserRoles.Where(s => s.IsUse == true & s.Id!=1).ToListAsync();
+        }
         public async override Task<UserRole?> UpdateAsync(int id, UpdateRoleDto model)
         {
             if (model == null) return null;

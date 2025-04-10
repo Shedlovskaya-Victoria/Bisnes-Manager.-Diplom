@@ -20,7 +20,10 @@ namespace Система_учета_сотрудников._Дипломный_�
         {
             return await MyHttpClient.GetHttpClient().GetFromJsonAsync<List<UpdateRoleDto>>("Roles/GetAllFilterIsUse");
         }
-
+        public static async Task<List<UpdateRoleDto>> GetRolesFilterManager()
+        {
+            return  await MyHttpClient.GetHttpClient().GetFromJsonAsync<List<UpdateRoleDto>>("Roles/GetRolesFilterManager");
+        }
         internal static async Task<string> UpdateRole(UpdateRoleDto selectedRole)
         {
           var message =  await MyHttpClient.GetHttpClient().PutAsJsonAsync($"Roles", selectedRole);

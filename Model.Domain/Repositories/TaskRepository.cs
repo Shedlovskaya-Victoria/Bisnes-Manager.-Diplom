@@ -58,7 +58,7 @@ namespace BisnesManager.ETL.Repositories
                 return await _context.BisnesTasks
               .Include(s => s.IdUserNavigation)
               .ThenInclude(s => s.IdRoleNavigation)
-              .Where(s => s.IdUser == id & s.IdUserNavigation.IdRoleNavigation.IsUse == true)
+              .Where(s => s.IdUser == id & s.IdUserNavigation.IdRoleNavigation.IsUse == true )
               .ToListAsync();
             }
             else
