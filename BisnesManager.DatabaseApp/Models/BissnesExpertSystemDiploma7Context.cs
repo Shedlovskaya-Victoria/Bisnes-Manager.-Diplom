@@ -13,6 +13,7 @@ public partial class BissnesExpertSystemDiploma7Context : DbContext
     public BissnesExpertSystemDiploma7Context(DbContextOptions<BissnesExpertSystemDiploma7Context> options)
         : base(options)
     {
+        Database.EnsureCreated();
     }
 
     public virtual DbSet<BisnesTask> BisnesTasks { get; set; }
@@ -29,7 +30,7 @@ public partial class BissnesExpertSystemDiploma7Context : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=BissnesExpertSystem_Diploma7;Username=postgres;Password=postgres");
+        => optionsBuilder.UseNpgsql("Host=192.168.200.35;Port=5432;Database=user02;Username=user02;Password=77053");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -116,7 +117,7 @@ public partial class BissnesExpertSystemDiploma7Context : DbContext
         {
             entity.HasKey(e => e.Id).HasName("Roles_pkey");
 
-            entity.Property(e => e.Id).HasDefaultValueSql("nextval('\"Roles_Id_seq\"'::regclass)");
+            entity.Property(e => e.Id);//.HasDefaultValueSql("nextval('\"Roles_Id_seq\"'::regclass)");
             entity.Property(e => e.Post).HasMaxLength(255);
             entity.Property(e => e.Title).HasMaxLength(255);
         });

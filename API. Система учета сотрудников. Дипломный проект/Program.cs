@@ -90,7 +90,10 @@ builder.Services.AddSwaggerGen(option =>
 
 builder.Services.AddDbContext<BissnesExpertSystemDiploma7Context>(options =>                   //db context
 {            // ад ондкйкчвемхе
+   
+    
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    //options.UseInMemoryDatabase(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 ///BisnesManager.Database.DBInitialazer.Initialize();
