@@ -152,7 +152,7 @@ namespace BisnesManager.Client.View.PageParts
             });
             SetLastCommand = new Command(() =>
             {
-                StopCardAt = statisticDTOs.Count() - SelectedCountCards;
+                StopCardAt = statisticDTOs.Count() - 1;
                 FindCards(statisticDTOs, ref newPLot, ref wpfPLot);
             }, () =>
             {
