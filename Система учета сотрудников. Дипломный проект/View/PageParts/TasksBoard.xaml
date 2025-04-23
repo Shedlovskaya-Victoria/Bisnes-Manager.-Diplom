@@ -67,8 +67,8 @@
                                 <Border Style="{StaticResource TaskBorder}">
                                     <StackPanel Margin="0" Background="Snow">
                                         <StackPanel Orientation="Horizontal" Margin="0"  >
-                                            <Label Content="Автор: " Margin="0" Padding="0"/>
-                                            <Label Content="{Binding Author}" Margin="0" Padding="0"/>
+                                            <Label Content="Автор: " Margin="0" Padding="0"  />
+                                            <TextBlock Text="{Binding Author}" Style="{StaticResource TaskText}"/>
                                         </StackPanel>
                                         <StackPanel Margin="0" Orientation="Horizontal" >
                                             <Label Content="Задача: " Foreground="Brown" Margin="0" Padding="0"/>
@@ -114,7 +114,7 @@
                                     <StackPanel   Margin="0" Background="Azure" >
                                         <StackPanel Orientation="Horizontal"  Margin="0" >
                                             <Label Content="Автор: " Margin="0" Padding="0"/>
-                                            <Label Content="{Binding Author}" Margin="0" Padding="0"/>
+                                            <TextBlock Text="{Binding Author}" Style="{StaticResource TaskText}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal"  Margin="0" >
                                             <Label Content="Задача: " Foreground="Brown" Margin="0" Padding="0"/>
@@ -159,9 +159,9 @@
                                 <Border  Style="{StaticResource TaskBorder}">
                             <StackPanel Margin="0">
                                 <StackPanel Orientation="Horizontal"  Margin="0" >
-                                    <Label Content="Автор: " Margin="0" Padding="0"/>
-                                    <Label Content="{Binding Author}" Margin="0" Padding="0"/>
-                                </StackPanel>
+                                            <Label Content="Автор: " Margin="0" Padding="0"/>
+                                            <TextBlock Text="{Binding Author}" Style="{StaticResource TaskText}"/>
+                                        </StackPanel>
                                 <StackPanel Orientation="Horizontal"  Margin="0" >
                                     <Label Content="Задача: " Foreground="Brown" Margin="0" Padding="0"/>
                                             <TextBlock Text="{Binding Content}" Style="{StaticResource TaskText}" />
@@ -220,7 +220,7 @@
                                     <StackPanel   Margin="0">
                                         <StackPanel Orientation="Horizontal"  Margin="0" >
                                             <Label Content="Автор: " Margin="0" Padding="0"/>
-                                            <Label Content="{Binding Author}" Margin="0" Padding="0"/>
+                                            <TextBlock Text="{Binding Author}" Style="{StaticResource TaskText}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal"  Margin="0" >
                                             <Label Content="Задача: " Foreground="Brown" Margin="0" Padding="0"/>

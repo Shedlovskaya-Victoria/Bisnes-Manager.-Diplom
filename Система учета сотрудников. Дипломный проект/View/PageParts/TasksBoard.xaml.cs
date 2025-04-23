@@ -216,7 +216,7 @@ namespace BisnesManager.Client.View.ProgramUserControl
                 }
                 foreach(var task in WorkList)
                 {
-                    task.IdStatus = 5;
+                    task.IdStatus = 2;
                     answ = await TaskClient.UpdateTask(task);
 
                     if(answ != SystemMessages.SuccessUpdate)
@@ -227,7 +227,7 @@ namespace BisnesManager.Client.View.ProgramUserControl
                 }
                 foreach(var task in EndList)
                 {
-                    task.IdStatus = 6;
+                    task.IdStatus = 3;
                     answ = await TaskClient.UpdateTask(task);
 
                     if(answ != SystemMessages.SuccessUpdate)
@@ -249,7 +249,7 @@ namespace BisnesManager.Client.View.ProgramUserControl
             });
             AddToArchiveCommand = new CommandWithParametr<BisnesTaskDTO>(async (parametr) => 
             {
-                SelectedTask.IdStatus = 7;
+                SelectedTask.IdStatus = 4;
                 var answ = await TaskClient.UpdateTask(SelectedTask);
                 CheckResultAndGo(answ, SystemMessages.SuccessUpdate);
             }, () => 
@@ -263,7 +263,7 @@ namespace BisnesManager.Client.View.ProgramUserControl
             });
             ChangeArchStatusCommand = new CommandWithParametr<BisnesTaskDTO>(async (parametr) => 
             {
-                SelectedTask.IdStatus = 6;
+                SelectedTask.IdStatus = 3;
                 var answ = await TaskClient.UpdateTask(SelectedTask);
                 CheckResultAndGo(answ, SystemMessages.SuccessUpdate);
             }, () => 
@@ -354,19 +354,19 @@ namespace BisnesManager.Client.View.ProgramUserControl
 
         private void CheckArchiveStatus(BisnesTaskDTO task)
         {
-            if (task.IdStatus == 7)
+            if (task.IdStatus == 4)
                 ArchiveList.Add(task);
         }
 
         private void CheckEndStatus(BisnesTaskDTO task)
         {
-            if (task.IdStatus == 6)
+            if (task.IdStatus == 3)
                 EndList.Add(task);
         }
 
         private void CheckWorkStatus(BisnesTaskDTO task)
         {
-            if (task.IdStatus == 5)
+            if (task.IdStatus == 2)
                 WorkList.Add(task);
         }
 

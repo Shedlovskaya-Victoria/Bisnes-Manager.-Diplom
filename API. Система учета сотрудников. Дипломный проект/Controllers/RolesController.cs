@@ -64,7 +64,7 @@ namespace API._Система_учета_сотрудников._Дипломн�
 
             return Ok(role.ToRoleDTO());
         }
-        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost]
         public async  Task<IActionResult> Create([FromBody] RoleDtoRequest dtoRequest)
         {

@@ -26,7 +26,7 @@ namespace Система_учета_сотрудников._Дипломный_�
         {
             try
             {
-                httpClient.BaseAddress = new Uri("https://localhost:7285/api/");
+                httpClient.BaseAddress = new Uri("http://localhost:5000/api/");
 
                 HttpResponseMessage message; AuthDtoRequest response;
 

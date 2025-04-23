@@ -46,6 +46,8 @@
                     <TextBox Text="{Binding SelectedUser.Patronymic}" Margin="3 0 3 3"/>
             <Label Content="Логин" Margin="0" FontSize="10"/>
                     <TextBox Text="{Binding SelectedUser.Login}" Margin="3 0 3 3"/>
+            <Label Content="Проверочная фраза" Margin="0" FontSize="10"/>
+                    <TextBox Text="{Binding SelectedUser.CheckPhrase}" Margin="3 0 3 3"/>
 
             <StackPanel Orientation="Horizontal" Margin="0 6 0 0" HorizontalAlignment="Center">
                 <Button Content="+ создать" Command="{Binding AddUserCommand}"  Background="Yellow"/>

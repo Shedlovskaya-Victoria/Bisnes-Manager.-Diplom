@@ -145,7 +145,7 @@ namespace Система_учета_сотрудников._Дипломный_�
                 else
                 {
 
-                   return message.Content.ToString();
+                   return message.ToString();
                 }
             }
             catch (Exception ex)

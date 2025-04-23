@@ -103,8 +103,8 @@ namespace BisnesManager.Client.View.PageParts
             DataContext = this;
             AddUserCommand = new Command( () =>
             {
-                SelectedUser = new();
-                SelectedUser.Id = 0;
+                SelectedUser = new() { IdRole = 3 };
+                
                
             }, () =>
             {
@@ -132,8 +132,6 @@ namespace BisnesManager.Client.View.PageParts
             {
                 if (SelectedUser.Id == 0)
                 {
-
-
                     if (string.IsNullOrEmpty(SelectedUser.Password))
                         return;
 
@@ -148,9 +146,7 @@ namespace BisnesManager.Client.View.PageParts
                 }
             }, () =>
             {
-                if (string.IsNullOrEmpty(SelectedUser.CheckPhrase))
-                    return false;
-                else if (string.IsNullOrEmpty(SelectedUser.Name))
+                if (string.IsNullOrEmpty(SelectedUser.Name))
                     return false;
                 else if(string.IsNullOrEmpty(SelectedUser.Family))
                     return false;
